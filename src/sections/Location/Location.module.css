@@ -1,0 +1,599 @@
+.section {
+  position: relative;
+  padding: 120px 0;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(212, 175, 55, 0.08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(255, 255, 255, 0.03),
+      transparent 20%
+    ),
+    #050505;
+  overflow: hidden;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 36px;
+  align-items: stretch;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 42px;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  background: rgba(212, 175, 55, 0.08);
+  color: #d4af37;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 20px;
+  color: #f5f5f5;
+  font-size: clamp(2.8rem, 5vw, 5.4rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 650px;
+  margin: 0 0 28px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.14rem;
+  line-height: 1.8;
+}
+
+.addressCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 30px;
+  margin-bottom: 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.015)
+    ),
+    rgba(10, 10, 10, 0.92);
+  box-shadow:
+    0 18px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.addressLabel {
+  color: #d4af37;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.addressText {
+  color: #ffffff;
+  font-size: 1.08rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.addressMeta {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 0 0 36px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 255, 255, 0.01)
+    ),
+    rgba(10, 10, 10, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.infoItemLabel {
+  color: #d4af37;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.infoItemValue {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.98rem;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.primaryButton,
+.secondaryButton,
+.routeButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  padding: 0 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.primaryButton {
+  color: #0c0c0c;
+  background: linear-gradient(135deg, #f0cf72, #d4af37);
+  box-shadow:
+    0 12px 34px rgba(212, 175, 55, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 42px rgba(212, 175, 55, 0.36),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.secondaryButton {
+  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.secondaryButton:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mapShell {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.mapFrame {
+  position: relative;
+  width: 100%;
+  min-height: 760px;
+  border-radius: 38px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.03),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 80% 75%,
+      rgba(212, 175, 55, 0.05),
+      transparent 28%
+    ),
+    #090909;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.mapContainer {
+  position: absolute;
+  inset: 0;
+}
+
+.mapOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 40%,
+      rgba(0, 0, 0, 0.45) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3),
+      transparent 40%,
+      rgba(0, 0, 0, 0.5)
+    );
+}
+
+.mapNoise {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.16) 0.6px,
+    transparent 0.6px
+  );
+  background-size: 6px 6px;
+  mix-blend-mode: soft-light;
+}
+
+.mapTopBar {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.mapTopBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 10, 10, 0.56);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.mapFallback {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.02),
+      transparent 35%
+    ),
+    rgba(5, 5, 5, 0.72);
+  pointer-events: none;
+}
+
+.mapFallbackLabel {
+  color: #d4af37;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mapFallbackText {
+  max-width: 320px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.6;
+}
+
+.mapCard {
+  position: absolute;
+  left: 26px;
+  bottom: 26px;
+  z-index: 5;
+  width: min(420px, calc(100% - 52px));
+  padding: 28px 28px 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.02)
+    ),
+    rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.46),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.mapCardReady {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mapCardKicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #d4af37;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mapCardTitle {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.mapCardText {
+  margin: 0 0 22px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.routeButton {
+  color: #f3f3f3;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  background: rgba(212, 175, 55, 0.08);
+  width: fit-content;
+}
+
+.routeButton:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.42);
+  background: rgba(212, 175, 55, 0.14);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.16);
+}
+
+.customMarker {
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+
+.markerOuter {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.26);
+}
+
+.markerPulse {
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.24) 0%,
+    rgba(212, 175, 55, 0) 70%
+  );
+  animation: markerPulse 2.2s ease-out infinite;
+}
+
+.markerCore {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    #f8df94 0%,
+    #d4af37 60%,
+    #a67f12 100%
+  );
+  box-shadow:
+    0 0 0 8px rgba(212, 175, 55, 0.08),
+    0 0 24px rgba(212, 175, 55, 0.45);
+}
+
+@keyframes markerPulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+:global(.maplibregl-ctrl-group) {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  background: rgba(10, 10, 10, 0.64) !important;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+:global(.maplibregl-ctrl-group button) {
+  width: 42px;
+  height: 42px;
+  background: transparent !important;
+}
+
+:global(.maplibregl-ctrl-group button:hover) {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+:global(.maplibregl-ctrl-group button span) {
+  filter: invert(1);
+  opacity: 0.88;
+}
+
+:global(.maplibregl-canvas) {
+  outline: none;
+}
+
+:global(.maplibregl-marker) {
+  z-index: 4;
+}
+
+@media (max-width: 1200px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .mapFrame {
+    min-height: 640px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 88px 0;
+  }
+
+  .title {
+    font-size: clamp(2.2rem, 11vw, 3.4rem);
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .addressCard {
+    padding: 22px 22px;
+    border-radius: 24px;
+  }
+
+  .infoItem {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .infoItemValue {
+    text-align: left;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .mapFrame {
+    min-height: 540px;
+    border-radius: 28px;
+  }
+
+  .mapTopBar {
+    top: 14px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .mapTopBadge {
+    min-height: 36px;
+    padding: 8px 12px;
+    font-size: 0.68rem;
+  }
+
+  .mapCard {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    width: auto;
+    padding: 22px 20px 20px;
+    border-radius: 24px;
+  }
+
+  :global(.maplibregl-ctrl-top-right) {
+    top: 14px;
+    right: 14px;
+  }
+
+  :global(.maplibregl-ctrl-group button) {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .addressCard,
+  .mapCard {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .infoItem {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .mapFrame {
+    min-height: 500px;
+  }
+}

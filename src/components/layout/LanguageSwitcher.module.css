@@ -1,0 +1,29 @@
+.switcher {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.button {
+  width: 48px;
+  min-width: 48px;
+  height: 40px;
+  border: 1px solid var(--surface-border);
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.active {
+  background: var(--accent);
+  color: #111;
+}

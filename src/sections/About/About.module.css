@@ -1,0 +1,259 @@
+.section {
+  position: relative;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.intro {
+  position: sticky;
+  top: 110px;
+}
+
+.copy {
+  max-width: 760px;
+  margin-bottom: 34px;
+}
+
+.description {
+  max-width: 720px;
+  font-size: 1.08rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 760px;
+}
+
+.statCard {
+  min-height: 132px;
+  padding: 22px 20px 18px;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.014)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 12px 30px rgba(0, 0, 0, 0.16);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.statValue {
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.statLabel {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+  max-width: 14ch;
+}
+
+.values {
+  display: grid;
+  gap: 18px;
+}
+
+.valueCard {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 24px 24px 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(215, 181, 109, 0.06),
+      transparent 28%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.018)
+    );
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 14px 34px rgba(0, 0, 0, 0.18);
+}
+
+.valueCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(215, 181, 109, 0.18);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(215, 181, 109, 0.1),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.052),
+      rgba(255, 255, 255, 0.022)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 40px rgba(0, 0, 0, 0.22);
+}
+
+.valueIcon {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(215, 181, 109, 0.1);
+  border: 1px solid rgba(215, 181, 109, 0.18);
+  color: var(--text);
+  font-size: 1.3rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.valueBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.valueKicker {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.valueTitle {
+  margin-bottom: 10px;
+  font-size: 1.26rem;
+  line-height: 1.2;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.valueText {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.72;
+  max-width: 42ch;
+}
+
+@media (max-width: 1180px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .intro {
+    position: static;
+  }
+
+  .copy,
+  .description,
+  .stats {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .copy {
+    margin-bottom: 24px;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .statCard {
+    min-height: auto;
+    padding: 18px;
+    border-radius: 22px;
+    gap: 8px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .statValue {
+    text-align: center;
+    font-size: 2.2rem;
+  }
+
+  .statLabel {
+    max-width: 100%;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .values {
+    gap: 14px;
+  }
+
+  .valueCard {
+    grid-template-columns: 56px 1fr;
+    gap: 14px;
+    padding: 20px 18px;
+    border-radius: 24px;
+  }
+
+  .valueIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    font-size: 1.1rem;
+  }
+
+  .valueTitle {
+    font-size: 1.1rem;
+  }
+
+  .valueText {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .valueCard {
+    grid-template-columns: 1fr;
+  }
+
+  .valueIcon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .statValue {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,454 @@
+{
+  "nav": {
+    "services": "Usługi",
+    "before-after": "Przed / Po",
+    "about": "O nas",
+    "pricing": "Pakiety",
+    "individualServices": "Osobno",
+    "reviews": "Opinie",
+    "contact": "Kontakt",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu"
+  },
+  "hero": {
+    "badge": "Premium detailing i pielęgnacja aut",
+    "title": "Detailing i pielęgnacja, które przywrócą twojemu autu perfekcyjny wygląd",
+    "description": "Polerowanie, detailing wnętrza, powłoki ochronne, podstawowa mechanika oraz kompleksowa obsługa i pielęgnacja aut z dbałością o każdy element",
+    "primaryCta": "Umów wizytę",
+    "secondaryCta": "Zobacz pakiety",
+    "trust": {
+      "years": {
+        "value": "5+",
+        "label": "Lat doświadczenia"
+      },
+      "cars": {
+        "value": "500+",
+        "label": "Obsłużonych aut"
+      },
+      "rating": {
+        "value": "4.9/5",
+        "label": "Ocena klientów"
+      }
+    },
+    "visual": {
+      "topBadge": "Premium studio pielęgnacji aut",
+      "kicker": "Perfekcyjne wykończenie",
+      "title": "Efekt, który widać od razu",
+      "text": "Głęboki połysk, czysta linia auta i ochrona, która pozwala dłużej utrzymać jego wygląd."
+    }
+  },
+  "services": {
+    "title": "Zakres usług",
+    "subtitle": "Dbamy o Twój samochód kompleksowo - od estetyki zewnętrznej i wnętrza, po podstawową mechanikę i rozwiązania programowe.",
+    "featuredBadge": "Polecamy",
+    "items": {
+      "exterior": {
+        "kicker": "Karoseria",
+        "title": "Detailing nadwozia",
+        "description": "Zaawansowana pielęgnacja lakieru, która wydobywa głębię koloru, zapewnia lustrzany połysk i przywraca perfekcyjny wygląd Twojego samochodu.",
+        "features": [
+          "Korekta lakieru jedno- i wieloetapowa",
+          "Precyzyjne usuwanie rys oraz hologramów",
+          "Profesjonalne zabezpieczenie lakieru"
+        ],
+        "coatingsTitle": "DOSTĘPNE FORMY ZABEZPIECZENIA:",
+        "coatingLabels": [
+          "Twardy wosk ceramiczny",
+          "Powłoka carbonowa",
+          "Powłoka ceramiczna",
+          "Powłoka grafenowa"
+        ]
+      },
+      "interior": {
+        "kicker": "Wnętrze",
+        "title": "Detailing wnętrza",
+        "description": "Dokładne czyszczenie wnętrza z przywróceniem świeżości materiałów i zadbanego wyglądu całego kokpitu.",
+        "features": [
+          "Pranie siedzeń i tapicerki",
+          "Czyszczenie i zabezpieczenie skóry",
+          "Czyszczenie plastików i klimatyzacji"
+        ]
+      },
+      "mechanics": {
+        "kicker": "Mechanika",
+        "title": "Podstawowy serwis i mechanika",
+        "description": "Pomagamy utrzymać auto w dobrym stanie technicznym dzięki podstawowemu serwisowi, diagnostyce i pracom mechanicznym.",
+        "features": [
+          "Wymiana oleju i filtrów",
+          "Diagnostyka zawieszenia",
+          "Prace mechaniczne przy aucie"
+        ]
+      },
+      "tuning": {
+        "kicker": "ECU / TCU",
+        "title": "Programowanie ECU i skrzyń",
+        "description": "Rozwiązania software dla właścicieli, którzy chcą poprawić reakcję auta, dynamikę i dopasować jego pracę do swojej konfiguracji.",
+        "features": [
+          "Stage 1",
+          "Programowanie skrzyń biegów",
+          "EGR / DPF / AdBlue / Eco Off"
+        ],
+        "note": "Końcowy efekt zależy od silnika, skrzyni biegów i konfiguracji samochodu."
+      }
+    }
+  },
+  "beforeAfter": {
+    "title": "Efekty naszej pracy",
+    "subtitle": "Przesuń suwak i zobacz różnicę przed i po detailingu",
+    "before": "Przed",
+    "after": "Po"
+  },
+  "about": {
+    "title": "O nas",
+    "subtitle": "Kompleksowa opieka nad autem z uwzględnieniem wyglądu, stanu technicznego i dbałości o każdy detal.",
+    "description": "Patrzymy na samochód całościowo. Liczy się dla nas nie tylko połysk lakieru czy czystość wnętrza, ale również ogólne wrażenie, jakie auto robi — jak wygląda, jak jest odbierane i w jakim jest stanie. Detailing, podstawowa mechanika oraz rozwiązania programowe pozwalają nam działać szerzej niż standardowe studio pielęgnacji aut. Nie pracujemy szybko i przypadkowo — pracujemy dokładnie, konsekwentnie i z pełnym zrozumieniem tego, jak powinien wyglądać naprawdę mocny efekt końcowy.",
+    "stats": {
+      "cars": "Obsłużonych aut",
+      "years": "Lat doświadczenia",
+      "approach": "Kompleksowe podejście"
+    },
+    "items": {
+      "approach": {
+        "icon": "✦",
+        "kicker": "Podejście",
+        "title": "Patrzymy na samochód całościowo",
+        "description": "Łączymy pielęgnację zewnętrzną, pracę z wnętrzem, podstawowy serwis i rozwiązania programowe, aby auto było nie tylko czyste, ale realnie doprowadzone do porządku."
+      },
+      "details": {
+        "icon": "◈",
+        "kicker": "Precyzja",
+        "title": "Dbałość o detale bez kompromisów",
+        "description": "Pracujemy dokładnie i konsekwentnie: zajmujemy się nadwoziem, wnętrzem, reflektorami, strefami ochronnymi i drobnymi elementami, które budują końcowe wrażenie."
+      },
+      "expertise": {
+        "icon": "⬢",
+        "kicker": "Doświadczenie",
+        "title": "Nie tylko estetyka, ale też techniczne zrozumienie",
+        "description": "Rozumiemy samochód szerzej niż tylko jako powierzchnię do pielęgnacji. Dlatego znaczenie mają dla nas nie tylko materiały i wizualny efekt, ale również właściwe podejście techniczne."
+      },
+      "result": {
+        "icon": "⟐",
+        "kicker": "Efekt",
+        "title": "Rezultat, który widać i czuć",
+        "description": "Naszym celem jest, aby auto wyglądało świeżej, czyściej i bardziej premium, a właściciel czuł, że samochód otrzymał dopracowaną i jakościową opiekę."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Pakiety usług",
+    "subtitle": "Wybierz pakiet dopasowany do stanu auta i oczekiwanego efektu — od szybkiego odświeżenia po pełny detailing klasy premium.",
+    "priceFrom": "{{value}} zł",
+    "cta": "Umów wizytę",
+    "savings": "Oszczędzasz {{value}} zł",
+    "badges": {
+      "savings": "Oszczędzasz {{value}} zł",
+      "top": "Top",
+      "mostChosen": "Najczęściej wybierany",
+      "bestChoice": "Najlepszy wybór"
+    },
+    "items": {
+      "basic": {
+        "title": "Pakiet Basic",
+        "description": "Podstawowy pakiet do odświeżenia lakieru i nadania mu głębszego połysku na co dzień.",
+        "features": {
+          "1": "1-etapowa korekta lakieru",
+          "2": "Twardy wosk ochronny"
+        }
+      },
+      "salePrep": {
+        "title": "Przygotowanie do sprzedaży",
+        "description": "Idealny wybór, jeśli chcesz poprawić wygląd auta, zwiększyć jego atrakcyjność i lepiej przygotować je do sprzedaży.",
+        "features": {
+          "1": "Wszystko z pakietu Basic",
+          "2": "Detailing wnętrza"
+        }
+      },
+      "premium": {
+        "title": "Pakiet Premium",
+        "description": "Kompleksowe odświeżenie auta — lakier, wnętrze i detale dla wyraźnie lepszego efektu wizualnego.",
+        "features": {
+          "1": "Wszystko z pakietu Przygotowanie do sprzedaży",
+          "2": "Renowacja reflektorów",
+          "3": "Powłoka hydrofobowa na szyby"
+        }
+      },
+      "premium2Step": {
+        "title": "Premium 2-Step",
+        "description": "Najbardziej zaawansowany pakiet dla właścicieli, którzy oczekują maksymalnego efektu i głębszej korekty lakieru.",
+        "features": {
+          "1": "2-etapowa korekta lakieru",
+          "2": "Wszystko z pakietu Premium"
+        }
+      }
+    }
+  },
+  "individualServices": {
+    "title": "Usługi dodatkowe",
+    "subtitle": "Oprócz pakietów oferujemy także usługi pojedyncze z zakresu detailingu, ochrony, mechaniki oraz rozwiązań ECU / TCU.",
+    "priceFormats": {
+      "from": "od {{value}} zł",
+      "addon": "+{{value}} zł",
+      "range": "{{min}}–{{max}} zł",
+      "custom": "wycena indywidualna",
+      "link": "zobacz"
+    },
+    "categories": {
+      "paintCorrection": {
+        "kicker": "Lakier",
+        "title": "Korekta lakieru",
+        "description": "Usługi dla aut, które wymagają poprawy połysku, redukcji drobnych zarysowań i odświeżenia wyglądu nadwozia.",
+        "items": {
+          "oneStepCorrection": "1-etapowa korekta lakieru",
+          "twoStepCorrection": "2-etapowa korekta lakieru"
+        }
+      },
+      "paintProtection": {
+        "kicker": "Ochrona",
+        "title": "Zabezpieczenie lakieru",
+        "description": "Powłoki i rozwiązania ochronne, które pomagają zabezpieczyć lakier i dłużej utrzymać efekt detailingu.",
+        "items": {
+          "hardWax": "Twardy wosk ceramiczny",
+          "carbonCoating": "Powłoka carbon",
+          "ceramicCoating": "Powłoka ceramiczna",
+          "grapheneCoating": "Powłoka grafenowa"
+        }
+      },
+      "interiorDetailing": {
+        "kicker": "Wnętrze",
+        "title": "Detailing wnętrza",
+        "description": "Dokładne czyszczenie i odświeżenie wnętrza z uwzględnieniem stopnia zabrudzenia oraz rodzaju materiałów.",
+        "items": {
+          "interiorDetailing": "Detailing wnętrza",
+          "heavySoilingExtra": "Dopłata za mocno zabrudzone wnętrze",
+          "upholsteryCleaning": "Pranie tapicerki / czyszczenie foteli",
+          "leatherCleaningProtection": "Czyszczenie i zabezpieczenie skóry",
+          "acCleaning": "Czyszczenie klimatyzacji"
+        }
+      },
+      "detailsProtection": {
+        "kicker": "Detale",
+        "title": "Renowacja i ochrona detali",
+        "description": "Usługi poprawiające wygląd i trwałość reflektorów, szyb oraz najbardziej narażonych elementów auta.",
+        "items": {
+          "headlightRestoration": "Renowacja reflektorów",
+          "headlightPpfExtra": "Folia ochronna na reflektory",
+          "headlightWrapping": "Oklejanie reflektorów",
+          "doorHandleProtection": "Oklejanie pod klamkami",
+          "rainRepellent": "Niewidzialna wycieraczka"
+        }
+      },
+      "mechanics": {
+        "kicker": "Mechanika",
+        "title": "Podstawowy serwis i mechanika",
+        "description": "Podstawowe usługi serwisowe i mechaniczne pomagające utrzymać auto w dobrym stanie technicznym.",
+        "items": {
+          "oilAndFilters": "Wymiana oleju i filtrów",
+          "suspensionDiagnostics": "Diagnostyka zawieszenia",
+          "mechanicalRepairs": "Prace mechaniczne przy aucie"
+        }
+      },
+      "tuning": {
+        "kicker": "ECU / TCU",
+        "title": "Programowanie ECU i skrzyń",
+        "description": "Rozwiązania software dla kierowców, którzy chcą poprawić osiągi auta lub wyłączyć wybrane systemy.",
+        "items": {
+          "stage1": "Stage 1",
+          "ecoOff": "EGR / DPF / AdBlue / Eco Off"
+        }
+      }
+    }
+  },
+  "reviews": {
+    "kicker": "Opinie klientów",
+    "title": "Zaufały nam samochody, które mają wyglądać perfekcyjnie",
+    "description": "Pracujemy tak, aby efekt był widoczny od razu: czyste wnętrze, głęboki połysk, dopracowane detale i premium efekt, który czuć od pierwszego spojrzenia.",
+    "ratingText": "Średnia ocena klientów na podstawie realnych doświadczeń",
+    "metrics": {
+      "cars": "Obsłużonych aut",
+      "years": "Lat doświadczenia",
+      "focus": "Fokus na jakości"
+    },
+    "items": {
+      "review1": {
+        "service": "Pakiet Premium",
+        "text": "Jestem bardzo zadowolony z efektu. Auto wygląda znacznie drożej — głęboki połysk, czyste wnętrze i dbałość o każdy detal. Szczególne podziękowania dla Mariny za profesjonalizm.",
+        "name": "Igor",
+        "car": "Toyota Corolla"
+      },
+      "review2": {
+        "service": "Pakiet Premium",
+        "text": "Wszystko wykonane na najwyższym poziomie. Wnętrze jak nowe, lakier błyszczy, zero niedociągnięć. Widać jakość pracy. Dziękuję Marinie — świetna robota.",
+        "name": "Andrzej",
+        "car": "Audi A3"
+      },
+      "review3": {
+        "service": "Pakiet Premium",
+        "text": "Efekt przerósł oczekiwania. Auto wygląda idealnie, nawet najmniejsze detale są dopracowane. Bardzo dobry serwis. Wielkie dzięki dla Mariny.",
+        "name": "Sergiusz",
+        "car": "BMW X5"
+      },
+      "review4": {
+        "service": "Premium 2-Step",
+        "text": "Wybrałem 2-Step i to była świetna decyzja. Lakier jak lustro, głęboki kolor i efekt nowego auta. Wszystko wykonane perfekcyjnie. Dziękuję Marinie za najwyższy poziom.",
+        "name": "Maksym",
+        "car": "Lexus IS"
+      }
+    }
+  },
+  "faq": {
+    "kicker": "Najczęstsze pytania",
+    "title": "Odpowiedzi na pytania, które najczęściej pojawiają się przed wizytą",
+    "subtitle": "Zebraliśmy najważniejsze informacje, aby łatwiej było zrozumieć zakres usług, czas realizacji oraz sposób pracy.",
+    "description": "Pracujemy kompleksowo — od detailingu i ochrony lakieru po podstawową mechanikę oraz rozwiązania ECU / TCU. Poniżej znajdziesz odpowiedzi na pytania, które najczęściej pojawiają się przed rezerwacją.",
+    "items": {
+      "q1": {
+        "question": "Ile czasu zajmuje realizacja usługi?",
+        "answer": "To zależy od zakresu prac i stanu samochodu. Pojedyncze usługi, takie jak podstawowy detailing wnętrza, wymiana oleju czy diagnostyka, mogą zająć kilka godzin. Bardziej rozbudowane prace — korekta lakieru, pełny detailing, większy zakres mechaniki lub usługi łączone — mogą wymagać całego dnia albo dłuższego terminu. Dokładny czas ustalamy po ocenie auta i zakresu zlecenia."
+      },
+      "q2": {
+        "question": "Czy trzeba umawiać się wcześniej?",
+        "answer": "Tak, wcześniejsza rezerwacja jest zdecydowanie zalecana. Dzięki temu możemy zaplanować odpowiednią ilość czasu, przygotować potrzebne materiały i spokojnie dopasować zakres prac do Twojego auta. Dotyczy to zarówno detailingu, jak i usług mechanicznych czy rozwiązań ECU / TCU."
+      },
+      "q3": {
+        "question": "Czy można zamówić tylko jedną usługę, bez pełnego pakietu?",
+        "answer": "Tak. Nie trzeba wybierać gotowego pakietu, jeśli zależy Ci tylko na konkretnym efekcie lub jednej usłudze. Możesz umówić się osobno na detailing wnętrza, korektę lakieru, renowację reflektorów, niewidzialną wycieraczkę, podstawowy serwis mechaniczny albo wybrane rozwiązanie ECU / TCU."
+      },
+      "q4": {
+        "question": "Czym różni się korekta lakieru od powłoki ochronnej?",
+        "answer": "Korekta lakieru poprawia wygląd powierzchni — usuwa drobne zarysowania, ślady użytkowania, hologramy i przywraca głębię koloru oraz połysk. Powłoka ochronna lub wosk zabezpiecza lakier po wykonanej pracy i pomaga dłużej utrzymać czystość, hydrofobowość oraz świeży wygląd auta. To dwa różne etapy, które bardzo dobrze się uzupełniają."
+      },
+      "q5": {
+        "question": "Jak długo utrzymują się powłoki ochronne i zabezpieczenia?",
+        "answer": "Trwałość zależy od rodzaju zabezpieczenia, sposobu użytkowania auta i późniejszej pielęgnacji. Twardy wosk ceramiczny daje ochronę sezonową, natomiast bardziej zaawansowane powłoki — carbon, ceramiczne lub grafenowe — mogą działać wyraźnie dłużej. Przy każdej usłudze pomagamy dobrać rozwiązanie do oczekiwanego efektu i budżetu."
+      },
+      "q6": {
+        "question": "Czy wykonujecie także mechanikę i usługi ECU / TCU?",
+        "answer": "Tak. Oprócz detailingu oferujemy również podstawowy serwis mechaniczny, między innymi wymianę oleju i filtrów, diagnostykę zawieszenia oraz wybrane prace mechaniczne. Zajmujemy się także rozwiązaniami ECU / TCU, takimi jak Stage 1 czy wybrane modyfikacje typu EGR / DPF / AdBlue / Eco Off. Zakres i efekt zależą od konkretnego modelu auta, silnika i konfiguracji."
+      }
+    }
+  },
+  "contact": {
+    "kicker": "Skontaktuj się z nami",
+    "title": "Zostaw zgłoszenie, a skontaktujemy się z Tobą w najbliższym czasie",
+    "description": "Wypełnij krótki formularz, a pomożemy dobrać odpowiednią usługę, doprecyzujemy szczegóły i ustalimy wygodny termin.",
+    "cards": {
+      "phone": {
+        "label": "Telefon",
+        "value": "+48 123 456 789"
+      },
+      "hours": {
+        "label": "Godziny pracy",
+        "value": "Pn–Sb · 09:00–19:00"
+      },
+      "response": {
+        "label": "Odpowiedź",
+        "value": "Zwykle odpowiadamy w ciągu 15–30 minut"
+      }
+    },
+    "form": {
+      "name": "Imię",
+      "phone": "Numer telefonu",
+      "service": "Usługa",
+      "message": "Wiadomość",
+      "submit": "Wyślij zgłoszenie",
+      "sending": "Wysyłanie...",
+      "success": "Zgłoszenie zostało wysłane. Wkrótce się z Tobą skontaktujemy.",
+      "error": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.",
+      "placeholders": {
+        "name": "Twoje imię",
+        "phone": "+48 123 456 789",
+        "service": "Wybierz usługę",
+        "message": "Krótko opisz, czego potrzebujesz"
+      },
+      "services": {
+        "basic": "Pakiet Basic",
+        "salePrep": "Przygotowanie do sprzedaży",
+        "premium": "Pakiet Premium",
+        "premium2Step": "Premium 2-Step",
+        "oneStepCorrection": "1-etapowa korekta lakieru",
+        "twoStepCorrection": "2-etapowa korekta lakieru",
+        "hardWax": "Twardy wosk ceramiczny",
+        "carbonCoating": "Powłoka carbon",
+        "ceramicCoating": "Powłoka ceramiczna",
+        "grapheneCoating": "Powłoka grafenowa",
+        "interiorDetailing": "Detailing wnętrza",
+        "upholsteryCleaning": "Pranie tapicerki / czyszczenie foteli",
+        "leatherCleaningProtection": "Czyszczenie i zabezpieczenie skóry",
+        "acCleaning": "Czyszczenie klimatyzacji",
+        "headlightRestoration": "Renowacja reflektorów",
+        "headlightWrapping": "Oklejanie reflektorów",
+        "doorHandleProtection": "Oklejanie pod klamkami",
+        "rainRepellent": "Niewidzialna wycieraczka",
+        "oilAndFilters": "Wymiana oleju i filtrów",
+        "suspensionDiagnostics": "Diagnostyka zawieszenia",
+        "mechanicalRepairs": "Prace mechaniczne przy aucie",
+        "stage1": "Stage 1",
+        "ecoOff": "EGR / DPF / AdBlue / Eco Off",
+        "other": "Inna usługa / potrzebuję konsultacji"
+      }
+    }
+  },
+  "location": {
+    "kicker": "Lokalizacja",
+    "title": "Gdzie nas znaleźć",
+    "description": "Studio znajduje się w Swarzędzu — to wygodna lokalizacja z szybkim dojazdem i prostą trasą na wizytę po wcześniejszym umówieniu.",
+    "addressLabel": "Adres",
+    "addressMeta": "okolice Poznania · wygodny dojazd",
+    "info": {
+      "location": {
+        "label": "Lokalizacja",
+        "value": "Swarzędz / okolice Poznania"
+      },
+      "access": {
+        "label": "Dojazd",
+        "value": "wygodna trasa i parking"
+      },
+      "format": {
+        "label": "Forma",
+        "value": "wyłącznie po wcześniejszej rezerwacji"
+      }
+    },
+    "primaryCta": "Otwórz w Google Maps",
+    "secondaryCta": "Umów wizytę",
+    "mapCard": {
+      "kicker": "Premium Studio",
+      "title": "Swarzędz, Poland",
+      "text": "Dokładna lokalizacja studia z wygodnym dojazdem i szybkim wyznaczeniem trasy.",
+      "link": "Wyznacz trasę"
+    }
+  },
+  "footer": {
+    "brand": "Premium Detailing",
+    "title": "Samochód, który wygląda perfekcyjnie, zaczyna się od właściwej pielęgnacji",
+    "description": "Premium detailing, dbałość o każdy detal i efekt, który widać od pierwszego spojrzenia. Umów usługę i powierz swój samochód osobom, które pracują starannie i profesjonalnie.",
+    "cta": "Zostaw zgłoszenie",
+    "navigation": "Nawigacja",
+    "contacts": "Kontakt",
+    "address": "Mikołaja Reja 13, 62-020 Swarzędz, Poland",
+    "hoursTitle": "Godziny pracy",
+    "hoursWeek": "Pn–Sb · 09:00–19:00",
+    "hoursWeekend": "Nd · Po wcześniejszym umówieniu",
+    "response": "Odpowiadamy zazwyczaj w ciągu 15–30 minut",
+    "rights": "Wszelkie prawa zastrzeżone.",
+    "backToTop": "Do góry",
+    "hoursWeekLabel": "Dni robocze",
+    "hoursWeekendLabel": "Weekend",
+    "responseLabel": "Odpowiedź"
+  },
+  "offerPopup": {
+    "kicker": "Oferta specjalna",
+    "title": "Zarezerwuj termin dzisiaj",
+    "description": "Przy rezerwacji dzisiaj dodamy bezpłatną powłokę hydrofobową na szyby.",
+    "nameLabel": "Imię",
+    "namePlaceholder": "Twoje imię",
+    "phoneLabel": "Telefon",
+    "phonePlaceholder": "Twój numer telefonu",
+    "cta": "Wyślij zgłoszenie",
+    "sending": "Wysyłanie...",
+    "note": "Oddzwonimy i dobierzemy najlepszy pakiet do Twojego auta.",
+    "successTitle": "Dziękujemy za zgłoszenie",
+    "successText": "Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły.",
+    "error": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.",
+    "close": "Zamknij"
+  }
+}

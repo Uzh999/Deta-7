@@ -1,0 +1,335 @@
+.section {
+  position: relative;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.intro {
+  position: sticky;
+  top: 110px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(215, 181, 109, 0.18);
+  background: rgba(215, 181, 109, 0.08);
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  margin-bottom: 18px;
+  max-width: 680px;
+  min-height: 2.9em;
+}
+
+.description {
+  max-width: 620px;
+  color: var(--text-muted);
+  font-size: 1.04rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  min-height: 5.2em;
+}
+
+.ratingCard {
+  padding: 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.025)
+  );
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+
+.ratingTop {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.ratingValue {
+  font-size: clamp(3rem, 5vw, 4.6rem);
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.ratingMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stars {
+  color: var(--accent);
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.ratingText {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metric {
+  min-height: 96px;
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid var(--surface-border);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.metricValue {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.metricLabel {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  min-height: 2.4em;
+}
+
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.card {
+  min-height: 250px;
+  padding: 24px;
+  border-radius: 28px;
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.02)
+  );
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.025)
+  );
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.cardStars {
+  color: var(--accent);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.serviceBadge {
+  min-height: 34px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.quote {
+  font-size: 1.04rem;
+  line-height: 1.8;
+  color: var(--text);
+  min-height: 7.4em;
+  margin-bottom: 26px;
+  text-wrap: pretty;
+}
+
+.authorBlock {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(215, 181, 109, 0.16);
+  border: 1px solid rgba(215, 181, 109, 0.22);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.authorInfo {
+  min-width: 0;
+}
+
+.authorName {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.authorMeta {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 1180px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .intro {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .title,
+  .description,
+  .quote,
+  .metricLabel {
+    min-height: auto;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .ratingTop {
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .ratingMeta {
+    align-items: center;
+    text-align: center;
+  }
+
+  .ratingValue {
+    text-align: center;
+    font-size: 2.4rem;
+  }
+
+  .stars {
+    text-align: center;
+    justify-content: center;
+  }
+
+  .ratingText {
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .metric {
+    min-height: auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .metricValue {
+    text-align: center;
+  }
+
+  .metricLabel {
+    text-align: center;
+    line-height: 1.6;
+    max-width: 100%;
+  }
+
+  .cardTop {
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .serviceBadge {
+    white-space: normal;
+  }
+
+  .card {
+    min-height: auto;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .ratingCard {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .quote {
+    font-size: 0.98rem;
+    line-height: 1.72;
+    text-align: center;
+  }
+}

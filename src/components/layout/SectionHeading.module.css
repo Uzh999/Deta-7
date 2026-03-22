@@ -1,0 +1,27 @@
+.heading {
+  margin-bottom: 40px;
+  max-width: 720px;
+  min-height: 150px;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+  min-height: 2.2em;
+  margin-bottom: 14px;
+  text-wrap: balance;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  min-height: 3em;
+}
+
+@media (max-width: 768px) {
+  .heading,
+  .title,
+  .subtitle {
+    min-height: auto;
+  }
+}
