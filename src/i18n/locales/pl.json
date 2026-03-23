@@ -157,7 +157,7 @@
       },
       "salePrep": {
         "title": "Przygotowanie do sprzedaży",
-        "description": "Idealny wybór, jeśli chcesz poprawić wygląd auta, zwiększyć jego atrakcyjność i lepiej przygotować je do sprzedaży.",
+        "description": "Idealny wybór, jeśli chcesz poprawić wygląd auta, zwiększyć jego atrakcyjność i lepiej przygotować go do sprzedaży.",
         "features": {
           "1": "Wszystko z pakietu Basic",
           "2": "Detailing wnętrza"
@@ -184,7 +184,7 @@
   },
   "individualServices": {
     "title": "Usługi dodatkowe",
-    "subtitle": "Oprócz pakietów oferujemy także usługi pojedyncze z zakresu detailingu, ochrony, mechaniki oraz rozwiązań ECU / TCU.",
+    "subtitle": "Oprócz pakietów oferujemy także usługi pojedyncze z zakresu detailingu, zabezpieczenia lakieru różnymi formami, mechaniki oraz rozwiązań ECU / TCU.",
     "priceFormats": {
       "from": "od {{value}} zł",
       "addon": "+{{value}} zł",
@@ -249,7 +249,7 @@
       },
       "tuning": {
         "kicker": "ECU / TCU",
-        "title": "Programowanie ECU i skrzyń",
+        "title": "Programowanie ECU i skrzyń biegów",
         "description": "Rozwiązania software dla kierowców, którzy chcą poprawić osiągi auta lub wyłączyć wybrane systemy.",
         "items": {
           "stage1": "Stage 1",
@@ -260,7 +260,7 @@
   },
   "reviews": {
     "kicker": "Opinie klientów",
-    "title": "Zaufały nam samochody, które mają wyglądać perfekcyjnie",
+    "title": "Opinie klientów, którzy zaufały nam swoje auta",
     "description": "Pracujemy tak, aby efekt był widoczny od razu: czyste wnętrze, głęboki połysk, dopracowane detale i premium efekt, który czuć od pierwszego spojrzenia.",
     "ratingText": "Średnia ocena klientów na podstawie realnych doświadczeń",
     "metrics": {
@@ -303,7 +303,7 @@
     "items": {
       "q1": {
         "question": "Ile czasu zajmuje realizacja usługi?",
-        "answer": "To zależy od zakresu prac i stanu samochodu. Pojedyncze usługi, takie jak podstawowy detailing wnętrza, wymiana oleju czy diagnostyka, mogą zająć kilka godzin. Bardziej rozbudowane prace — korekta lakieru, pełny detailing, większy zakres mechaniki lub usługi łączone — mogą wymagać całego dnia albo dłuższego terminu. Dokładny czas ustalamy po ocenie auta i zakresu zlecenia."
+        "answer": "To zależy od zakresu prac i stanu samochodu. Pojedyncze usługi, takie jak podstawowy detailing wnętrza, wymiana oleju lub diagnostyka, mogą zająć kilka godzin. Bardziej rozbudowane prace — korekta lakieru, pełny detailing, większy zakres mechaniki lub usługi łączone — mogą wymagać całego dnia albo dłuższego terminu. Dokładny czas ustalamy po ocenie auta i zakresu zlecenia."
       },
       "q2": {
         "question": "Czy trzeba umawiać się wcześniej?",
@@ -404,7 +404,7 @@
         "value": "wygodna trasa i parking"
       },
       "format": {
-        "label": "Forma",
+        "label": "Forma zlecenia",
         "value": "wyłącznie po wcześniejszej rezerwacji"
       }
     },
@@ -420,7 +420,7 @@
   "footer": {
     "brand": "Premium Detailing",
     "title": "Samochód, który wygląda perfekcyjnie, zaczyna się od właściwej pielęgnacji",
-    "description": "Premium detailing, dbałość o każdy detal i efekt, który widać od pierwszego spojrzenia. Umów usługę i powierz swój samochód osobom, które pracują starannie i profesjonalnie.",
+    "description": "Premium detailing, dbałość o każdy detal i efekt, który widać od pierwszego spojrzenia. Umów się na wizytę i zaufaj Swój samochód profesjonalistom z doświadczeniem.",
     "cta": "Zostaw zgłoszenie",
     "navigation": "Nawigacja",
     "contacts": "Kontakt",

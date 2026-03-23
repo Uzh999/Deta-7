@@ -81,33 +81,75 @@ function buildTelegramMessage(payload: LeadPayload): string {
   );
 }
 
-async function sendTelegramMessage(text: string): Promise<void> {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+function getTelegramChatIds(): string[] {
+  const chatIdsRaw = process.env.TELEGRAM_CHAT_IDS;
 
-  if (!token || !chatId) {
-    throw new Error("Telegram env vars are missing");
+  if (!chatIdsRaw) {
+    throw new Error("TELEGRAM_CHAT_IDS is missing");
   }
 
-  const response = await fetch(
-    `https://api.telegram.org/bot${token}/sendMessage`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-        parse_mode: "HTML",
-        disable_web_page_preview: true,
-      }),
-    },
+  const chatIds = chatIdsRaw
+    .split(",")
+    .map((id) => id.trim())
+    .filter(Boolean);
+
+  if (chatIds.length === 0) {
+    throw new Error("No Telegram chat IDs configured");
+  }
+
+  return chatIds;
+}
+
+async function sendTelegramMessage(text: string): Promise<void> {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatIds = getTelegramChatIds();
+
+  if (!token) {
+    throw new Error("TELEGRAM_BOT_TOKEN is missing");
+  }
+
+  const results = await Promise.allSettled(
+    chatIds.map(async (chatId) => {
+      const response = await fetch(
+        `https://api.telegram.org/bot${token}/sendMessage`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text,
+            parse_mode: "HTML",
+            disable_web_page_preview: true,
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Telegram send failed for ${chatId}: ${errorText}`);
+      }
+    }),
   );
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Telegram send failed: ${errorText}`);
+  const failed = results.filter(
+    (result): result is PromiseRejectedResult => result.status === "rejected",
+  );
+
+  if (failed.length === chatIds.length) {
+    throw new Error(
+      failed
+        .map((item) => item.reason?.message || "Unknown Telegram error")
+        .join(" | "),
+    );
+  }
+
+  if (failed.length > 0) {
+    console.error(
+      "Some Telegram messages failed:",
+      failed.map((item) => item.reason?.message || "Unknown Telegram error"),
+    );
   }
 }
 

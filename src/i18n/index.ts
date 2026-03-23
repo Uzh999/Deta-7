@@ -3,7 +3,7 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import ru from "./locales/ru.json";
-import uk from "./locales/ua.json";
+import uk from "./locales/uk.json";
 import pl from "./locales/pl.json";
 
 i18n
@@ -21,7 +21,7 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["path", "localStorage", "navigator"],
       caches: ["localStorage"],
     },
   });
