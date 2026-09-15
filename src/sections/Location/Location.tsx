@@ -4,10 +4,9 @@ import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import styles from "./Location.module.css";
+import { STUDIO_ADDRESS, STUDIO_COORDS, formatCoordinates } from "./studio";
 
 const LocationMap = lazy(() => import("./LocationMap"));
-
-const STUDIO_ADDRESS = "Mikołaja Reja 13, 62-020 Swarzędz, Poland";
 
 const MAP_URL = `https://www.google.com/maps?q=${encodeURIComponent(
   STUDIO_ADDRESS,
@@ -120,10 +119,12 @@ export default function Location() {
           <div className={styles.mapShell}>
             <div className={styles.mapFrame}>
               <div className={styles.mapTopBar}>
-                <div className={styles.mapTopBadge}>
+                <span className={styles.mapLabel}>
                   {t("location.mapCard.kicker")}
-                </div>
-                <div className={styles.mapTopBadge}>Swarzędz // PL</div>
+                </span>
+                <span className={styles.mapCoords}>
+                  {formatCoordinates(STUDIO_COORDS)}
+                </span>
               </div>
 
               {apiKey && isMapVisible ? (
@@ -164,13 +165,10 @@ export default function Location() {
               )}
 
               <div
-                className={`${styles.mapCard} ${
-                  isMapReady ? styles.mapCardReady : ""
+                className={`${styles.mapPanel} ${
+                  isMapReady ? styles.mapPanelReady : ""
                 }`}
               >
-                <span className={styles.mapCardKicker}>
-                  {t("location.mapCard.kicker")}
-                </span>
                 <h3 className={styles.mapCardTitle}>
                   {t("location.mapCard.title")}
                 </h3>

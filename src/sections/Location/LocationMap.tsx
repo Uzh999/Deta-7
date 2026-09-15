@@ -3,8 +3,7 @@ import maplibregl, { NavigationControl } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 import styles from "./Location.module.css";
-
-const STUDIO_COORDS: [number, number] = [17.0747, 52.4039];
+import { STUDIO_COORDS } from "./studio";
 
 const INITIAL_VIEW = {
   center: STUDIO_COORDS,

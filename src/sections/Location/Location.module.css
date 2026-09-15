@@ -203,13 +203,20 @@
     ),
     #090909;
   box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.6),
+    var(--shadow-lg),
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.mapContainer {
+/* Scoped to the frame on purpose. MapLibre's own stylesheet carries
+   `.maplibregl-map { position: relative }` at the same specificity, and since
+   the map is a lazily loaded chunk its stylesheet is injected after this one
+   — a plain `.mapContainer` rule loses the cascade and the map collapses to
+   zero height. The extra class keeps it absolute regardless of load order. */
+.mapFrame .mapContainer {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .mapOverlay {
@@ -217,18 +224,11 @@
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      transparent 40%,
-      rgba(0, 0, 0, 0.45) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.3),
-      transparent 40%,
-      rgba(0, 0, 0, 0.5)
-    );
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    transparent 45%,
+    rgba(0, 0, 0, 0.42) 100%
+  );
 }
 
 .mapNoise {
@@ -245,36 +245,48 @@
   mix-blend-mode: soft-light;
 }
 
+/* Map chrome ---------------------------------------------------------
+ * Annotation, not UI: a label line resting on a scrim at the top, and the
+ * studio note rising off a scrim at the foot. The previous version floated
+ * two pill badges and a bordered card over the map, which read as widgets
+ * bolted onto a picture.
+ * ------------------------------------------------------------------- */
+
 .mapTopBar {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+  inset: 0 0 auto 0;
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-8);
+  background: linear-gradient(
+    180deg,
+    rgba(4, 4, 4, 0.72),
+    transparent
+  );
   pointer-events: none;
 }
 
-.mapTopBadge {
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  padding: 8px 16px;
-  border-radius: var(--radius-pill);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-bold);
-  letter-spacing: 0.12em;
+.mapLabel,
+.mapCoords {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(10, 10, 10, 0.56);
-  backdrop-filter: blur(10px);
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  line-height: 1;
+}
+
+.mapLabel {
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.mapCoords {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .mapFallback {
@@ -285,191 +297,185 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 24px;
+  gap: var(--space-3);
+  padding: var(--space-6);
   text-align: center;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(255, 255, 255, 0.02),
-      transparent 35%
-    ),
-    rgba(5, 5, 5, 0.72);
+  background: rgba(5, 5, 5, 0.72);
   pointer-events: none;
 }
 
 .mapFallbackLabel {
   color: var(--accent);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-black);
-  letter-spacing: 0.14em;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
 }
 
 .mapFallbackText {
-  max-width: 320px;
+  max-width: 34ch;
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
-  line-height: 1.6;
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
 }
 
-.mapCard {
+.mapPanel {
   position: absolute;
-  left: 26px;
-  bottom: 26px;
+  inset: auto 0 0 0;
   z-index: 5;
-  width: min(420px, calc(100% - 52px));
-  padding: 28px 28px 24px;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.055),
-      rgba(255, 255, 255, 0.02)
-    ),
-    rgba(10, 10, 10, 0.72);
-  backdrop-filter: blur(18px);
-  box-shadow:
-    0 24px 70px rgba(0, 0, 0, 0.46),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-20) var(--space-8) var(--space-8);
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(4, 4, 4, 0.62) 42%,
+    rgba(4, 4, 4, 0.92) 100%
+  );
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(12px);
   transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
 }
 
-.mapCardReady {
+.mapPanelReady {
   opacity: 1;
   transform: translateY(0);
 }
 
-.mapCardKicker {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: var(--accent);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-black);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
 .mapCardTitle {
-  margin: 0 0 12px;
+  margin: 0;
+  max-width: 24ch;
   color: var(--text);
   font-size: var(--text-3xl);
-  line-height: 1.05;
-  font-weight: var(--weight-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  font-weight: var(--weight-bold);
+  text-wrap: balance;
 }
 
 .mapCardText {
-  margin: 0 0 22px;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: var(--text-md);
-  line-height: 1.7;
+  margin: 0;
+  max-width: 46ch;
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  text-wrap: pretty;
 }
 
 .routeButton {
+  margin-top: var(--space-2);
   color: var(--text);
-  border: 1px solid rgba(212, 175, 55, 0.22);
-  background: var(--accent-subtle);
+  border: 1px solid var(--border-strong);
   width: fit-content;
 }
 
 .routeButton:hover {
   transform: translateY(-2px);
-  border-color: rgba(212, 175, 55, 0.42);
-  background: rgba(212, 175, 55, 0.14);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.16);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
 }
 
+/* Marker — a surveyed point rather than a glowing pin. */
 .customMarker {
   position: relative;
-  width: 30px;
-  height: 30px;
-}
-
-.markerOuter {
-  position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  border: 1px solid rgba(212, 175, 55, 0.26);
-}
-
-.markerPulse {
-  position: absolute;
-  inset: -18px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(212, 175, 55, 0.24) 0%,
-    rgba(212, 175, 55, 0) 70%
-  );
-  animation: markerPulse 2.2s ease-out infinite;
+  width: 14px;
+  height: 14px;
 }
 
 .markerCore {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at 35% 35%,
-    #f8df94 0%,
-    var(--accent) 60%,
-    #a67f12 100%
-  );
+  background: var(--accent);
   box-shadow:
-    0 0 0 8px var(--accent-subtle),
-    0 0 24px rgba(212, 175, 55, 0.45);
+    0 0 0 3px rgba(4, 4, 4, 0.85),
+    0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.markerOuter {
+  position: absolute;
+  inset: -11px;
+  border-radius: 50%;
+  border: 1px solid rgba(215, 181, 109, 0.5);
+}
+
+.markerPulse {
+  position: absolute;
+  inset: -11px;
+  border-radius: 50%;
+  border: 1px solid rgba(215, 181, 109, 0.45);
+  animation: markerPulse 2.8s var(--ease-out) infinite;
 }
 
 @keyframes markerPulse {
   0% {
-    transform: scale(0.7);
-    opacity: 0.7;
+    transform: scale(0.85);
+    opacity: 0.8;
   }
-  70% {
-    transform: scale(1.2);
-    opacity: 0;
-  }
+  70%,
   100% {
-    transform: scale(1.2);
+    transform: scale(2.1);
     opacity: 0;
   }
 }
 
-:global(.maplibregl-ctrl-group) {
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 16px !important;
+/* MapLibre's own controls, brought onto the site's language.
+ *
+ * Every override is scoped under .mapFrame on purpose. MapLibre's stylesheet
+ * is loaded with the lazy map chunk, so it lands after this file in the
+ * cascade; at equal specificity its rules win. The extra class raises these
+ * above it, which is also why the `!important` flags the card version needed
+ * are gone. */
+
+/* Pushed clear of the annotation line running along the top of the frame. */
+.mapFrame :global(.maplibregl-ctrl-top-right) {
+  top: 3.5rem;
+  right: var(--space-3);
+}
+
+.mapFrame :global(.maplibregl-ctrl-group) {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  background: rgba(10, 10, 10, 0.64) !important;
+  background: rgba(10, 10, 10, 0.64);
   backdrop-filter: blur(10px);
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: none;
 }
 
-:global(.maplibregl-ctrl-group button) {
-  width: 42px;
-  height: 42px;
-  background: transparent !important;
+.mapFrame :global(.maplibregl-ctrl-group button) {
+  width: 38px;
+  height: 38px;
+  background: transparent;
 }
 
-:global(.maplibregl-ctrl-group button:hover) {
-  background: rgba(255, 255, 255, 0.03) !important;
+.mapFrame :global(.maplibregl-ctrl-group button + button) {
+  border-top: 1px solid var(--surface-border);
 }
 
-:global(.maplibregl-ctrl-group button span) {
+.mapFrame :global(.maplibregl-ctrl-group button:hover) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mapFrame :global(.maplibregl-ctrl-group button:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.mapFrame :global(.maplibregl-ctrl-group button span) {
   filter: invert(1);
-  opacity: 0.88;
+  opacity: 0.8;
 }
 
-:global(.maplibregl-canvas) {
+.mapFrame :global(.maplibregl-canvas) {
   outline: none;
 }
 
-:global(.maplibregl-marker) {
+.mapFrame :global(.maplibregl-marker) {
   z-index: 4;
 }
 
@@ -572,5 +578,39 @@
 
   .mapFrame {
     min-height: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mapTopBar {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  /* Below this width the two annotations crowd each other. The coordinates
+     carry information the page does not repeat elsewhere, so the studio
+     label is the one that goes. */
+  .mapLabel {
+    display: none;
+  }
+
+  .mapTopBar {
+    justify-content: flex-end;
+  }
+
+  .mapCoords {
+    font-size: 0.66rem;
+  }
+
+  :global(.maplibregl-ctrl-top-right) {
+    top: 2.75rem;
+  }
+
+  .mapPanel {
+    padding: var(--space-16) var(--space-5) var(--space-6);
+    gap: var(--space-3);
+  }
+
+  .mapCardTitle {
+    font-size: var(--text-2xl);
   }
 }
