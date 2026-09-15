@@ -58,7 +58,7 @@
 
   /* Mobile counterparts, used inside narrow breakpoints. */
   --text-display-mobile: clamp(2.2rem, 10vw, 3.6rem);
-  --text-hero-mobile: clamp(2rem, 8.5vw, 2.75rem);
+  --text-hero-mobile: clamp(2.125rem, 10vw, 2.875rem);
 
   --leading-tight: 1.1;
   --leading-snug: 1.35;
