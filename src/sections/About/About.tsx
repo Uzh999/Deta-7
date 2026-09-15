@@ -18,31 +18,29 @@ export default function About() {
                 title={t("about.title")}
                 subtitle={t("about.subtitle")}
               />
-
-              <p className={styles.description}>{t("about.description")}</p>
             </div>
 
-            <div className={styles.stats}>
-              <div className={styles.statCard}>
-                <span className={styles.statValue}>500+</span>
-                <span className={styles.statLabel}>
-                  {t("about.stats.cars")}
-                </span>
-              </div>
+            <p className={styles.description}>{t("about.description")}</p>
+          </div>
 
-              <div className={styles.statCard}>
-                <span className={styles.statValue}>5+</span>
-                <span className={styles.statLabel}>
-                  {t("about.stats.years")}
-                </span>
-              </div>
+          {/* A band of figures across the full width, rather than a column
+              beside the copy that runs out halfway down. */}
+          <div className={styles.stats}>
+            <div className={styles.statCard}>
+              <span className={styles.statValue}>500+</span>
+              <span className={styles.statLabel}>{t("about.stats.cars")}</span>
+            </div>
 
-              <div className={styles.statCard}>
-                <span className={styles.statValue}>360°</span>
-                <span className={styles.statLabel}>
-                  {t("about.stats.approach")}
-                </span>
-              </div>
+            <div className={styles.statCard}>
+              <span className={styles.statValue}>5+</span>
+              <span className={styles.statLabel}>{t("about.stats.years")}</span>
+            </div>
+
+            <div className={styles.statCard}>
+              <span className={styles.statValue}>360°</span>
+              <span className={styles.statLabel}>
+                {t("about.stats.approach")}
+              </span>
             </div>
           </div>
 

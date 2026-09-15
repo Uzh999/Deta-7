@@ -1,6 +1,7 @@
-/* Stats as a band of figures on a rule, values as numbered editorial blocks.
-   The card grid the section used before turned four short paragraphs into
-   four boxes of chrome. */
+/* Heading and body read as a spread across the width; the figures sit in a
+   band between the copy and the values. The earlier version put the stats in
+   a right-hand column that ended halfway down, leaving the section
+   top-heavy with a large void beside the body text. */
 
 .section {
   position: relative;
@@ -14,8 +15,8 @@
 
 .intro {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: var(--space-16);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: var(--space-20);
   align-items: start;
 }
 
@@ -35,30 +36,21 @@
 
 .stats {
   display: grid;
-  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-12);
+  padding: var(--space-10) 0;
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
 }
 
 .statCard {
-  display: grid;
-  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
-  align-items: baseline;
-  gap: var(--space-6);
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--surface-border);
-}
-
-.statCard:first-child {
-  padding-top: 0;
-}
-
-.statCard:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .statValue {
-  min-width: 4ch;
-  font-size: var(--text-4xl);
+  font-size: var(--text-5xl);
   line-height: 1;
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-display);
@@ -88,7 +80,6 @@
   border-top: 1px solid var(--surface-border);
 }
 
-/* The first row of each column sits under the section's own spacing. */
 .valueCard:nth-child(-n + 2) {
   border-top: none;
   padding-top: 0;
@@ -132,7 +123,11 @@
 @media (max-width: 1024px) {
   .intro {
     grid-template-columns: 1fr;
-    gap: var(--space-10);
+    gap: var(--space-8);
+  }
+
+  .stats {
+    gap: var(--space-8);
   }
 
   .values {
@@ -155,6 +150,27 @@
     gap: var(--space-10);
   }
 
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    border-bottom: none;
+  }
+
+  /* Stacked, the figures read as rows rather than a band. */
+  .statCard {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-5);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--surface-border);
+  }
+
+  .statValue {
+    min-width: 4.5ch;
+    font-size: var(--text-3xl);
+  }
+
   .valueCard {
     grid-template-columns: 2rem minmax(0, 1fr);
     gap: var(--space-4);
@@ -167,9 +183,5 @@
 
   .valueCard:first-child {
     padding-top: 0;
-  }
-
-  .statValue {
-    font-size: var(--text-3xl);
   }
 }

@@ -1,26 +1,23 @@
-/* Quotes carried by typography instead of quote cards: the rating sits in a
-   hairline band across the top, the testimonials read as a two-column spread
-   of pull quotes beneath it. */
+/* The original two-column reading: the intro holds still on the left while
+   the testimonials scroll past on the right. Restored here, but the quotes
+   are separated by rules instead of being boxed. */
 
 .section {
   position: relative;
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-16);
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: var(--space-20);
+  align-items: start;
 }
 
-/* Intro and rating band ---------------------------------------------- */
-
 .intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: var(--space-16);
-  align-items: end;
-  padding-bottom: var(--space-10);
-  border-bottom: 1px solid var(--surface-border);
+  position: sticky;
+  top: calc(var(--header-height) + var(--space-8));
+  display: flex;
+  flex-direction: column;
 }
 
 .introCopy {
@@ -48,15 +45,20 @@
 
 .description {
   color: var(--text-muted);
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   line-height: var(--leading-relaxed);
   text-wrap: pretty;
 }
 
+/* Rating ------------------------------------------------------------- */
+
 .ratingCard {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-strong);
 }
 
 .ratingTop {
@@ -92,11 +94,10 @@
   line-height: var(--leading-snug);
 }
 
-/* Metrics read as a row of figures on a single rule. */
 .metrics {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-6);
+  gap: var(--space-5);
   padding-top: var(--space-6);
   border-top: 1px solid rgba(255, 255, 255, 0.055);
 }
@@ -123,23 +124,25 @@
 /* Quotes -------------------------------------------------------------- */
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: var(--space-20);
+  display: flex;
+  flex-direction: column;
 }
 
 .quoteBlock {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-12) 0;
+  gap: var(--space-5);
+  padding: var(--space-10) 0;
   border-top: 1px solid var(--surface-border);
 }
 
-/* The first row of each column already has the band above it. */
-.quoteBlock:nth-child(-n + 2) {
+.quoteBlock:first-child {
   border-top: none;
   padding-top: 0;
+}
+
+.quoteBlock:last-child {
+  padding-bottom: 0;
 }
 
 .cardTop {
@@ -163,7 +166,6 @@
   text-transform: uppercase;
 }
 
-/* The quote is the element, sized to be read rather than skimmed. */
 .quote {
   font-size: var(--text-xl);
   line-height: var(--leading-snug);
@@ -192,43 +194,20 @@
   content: "· ";
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
   .intro {
-    grid-template-columns: 1fr;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .quoteBlock:nth-child(-n + 2) {
-    border-top: 1px solid var(--surface-border);
-    padding-top: var(--space-12);
-  }
-
-  .quoteBlock:first-child {
-    border-top: none;
-    padding-top: 0;
+    position: static;
   }
 }
 
 @media (max-width: 640px) {
-  .wrapper {
-    gap: var(--space-10);
-  }
-
   .quoteBlock {
     padding: var(--space-8) 0;
-  }
-
-  .quoteBlock:nth-child(-n + 2) {
-    padding-top: var(--space-8);
-  }
-
-  .quoteBlock:first-child {
-    padding-top: 0;
   }
 
   .quote {
