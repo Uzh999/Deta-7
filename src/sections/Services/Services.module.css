@@ -1,6 +1,7 @@
-/* Four numbered rows on hairlines instead of four bordered cards. Each row
-   reads left to right: index and icon, then the name, then what it covers —
-   so the section scans like a contents page rather than a grid of tiles. */
+/* Each direction is a block, not a card: a full-width header line carrying
+   the index, the name and the mark, then the detail beneath it in two
+   columns. An earlier three-column version left the name column two thirds
+   empty, which read as unfinished. */
 
 .section {
   position: relative;
@@ -12,10 +13,6 @@
 }
 
 .row {
-  display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1fr) minmax(0, 1.25fr);
-  gap: var(--space-10);
-  align-items: start;
   padding: var(--space-10) 0;
   border-top: 1px solid var(--surface-border);
   transition: border-color var(--transition);
@@ -25,56 +22,29 @@
   border-bottom: 1px solid var(--surface-border);
 }
 
-.row:hover {
-  border-top-color: var(--accent-border);
-}
+/* Header line -------------------------------------------------------- */
 
-.row:hover + .row {
-  border-top-color: var(--accent-border);
-}
-
-.row:last-child:hover {
-  border-bottom-color: var(--accent-border);
-}
-
-/* Index column ------------------------------------------------------- */
-
-.marker {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  align-items: flex-start;
+.rowHead {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
 .index {
   color: var(--accent);
-  font-size: var(--text-sm);
+  font-size: var(--text-lg);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-wide);
   font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-wide);
   line-height: 1;
 }
 
-.iconSvg {
-  width: 30px;
-  height: 30px;
-  color: var(--text-muted);
-  transition:
-    color var(--transition),
-    transform var(--transition);
-}
-
-.row:hover .iconSvg {
-  color: var(--accent);
-  transform: translateY(-2px);
-}
-
-/* Name column -------------------------------------------------------- */
-
-.heading {
+.titleGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .kicker {
@@ -90,15 +60,46 @@
   font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
-  text-wrap: balance;
 }
 
-/* Detail column ------------------------------------------------------ */
-
-.detail {
+/* The mark closes the header line, balancing the index that opens it. */
+.iconWrap {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--surface-border);
+  transition:
+    border-color var(--transition),
+    background var(--transition);
+}
+
+.iconSvg {
+  width: 26px;
+  height: 26px;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.row:hover .iconWrap {
+  border-color: var(--accent-border);
+  background: var(--accent-subtle);
+}
+
+.row:hover .iconSvg {
+  color: var(--accent);
+}
+
+/* Body --------------------------------------------------------------- */
+
+.rowBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-8) var(--space-12);
+  /* Aligns the body with the title rather than the index gutter. */
+  padding-left: calc(3rem + var(--space-6));
 }
 
 .description {
@@ -112,31 +113,53 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+.subfeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
+  gap: var(--space-3) var(--space-10);
 }
 
-/* Capabilities read as a row of quiet tags, not a bulleted list. */
-.featureItem {
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius-pill);
+/* A rule, not a bullet — the same quiet marker the price list uses. */
+.featureItem,
+.subfeatureItem {
+  position: relative;
+  padding-left: var(--space-5);
   color: var(--text);
-  font-size: var(--text-sm);
-  line-height: 1;
-  transition: border-color var(--transition);
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
 }
 
-.row:hover .featureItem {
-  border-color: var(--border-strong);
+.featureItem::before,
+.subfeatureItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 10px;
+  height: 1px;
+  background: var(--accent);
 }
 
+.subfeatureItem {
+  color: var(--text-muted);
+}
+
+/* Spans the whole body so a long sub-list never stretches one column while
+   the other sits empty. */
 .subsection {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding-top: var(--space-5);
+  gap: var(--space-4);
+  padding-top: var(--space-6);
   border-top: 1px solid rgba(255, 255, 255, 0.055);
 }
 
@@ -148,34 +171,8 @@
   text-transform: uppercase;
 }
 
-.subfeatures {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-5);
-}
-
-.subfeatureItem {
-  position: relative;
-  padding-left: var(--space-4);
-  color: var(--text-muted);
-  font-size: var(--text-base);
-  line-height: var(--leading-snug);
-}
-
-.subfeatureItem::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 5px;
-  height: 1px;
-  background: var(--accent);
-}
-
 .note {
+  grid-column: 1 / -1;
   color: var(--text-muted);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
@@ -183,40 +180,38 @@
 }
 
 @media (max-width: 1024px) {
-  .row {
-    grid-template-columns: 3.5rem minmax(0, 1fr);
-    gap: var(--space-5) var(--space-6);
-    padding: var(--space-8) 0;
-  }
-
-  .marker {
-    flex-direction: row;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .detail {
-    grid-column: 2;
-  }
-
-  .iconSvg {
-    width: 24px;
-    height: 24px;
+  .rowBody {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 }
 
 @media (max-width: 640px) {
   .row {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-    padding: var(--space-6) 0;
+    padding: var(--space-8) 0;
   }
 
-  .detail {
-    grid-column: 1;
+  .rowHead {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .index {
+    font-size: var(--text-base);
+  }
+
+  /* The mark is decoration; at this width the space is better spent on the
+     name. */
+  .iconWrap {
+    display: none;
   }
 
   .title {
     font-size: var(--text-2xl);
+  }
+
+  .rowBody {
+    padding-left: 0;
   }
 }

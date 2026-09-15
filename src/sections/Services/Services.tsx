@@ -154,25 +154,27 @@ export default function Services() {
 
             return (
               <article key={service.key} className={styles.row}>
-                <div className={styles.marker}>
+                <header className={styles.rowHead}>
                   <span className={styles.index} aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
-                  <ServiceIcon type={service.key} />
-                </div>
+                  <div className={styles.titleGroup}>
+                    <span className={styles.kicker}>
+                      {t(`services.items.${service.key}.kicker`)}
+                    </span>
 
-                <div className={styles.heading}>
-                  <span className={styles.kicker}>
-                    {t(`services.items.${service.key}.kicker`)}
+                    <h3 className={styles.title}>
+                      {t(`services.items.${service.key}.title`)}
+                    </h3>
+                  </div>
+
+                  <span className={styles.iconWrap}>
+                    <ServiceIcon type={service.key} />
                   </span>
+                </header>
 
-                  <h3 className={styles.title}>
-                    {t(`services.items.${service.key}.title`)}
-                  </h3>
-                </div>
-
-                <div className={styles.detail}>
+                <div className={styles.rowBody}>
                   <p className={styles.description}>
                     {t(`services.items.${service.key}.description`)}
                   </p>
