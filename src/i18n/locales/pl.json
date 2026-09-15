@@ -96,7 +96,10 @@
     "title": "Efekty naszej pracy",
     "subtitle": "Przesuń suwak i zobacz różnicę przed i po detailingu",
     "before": "Przed",
-    "after": "Po"
+    "after": "Po",
+    "sliderLabel": "Porównanie przed i po — strzałki przesuwają suwak",
+    "altBefore": "Samochód przed detailingiem",
+    "altAfter": "Samochód po detailingu"
   },
   "about": {
     "title": "O nas",
@@ -415,7 +418,8 @@
       "title": "Swarzędz, Poland",
       "text": "Dokładna lokalizacja studia z wygodnym dojazdem i szybkim wyznaczeniem trasy.",
       "link": "Wyznacz trasę"
-    }
+    },
+    "mapUnavailable": "Podgląd mapy jest chwilowo niedostępny. Adres znajdziesz obok."
   },
   "footer": {
     "brand": "Premium Detailing",
@@ -450,5 +454,8 @@
     "successText": "Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły.",
     "error": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.",
     "close": "Zamknij"
+  },
+  "a11y": {
+    "skipToContent": "Przejdź do treści"
   }
 }

@@ -1,12 +1,16 @@
 html {
   scroll-behavior: smooth;
+  /* Anchor links land below the fixed header instead of under it. */
+  scroll-padding-top: var(--header-height);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family:
+    "Inter Variable",
     Inter,
     system-ui,
     -apple-system,
@@ -15,8 +19,18 @@ body {
     sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.5;
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
   overflow-x: hidden;
+}
+
+/* Opentype features Inter ships with: contextual alternates and proper
+   tabular figures for the price and stat rows. */
+body {
+  font-feature-settings:
+    "cv05" 1,
+    "cv11" 1,
+    "ss01" 1;
 }
 
 a {
@@ -24,28 +38,76 @@ a {
   text-decoration: none;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-img {
-  max-width: 100%;
-  display: block;
+/* Headings inherit the body weight scale rather than UA defaults. */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
 }
 
 section {
-  padding: 96px 0;
+  padding: var(--section-padding) 0;
 }
 
-@media (max-width: 768px) {
-  section {
-    padding: 48px 0;
+/* ---------------------------------------------------------------------------
+ * Focus. Previously the project had no :focus-visible rule at all and three
+ * `outline: none` declarations, leaving keyboard users with no indication of
+ * position. The ring is built from the existing accent token.
+ * ------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* Mouse users keep the clean look. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip link — first tab stop, visible only when focused. */
+.skipLink {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: var(--z-modal);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: var(--weight-semibold);
+  transform: translateY(-200%);
+  transition: transform var(--transition);
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+}
+
+/* Selection picks up the brand accent. */
+::selection {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* ---------------------------------------------------------------------------
+ * Reduced motion. Honors the OS setting for users who get motion sickness
+ * from parallax, map fly-to and scroll animation.
+ * ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 
-  section:first-of-type {
-    padding-top: 0;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

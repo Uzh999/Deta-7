@@ -1,0 +1,7 @@
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  /* Side gutter scales with the viewport instead of a fixed 20px. */
+  padding-inline: var(--gutter);
+}

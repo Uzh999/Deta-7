@@ -20,17 +20,17 @@
   min-height: 40px;
   padding: 8px 14px;
   margin-bottom: 18px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(215, 181, 109, 0.18);
   background: rgba(215, 181, 109, 0.08);
   color: var(--accent);
-  font-size: 0.86rem;
-  font-weight: 700;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.02em;
 }
 
 .title {
-  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  font-size: var(--text-display);
   line-height: 0.96;
   letter-spacing: -0.04em;
   margin-bottom: 18px;
@@ -41,7 +41,7 @@
 .description {
   max-width: 620px;
   color: var(--text-muted);
-  font-size: 1.04rem;
+  font-size: var(--text-lg);
   line-height: 1.7;
   margin-bottom: 28px;
   min-height: 5.2em;
@@ -49,7 +49,7 @@
 
 .ratingCard {
   padding: 24px;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: linear-gradient(
     180deg,
@@ -67,9 +67,9 @@
 }
 
 .ratingValue {
-  font-size: clamp(3rem, 5vw, 4.6rem);
+  font-size: var(--text-5xl);
   line-height: 0.9;
-  font-weight: 900;
+  font-weight: var(--weight-black);
   letter-spacing: -0.05em;
 }
 
@@ -81,14 +81,14 @@
 
 .stars {
   color: var(--accent);
-  font-size: 1.15rem;
+  font-size: var(--text-xl);
   letter-spacing: 0.12em;
   line-height: 1;
 }
 
 .ratingText {
   color: var(--text-muted);
-  font-size: 0.98rem;
+  font-size: var(--text-md);
   line-height: 1.5;
 }
 
@@ -101,7 +101,7 @@
 .metric {
   min-height: 96px;
   padding: 16px;
-  border-radius: 22px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--surface-border);
   background: rgba(255, 255, 255, 0.03);
   display: flex;
@@ -110,14 +110,14 @@
 }
 
 .metricValue {
-  font-size: 1.4rem;
-  font-weight: 800;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-black);
   line-height: 1;
 }
 
 .metricLabel {
   color: var(--text-muted);
-  font-size: 0.92rem;
+  font-size: var(--text-base);
   min-height: 2.4em;
 }
 
@@ -129,7 +129,7 @@
 .card {
   min-height: 250px;
   padding: 24px;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--surface-border);
   background: linear-gradient(
     180deg,
@@ -166,7 +166,7 @@
 
 .cardStars {
   color: var(--accent);
-  font-size: 1rem;
+  font-size: var(--text-md);
   letter-spacing: 0.1em;
   line-height: 1;
 }
@@ -174,12 +174,12 @@
 .serviceBadge {
   min-height: 34px;
   padding: 7px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.04);
   color: var(--text-muted);
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -187,7 +187,7 @@
 }
 
 .quote {
-  font-size: 1.04rem;
+  font-size: var(--text-lg);
   line-height: 1.8;
   color: var(--text);
   min-height: 7.4em;
@@ -212,8 +212,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  font-size: 1rem;
+  font-weight: var(--weight-black);
+  font-size: var(--text-md);
   flex-shrink: 0;
 }
 
@@ -222,15 +222,15 @@
 }
 
 .authorName {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
   line-height: 1.2;
   margin-bottom: 4px;
 }
 
 .authorMeta {
   color: var(--text-muted);
-  font-size: 0.92rem;
+  font-size: var(--text-base);
   line-height: 1.4;
 }
 
@@ -253,7 +253,7 @@
   }
 
   .description {
-    font-size: 1rem;
+    font-size: var(--text-md);
   }
 
   .metrics {
@@ -274,7 +274,7 @@
 
   .ratingValue {
     text-align: center;
-    font-size: 2.4rem;
+    font-size: var(--text-5xl);
   }
 
   .stars {
@@ -319,16 +319,16 @@
   .card {
     min-height: auto;
     padding: 20px;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
   }
 
   .ratingCard {
     padding: 20px;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
   }
 
   .quote {
-    font-size: 0.98rem;
+    font-size: var(--text-md);
     line-height: 1.72;
     text-align: center;
   }

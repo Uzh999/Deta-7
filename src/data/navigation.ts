@@ -1,4 +1,11 @@
-export const navigationItems = [
+export type NavigationItem = {
+  /** Translation key under `nav.*` and identifier used by the footer filter. */
+  key: string;
+  /** In-page anchor target. */
+  href: string;
+};
+
+export const navigationItems: readonly NavigationItem[] = [
   { key: "services", href: "#services" },
   { key: "before-after", href: "#before-after" },
   { key: "about", href: "#about" },
@@ -8,7 +15,8 @@ export const navigationItems = [
   { key: "contact", href: "#contact" },
 ] as const;
 
-export const footerNavigationKeys = [
+/** Subset of `navigationItems` shown in the footer navigation column. */
+export const footerNavigationKeys: readonly string[] = [
   "services",
   "before-after",
   "about",

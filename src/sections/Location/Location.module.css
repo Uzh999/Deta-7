@@ -4,7 +4,7 @@
   background:
     radial-gradient(
       circle at top left,
-      rgba(212, 175, 55, 0.08),
+      var(--accent-subtle),
       transparent 28%
     ),
     radial-gradient(
@@ -37,22 +37,22 @@
   min-height: 42px;
   padding: 8px 16px;
   margin-bottom: 24px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(212, 175, 55, 0.18);
-  background: rgba(212, 175, 55, 0.08);
-  color: #d4af37;
-  font-size: 0.9rem;
-  font-weight: 700;
+  background: var(--accent-subtle);
+  color: var(--accent);
+  font-size: var(--text-base);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .title {
   margin: 0 0 20px;
-  color: #f5f5f5;
-  font-size: clamp(2.8rem, 5vw, 5.4rem);
+  color: var(--text);
+  font-size: var(--text-display);
   line-height: 0.95;
-  font-weight: 800;
+  font-weight: var(--weight-black);
   letter-spacing: -0.05em;
   text-wrap: balance;
 }
@@ -61,17 +61,18 @@
   max-width: 650px;
   margin: 0 0 28px;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 1.14rem;
+  font-size: var(--text-xl);
   line-height: 1.8;
 }
 
 .addressCard {
+  font-style: normal;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 28px 30px;
   margin-bottom: 22px;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
     linear-gradient(
@@ -86,23 +87,23 @@
 }
 
 .addressLabel {
-  color: #d4af37;
-  font-size: 0.88rem;
-  font-weight: 800;
+  color: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-black);
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .addressText {
-  color: #ffffff;
-  font-size: 1.08rem;
+  color: var(--text);
+  font-size: var(--text-lg);
   line-height: 1.5;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
 }
 
 .addressMeta {
   color: rgba(255, 255, 255, 0.48);
-  font-size: 0.92rem;
+  font-size: var(--text-base);
   line-height: 1.5;
 }
 
@@ -119,7 +120,7 @@
   justify-content: space-between;
   gap: 18px;
   padding: 18px 20px;
-  border-radius: 20px;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.06);
   background:
     linear-gradient(
@@ -132,16 +133,16 @@
 }
 
 .infoItemLabel {
-  color: #d4af37;
-  font-size: 0.82rem;
-  font-weight: 800;
+  color: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-black);
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .infoItemValue {
   color: rgba(255, 255, 255, 0.82);
-  font-size: 0.98rem;
+  font-size: var(--text-md);
   line-height: 1.45;
   text-align: right;
 }
@@ -160,9 +161,9 @@
   justify-content: center;
   min-height: 58px;
   padding: 0 28px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: var(--weight-bold);
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -174,7 +175,7 @@
 
 .primaryButton {
   color: #0c0c0c;
-  background: linear-gradient(135deg, #f0cf72, #d4af37);
+  background: linear-gradient(135deg, #f0cf72, var(--accent));
   box-shadow:
     0 12px 34px rgba(212, 175, 55, 0.28),
     0 0 0 1px rgba(255, 255, 255, 0.08) inset;
@@ -188,7 +189,7 @@
 }
 
 .secondaryButton {
-  color: #f5f5f5;
+  color: var(--text);
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.03);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
@@ -210,7 +211,7 @@
   position: relative;
   width: 100%;
   min-height: 760px;
-  border-radius: 38px;
+  border-radius: var(--radius-2xl);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
@@ -286,10 +287,10 @@
   align-items: center;
   min-height: 40px;
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -322,9 +323,9 @@
 }
 
 .mapFallbackLabel {
-  color: #d4af37;
-  font-size: 0.82rem;
-  font-weight: 800;
+  color: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-black);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -343,7 +344,7 @@
   z-index: 5;
   width: min(420px, calc(100% - 52px));
   padding: 28px 28px 24px;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   border: 1px solid rgba(255, 255, 255, 0.08);
   background:
     linear-gradient(
@@ -371,32 +372,32 @@
 .mapCardKicker {
   display: inline-block;
   margin-bottom: 12px;
-  color: #d4af37;
-  font-size: 0.82rem;
-  font-weight: 800;
+  color: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-black);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .mapCardTitle {
   margin: 0 0 12px;
-  color: #ffffff;
-  font-size: clamp(1.6rem, 2vw, 2.2rem);
+  color: var(--text);
+  font-size: var(--text-3xl);
   line-height: 1.05;
-  font-weight: 800;
+  font-weight: var(--weight-black);
 }
 
 .mapCardText {
   margin: 0 0 22px;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 1rem;
+  font-size: var(--text-md);
   line-height: 1.7;
 }
 
 .routeButton {
-  color: #f3f3f3;
+  color: var(--text);
   border: 1px solid rgba(212, 175, 55, 0.22);
-  background: rgba(212, 175, 55, 0.08);
+  background: var(--accent-subtle);
   width: fit-content;
 }
 
@@ -439,11 +440,11 @@
   background: radial-gradient(
     circle at 35% 35%,
     #f8df94 0%,
-    #d4af37 60%,
+    var(--accent) 60%,
     #a67f12 100%
   );
   box-shadow:
-    0 0 0 8px rgba(212, 175, 55, 0.08),
+    0 0 0 8px var(--accent-subtle),
     0 0 24px rgba(212, 175, 55, 0.45);
 }
 
@@ -496,7 +497,7 @@
   z-index: 4;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .wrapper {
     grid-template-columns: 1fr;
   }
@@ -512,17 +513,17 @@
   }
 
   .title {
-    font-size: clamp(2.2rem, 11vw, 3.4rem);
+    font-size: var(--text-display-mobile);
   }
 
   .description {
-    font-size: 1rem;
+    font-size: var(--text-md);
     line-height: 1.7;
   }
 
   .addressCard {
     padding: 22px 22px;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
   }
 
   .infoItem {
@@ -546,7 +547,7 @@
 
   .mapFrame {
     min-height: 540px;
-    border-radius: 28px;
+    border-radius: var(--radius-xl);
   }
 
   .mapTopBar {
@@ -558,7 +559,7 @@
   .mapTopBadge {
     min-height: 36px;
     padding: 8px 12px;
-    font-size: 0.68rem;
+    font-size: var(--text-2xs);
   }
 
   .mapCard {
@@ -567,7 +568,7 @@
     bottom: 14px;
     width: auto;
     padding: 22px 20px 20px;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
   }
 
   :global(.maplibregl-ctrl-top-right) {
@@ -590,7 +591,7 @@
 
   .infoItem {
     padding: 16px;
-    border-radius: 18px;
+    border-radius: var(--radius-md);
   }
 
   .mapFrame {

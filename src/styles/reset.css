@@ -8,10 +8,32 @@
   margin: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   min-width: 320px;
+}
+
+/* Media defaults to block so it never sits on a text baseline. */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form controls inherit typography rather than falling back to UA styles. */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* Long words and URLs in body copy wrap instead of forcing horizontal
+   overflow. Deliberately not applied to headings: breaking inside a word can
+   strand punctuation on its own line. */
+p {
+  overflow-wrap: break-word;
 }

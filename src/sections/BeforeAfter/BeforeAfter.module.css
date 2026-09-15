@@ -5,13 +5,13 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
+  gap: var(--space-8);
 }
 
 .slider {
   position: relative;
   height: 460px;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
@@ -21,6 +21,17 @@
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.03),
     0 14px 34px rgba(0, 0, 0, 0.2);
+}
+
+.slider:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* While dragging, suppress the handle's idle transition so it tracks the
+   pointer exactly. */
+.dragging .handle {
+  transition: none;
 }
 
 .dragging {
@@ -59,16 +70,16 @@
   top: 0;
   min-height: 38px;
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: rgba(8, 8, 8, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 0.82rem;
-  font-weight: 700;
+  color: var(--text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
   line-height: 1;
   white-space: nowrap;
   box-shadow:
@@ -124,14 +135,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  transition: transform var(--transition-fast);
 }
 
-.handleArrow {
-  color: #111;
-  font-size: 1.05rem;
-  font-weight: 900;
-  line-height: 1;
+.handleIcon {
+  width: 26px;
+  height: 26px;
+  color: var(--accent-contrast);
+}
+
+.slider:hover .handle {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.slider:focus-visible .handle {
+  transform: translate(-50%, -50%) scale(1.06);
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 1024px) {
@@ -147,7 +166,7 @@
 @media (max-width: 640px) {
   .slider {
     height: 320px;
-    border-radius: 22px;
+    border-radius: var(--radius-lg);
   }
 
   .labels {
@@ -160,21 +179,21 @@
   .labelRight {
     min-height: 32px;
     padding: 7px 12px;
-    font-size: 0.72rem;
+    font-size: var(--text-2xs);
   }
 
   .handle {
     width: 48px;
     height: 48px;
-    gap: 4px;
   }
 
-  .handleArrow {
-    font-size: 0.92rem;
+  .handleIcon {
+    width: 22px;
+    height: 22px;
   }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 480px) {
   .slider {
     height: 280px;
   }
@@ -189,6 +208,6 @@
   .labelRight {
     min-height: 30px;
     padding: 6px 10px;
-    font-size: 0.68rem;
+    font-size: var(--text-2xs);
   }
 }

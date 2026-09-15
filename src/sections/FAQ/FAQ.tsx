@@ -29,9 +29,8 @@ export default function FAQ() {
       <Container>
         <div className={styles.wrapper}>
           <div className={styles.intro}>
-            <div className={styles.kicker}>{t("faq.kicker")}</div>
-
             <SectionHeading
+              kicker={t("faq.kicker")}
               title={t("faq.title")}
               subtitle={t("faq.subtitle")}
             />

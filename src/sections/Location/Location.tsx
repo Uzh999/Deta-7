@@ -1,201 +1,34 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import maplibregl, { NavigationControl } from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
 
 import Container from "../../components/layout/Container";
+import ErrorBoundary from "../../components/ErrorBoundary";
 import styles from "./Location.module.css";
 
-const mapUrl =
-  "https://www.google.com/maps?q=Miko%C5%82aja%20Reja%2013%2C%2062-020%20Swarz%C4%99dz%2C%20Poland";
+const LocationMap = lazy(() => import("./LocationMap"));
 
-const STUDIO_COORDS: [number, number] = [17.0747, 52.4039];
+const STUDIO_ADDRESS = "Mikołaja Reja 13, 62-020 Swarzędz, Poland";
 
-const INITIAL_VIEW = {
-  center: [17.0747, 52.4039] as [number, number],
-  zoom: 13.4,
-  pitch: 30,
-  bearing: -18,
-};
+const MAP_URL = `https://www.google.com/maps?q=${encodeURIComponent(
+  STUDIO_ADDRESS,
+)}`;
 
-const FINAL_VIEW = {
-  zoom: 14.15,
-  pitch: 28,
-  bearing: -16,
-};
-
-function buildMapTilerStyleUrl(apiKey: string) {
-  return `https://api.maptiler.com/maps/streets-v2-dark/style.json?key=${apiKey}`;
-}
-
-function safeSetLayoutVisibility(
-  map: maplibregl.Map,
-  layerId: string,
-  visibility: "visible" | "none",
-) {
-  if (!map.getLayer(layerId)) return;
-
-  try {
-    map.setLayoutProperty(layerId, "visibility", visibility);
-  } catch {
-    // ignore
-  }
-}
-
-function safeSetPaintProperty(
-  map: maplibregl.Map,
-  layerId: string,
-  property: string,
-  value: unknown,
-) {
-  if (!map.getLayer(layerId)) return;
-
-  try {
-    map.setPaintProperty(layerId, property, value as never);
-  } catch {
-    // ignore
-  }
-}
-
-function addTransparentPlaceholderImage(map: maplibregl.Map, id: string) {
-  if (!id || map.hasImage(id)) return;
-
-  const transparentPixel = new Uint8Array([0, 0, 0, 0]);
-
-  map.addImage(id, {
-    width: 1,
-    height: 1,
-    data: transparentPixel,
-  });
-}
-
-function styleMapLayers(map: maplibregl.Map) {
-  const style = map.getStyle();
-  const layers = style.layers ?? [];
-
-  layers.forEach((layer) => {
-    const id = layer.id;
-    const type = layer.type;
-    const lowerId = id.toLowerCase();
-
-    const isPoi =
-      lowerId.includes("poi") ||
-      lowerId.includes("transit") ||
-      lowerId.includes("rail") ||
-      lowerId.includes("airport") ||
-      lowerId.includes("aerodrome");
-
-    const isRoad =
-      lowerId.includes("road") ||
-      lowerId.includes("street") ||
-      lowerId.includes("transportation");
-
-    const isMainRoad =
-      lowerId.includes("motorway") ||
-      lowerId.includes("trunk") ||
-      lowerId.includes("primary");
-
-    const isWater = lowerId.includes("water");
-    const isLand =
-      lowerId.includes("land") ||
-      lowerId.includes("background") ||
-      lowerId.includes("park");
-
-    if (isPoi) {
-      safeSetLayoutVisibility(map, id, "none");
-      return;
-    }
-
-    if (type === "symbol") {
-      safeSetPaintProperty(map, id, "text-color", "rgba(255,255,255,0.28)");
-      safeSetPaintProperty(map, id, "text-halo-color", "rgba(0,0,0,0)");
-      safeSetPaintProperty(map, id, "text-opacity", 0.72);
-      safeSetPaintProperty(map, id, "icon-opacity", 0);
-
-      if (
-        lowerId.includes("poi") ||
-        lowerId.includes("icon") ||
-        lowerId.includes("parking") ||
-        lowerId.includes("amenity") ||
-        lowerId.includes("shop") ||
-        lowerId.includes("office") ||
-        lowerId.includes("business") ||
-        lowerId.includes("commercial")
-      ) {
-        safeSetLayoutVisibility(map, id, "none");
-      }
-    }
-
-    if (isWater) {
-      if (type === "fill") {
-        safeSetPaintProperty(map, id, "fill-color", "#0b0f14");
-      }
-      if (type === "line") {
-        safeSetPaintProperty(map, id, "line-color", "rgba(255,255,255,0.08)");
-      }
-    }
-
-    if (isLand) {
-      if (type === "background") {
-        safeSetPaintProperty(map, id, "background-color", "#070707");
-      }
-      if (type === "fill") {
-        if (lowerId.includes("park")) {
-          safeSetPaintProperty(map, id, "fill-color", "#0a0a0a");
-        } else {
-          safeSetPaintProperty(map, id, "fill-color", "#070707");
-        }
-      }
-    }
-
-    if (isRoad && type === "line") {
-      safeSetPaintProperty(map, id, "line-color", "rgba(255,255,255,0.18)");
-      safeSetPaintProperty(map, id, "line-opacity", 0.95);
-    }
-
-    if (isMainRoad && type === "line") {
-      safeSetPaintProperty(map, id, "line-color", "rgba(212,175,55,0.55)");
-      safeSetPaintProperty(map, id, "line-opacity", 0.95);
-    }
-
-    if (lowerId.includes("building")) {
-      if (type === "fill") {
-        safeSetPaintProperty(map, id, "fill-color", "rgba(255,255,255,0.05)");
-        safeSetPaintProperty(map, id, "fill-opacity", 0.35);
-      }
-      if (type === "line") {
-        safeSetPaintProperty(map, id, "line-color", "rgba(255,255,255,0.08)");
-      }
-    }
-  });
-}
-
-function createMarkerElement(classNames: {
-  customMarker: string;
-  markerOuter: string;
-  markerPulse: string;
-  markerCore: string;
-}) {
-  const markerEl = document.createElement("div");
-  markerEl.className = classNames.customMarker;
-  markerEl.innerHTML = `
-    <span class="${classNames.markerOuter}"></span>
-    <span class="${classNames.markerPulse}"></span>
-    <span class="${classNames.markerCore}"></span>
-  `;
-  return markerEl;
-}
+/** Start fetching the map chunk slightly before the section scrolls in. */
+const MAP_PRELOAD_MARGIN = "400px";
 
 export default function Location() {
   const { t } = useTranslation();
 
-  const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const markerRef = useRef<maplibregl.Marker | null>(null);
-
-  const [mapReady, setMapReady] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  // Browsers without IntersectionObserver skip the deferral and load the map
+  // with the section, rather than never loading it at all.
+  const [isMapVisible, setIsMapVisible] = useState(
+    () => typeof IntersectionObserver === "undefined",
+  );
+  const [isMapReady, setIsMapReady] = useState(false);
 
   const apiKey = import.meta.env.VITE_MAPTILER_KEY as string | undefined;
+  const showMapFallback = !apiKey;
 
   const infoItems = useMemo(
     () => [
@@ -215,100 +48,32 @@ export default function Location() {
     [t],
   );
 
+  // MapLibre is the single largest dependency in the bundle and this section
+  // sits near the foot of the page, so the chunk is only requested once the
+  // section is close to the viewport.
   useEffect(() => {
-    if (!apiKey || !mapContainerRef.current || mapRef.current) {
-      return;
-    }
+    if (!apiKey || isMapVisible) return;
 
-    const map = new maplibregl.Map({
-      container: mapContainerRef.current,
-      style: buildMapTilerStyleUrl(apiKey),
-      center: INITIAL_VIEW.center,
-      zoom: INITIAL_VIEW.zoom,
-      pitch: INITIAL_VIEW.pitch,
-      bearing: INITIAL_VIEW.bearing,
-      attributionControl: false,
-    });
+    const node = sectionRef.current;
+    if (!node) return;
 
-    mapRef.current = map;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsMapVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: MAP_PRELOAD_MARGIN },
+    );
 
-    const navigationControl = new NavigationControl({
-      showCompass: false,
-      visualizePitch: false,
-    });
+    observer.observe(node);
 
-    map.addControl(navigationControl, "top-right");
-
-    map.on("styleimagemissing", (e) => {
-      const rawId = e.id ?? "";
-      const trimmedId = rawId.trim();
-
-      if (!trimmedId) {
-        addTransparentPlaceholderImage(map, rawId);
-        return;
-      }
-
-      if (
-        trimmedId === "office" ||
-        trimmedId.includes("office") ||
-        trimmedId.includes("amenity") ||
-        trimmedId.includes("parking") ||
-        trimmedId.includes("shop") ||
-        trimmedId.includes("business")
-      ) {
-        addTransparentPlaceholderImage(map, trimmedId);
-      }
-    });
-
-    map.on("load", () => {
-      styleMapLayers(map);
-
-      const markerEl = createMarkerElement({
-        customMarker: styles.customMarker,
-        markerOuter: styles.markerOuter,
-        markerPulse: styles.markerPulse,
-        markerCore: styles.markerCore,
-      });
-
-      markerRef.current = new maplibregl.Marker({
-        element: markerEl,
-        anchor: "center",
-      })
-        .setLngLat(STUDIO_COORDS)
-        .addTo(map);
-
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-      map.easeTo({
-        center: STUDIO_COORDS,
-        zoom: isMobile ? 14 : FINAL_VIEW.zoom,
-        pitch: isMobile ? 22 : FINAL_VIEW.pitch,
-        bearing: FINAL_VIEW.bearing,
-        offset: [0, isMobile ? -110 : -190],
-        duration: 1800,
-      });
-
-      setMapReady(true);
-    });
-
-    map.on("error", (event) => {
-      console.error("MapLibre error:", event);
-    });
-
-    return () => {
-      markerRef.current?.remove();
-      markerRef.current = null;
-
-      map.remove();
-      mapRef.current = null;
-      setMapReady(false);
-    };
-  }, [apiKey]);
-
-  const showMapFallback = !apiKey;
+    return () => observer.disconnect();
+  }, [apiKey, isMapVisible]);
 
   return (
-    <section id="location" className={styles.section}>
+    <section id="location" className={styles.section} ref={sectionRef}>
       <Container>
         <div className={styles.wrapper}>
           <div className={styles.content}>
@@ -317,17 +82,15 @@ export default function Location() {
             <h2 className={styles.title}>{t("location.title")}</h2>
             <p className={styles.description}>{t("location.description")}</p>
 
-            <div className={styles.addressCard}>
+            <address className={styles.addressCard}>
               <span className={styles.addressLabel}>
                 {t("location.addressLabel")}
               </span>
-              <strong className={styles.addressText}>
-                Mikołaja Reja 13, 62-020 Swarzędz, Poland
-              </strong>
+              <strong className={styles.addressText}>{STUDIO_ADDRESS}</strong>
               <span className={styles.addressMeta}>
                 {t("location.addressMeta")}
               </span>
-            </div>
+            </address>
 
             <div className={styles.infoGrid}>
               {infoItems.map((item) => (
@@ -340,9 +103,9 @@ export default function Location() {
 
             <div className={styles.actions}>
               <a
-                href={mapUrl}
+                href={MAP_URL}
                 target="_blank"
-                rel="noreferrer"
+                rel="noreferrer noopener"
                 className={styles.primaryButton}
               >
                 {t("location.primaryCta")}
@@ -363,11 +126,28 @@ export default function Location() {
                 <div className={styles.mapTopBadge}>Swarzędz // PL</div>
               </div>
 
-              <div
-                ref={mapContainerRef}
-                className={styles.mapContainer}
-                aria-hidden={showMapFallback}
-              />
+              {apiKey && isMapVisible ? (
+                // If the map chunk fails to load the section still shows the
+                // address and directions rather than taking the page down.
+                <ErrorBoundary
+                  fallback={
+                    <div className={styles.mapContainer} aria-hidden />
+                  }
+                >
+                  <Suspense
+                    fallback={
+                      <div className={styles.mapContainer} aria-hidden />
+                    }
+                  >
+                    <LocationMap
+                      apiKey={apiKey}
+                      onReady={() => setIsMapReady(true)}
+                    />
+                  </Suspense>
+                </ErrorBoundary>
+              ) : (
+                <div className={styles.mapContainer} aria-hidden />
+              )}
 
               <div className={styles.mapOverlay} />
               <div className={styles.mapNoise} />
@@ -375,17 +155,17 @@ export default function Location() {
               {showMapFallback && (
                 <div className={styles.mapFallback}>
                   <span className={styles.mapFallbackLabel}>
-                    Map unavailable
+                    {t("location.addressLabel")}
                   </span>
                   <p className={styles.mapFallbackText}>
-                    Добавь VITE_MAPTILER_KEY в .env, чтобы загрузить карту.
+                    {t("location.mapUnavailable")}
                   </p>
                 </div>
               )}
 
               <div
                 className={`${styles.mapCard} ${
-                  mapReady ? styles.mapCardReady : ""
+                  isMapReady ? styles.mapCardReady : ""
                 }`}
               >
                 <span className={styles.mapCardKicker}>
@@ -399,9 +179,9 @@ export default function Location() {
                 </p>
 
                 <a
-                  href={mapUrl}
+                  href={MAP_URL}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noreferrer noopener"
                   className={styles.routeButton}
                 >
                   {t("location.mapCard.link")}

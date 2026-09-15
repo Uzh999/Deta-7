@@ -273,16 +273,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json({ ok: true });
   } catch (error) {
+    // Full detail stays in the server log.
     console.error("Lead handler error:", error);
 
     const message =
       error instanceof Error ? error.message : "Unexpected server error";
 
-    const statusCode = isValidationErrorMessage(message) ? 400 : 500;
+    if (isValidationErrorMessage(message)) {
+      return res.status(400).json({ ok: false, error: message });
+    }
 
-    return res.status(statusCode).json({
-      ok: false,
-      error: message,
-    });
+    // Never echo internal failures (missing tokens, upstream responses) back
+    // to the browser — they leak configuration and mean nothing to a visitor.
+    return res.status(500).json({ ok: false, error: "Internal server error" });
   }
 }

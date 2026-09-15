@@ -1,24 +1,20 @@
 import type { PropsWithChildren } from "react";
+import styles from "./Container.module.css";
 
 type ContainerProps = PropsWithChildren<{
   className?: string;
 }>;
 
+/**
+ * Centers content at the site's max width with a responsive side gutter.
+ * Previously styled inline, which meant the padding could not respond to
+ * breakpoints and could not be overridden by a caller.
+ */
 export default function Container({
   children,
   className = "",
 }: ContainerProps) {
   return (
-    <div
-      className={className}
-      style={{
-        width: "100%",
-        maxWidth: "var(--container)",
-        margin: "0 auto",
-        padding: "0 20px",
-      }}
-    >
-      {children}
-    </div>
+    <div className={`${styles.container} ${className}`.trim()}>{children}</div>
   );
 }

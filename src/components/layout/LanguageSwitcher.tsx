@@ -1,29 +1,34 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { SUPPORTED_LANGUAGES } from "../../app/languages";
 import styles from "./LanguageSwitcher.module.css";
 
-const languages = [
-  { code: "pl", label: "PL" },
-  { code: "uk", label: "UA" },
-  { code: "ru", label: "RU" },
-];
+const LANGUAGE_LABELS: Record<(typeof SUPPORTED_LANGUAGES)[number], string> = {
+  pl: "PL",
+  uk: "UA",
+  ru: "RU",
+};
+
+/** Display order, independent of the internal locale list order. */
+const DISPLAY_ORDER = ["pl", "uk", "ru"] as const;
 
 export default function LanguageSwitcher() {
   const navigate = useNavigate();
   const { lang } = useParams();
 
   return (
-    <div className={styles.switcher}>
-      {languages.map((item) => {
-        const isActive = lang === item.code;
+    <div className={styles.switcher} role="group" aria-label="Language">
+      {DISPLAY_ORDER.map((code) => {
+        const isActive = lang === code;
 
         return (
           <button
-            key={item.code}
+            key={code}
             type="button"
-            onClick={() => navigate(`/${item.code}`)}
+            onClick={() => navigate(`/${code}`)}
             className={`${styles.button} ${isActive ? styles.active : ""}`}
+            aria-current={isActive ? "true" : undefined}
           >
-            {item.label}
+            {LANGUAGE_LABELS[code]}
           </button>
         );
       })}

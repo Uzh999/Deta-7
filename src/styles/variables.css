@@ -1,4 +1,7 @@
 :root {
+  /* ---------------------------------------------------------------------
+   * Color — the studio's existing identity. Values are unchanged.
+   * ------------------------------------------------------------------- */
   --bg: #050505;
   --bg-secondary: #0d0d0d;
   --surface: rgba(255, 255, 255, 0.04);
@@ -10,7 +13,136 @@
   --accent: #d7b56d;
   --accent-hover: #e5c684;
 
+  /* Ink used on top of a filled accent surface. Previously repeated as a
+   * literal `#111` in nine files. Same value, now named. */
+  --accent-contrast: #111111;
+
+  /* Accent tints already in use across sections, named so new work reuses
+   * them instead of inventing another alpha step. */
+  --accent-subtle: rgba(215, 181, 109, 0.08);
+  --accent-border: rgba(215, 181, 109, 0.18);
+  --accent-glow: rgba(215, 181, 109, 0.24);
+
+  /* Neutral surface steps, matching the alphas already used site-wide. */
+  --surface-raised: rgba(255, 255, 255, 0.06);
+  --surface-sunken: rgba(255, 255, 255, 0.025);
+  --border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Status colors, lifted from the existing form states. */
+  --success: #9adf9a;
+  --danger: #ff8f8f;
+
+  /* ---------------------------------------------------------------------
+   * Typography scale
+   * Replaces ~60 ad-hoc font sizes. Steps are drawn from the sizes already
+   * in the design, rounded onto a consistent ratio.
+   * ------------------------------------------------------------------- */
+  --text-2xs: 0.72rem;
+  --text-xs: 0.78rem;
+  --text-sm: 0.86rem;
+  --text-base: 0.95rem;
+  --text-md: 1rem;
+  --text-lg: 1.08rem;
+  --text-xl: 1.22rem;
+  --text-2xl: 1.4rem;
+  --text-3xl: clamp(1.6rem, 2.4vw, 2rem);
+  --text-4xl: clamp(2rem, 4vw, 2.75rem);
+  --text-5xl: clamp(2.4rem, 5vw, 3.6rem);
+
+  /* Two statement tiers. The hero stays the single largest thing on the page;
+     "display" is for the split-layout section headings (contact, reviews,
+     location, footer) that previously ranged from 4.4rem to 5.6rem with no
+     system behind the difference. */
+  --text-display: clamp(2.5rem, 5.5vw, 5.2rem);
+  --text-hero: clamp(2.5rem, 5.2vw, 4.25rem);
+
+  /* Mobile counterparts, used inside narrow breakpoints. */
+  --text-display-mobile: clamp(2.2rem, 10vw, 3.6rem);
+  --text-hero-mobile: clamp(2rem, 8.5vw, 2.75rem);
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+
+  /* Tracking: tight on display type, open on small uppercase kickers —
+   * both patterns already present, now consistent. */
+  --tracking-display: -0.045em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+  --tracking-kicker: 0.16em;
+
+  /* ---------------------------------------------------------------------
+   * Spacing — 4px base. Section rhythm previously varied per file.
+   * ------------------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --section-padding: clamp(56px, 8vw, 96px);
+  --gutter: clamp(16px, 4vw, 20px);
+
+  /* ---------------------------------------------------------------------
+   * Radii — collapses 17 near-duplicate values onto 5 steps.
+   * ------------------------------------------------------------------- */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 30px;
+  --radius-2xl: 36px;
+  --radius-pill: 999px;
+  --radius: 24px; /* retained: existing alias used across sections */
+
+  /* ---------------------------------------------------------------------
+   * Elevation — subtle, matching the existing restrained shadow language.
+   * ------------------------------------------------------------------- */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.45);
+  --shadow-accent: 0 14px 30px rgba(215, 181, 109, 0.18);
+  --shadow-accent-hover: 0 18px 36px rgba(215, 181, 109, 0.24);
+
+  /* ---------------------------------------------------------------------
+   * Motion — fast and functional.
+   * ------------------------------------------------------------------- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 0.15s;
+  --duration-base: 0.25s;
+  --duration-slow: 0.4s;
+
+  --transition: var(--duration-base) var(--ease-out);
+  --transition-fast: var(--duration-fast) var(--ease-out);
+
+  /* ---------------------------------------------------------------------
+   * Layout
+   * ------------------------------------------------------------------- */
   --container: 1240px;
-  --radius: 24px;
-  --transition: 0.25s ease;
+  --header-height: 80px;
+
+  /* Focus ring — built from the existing accent, not a new color. */
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+  /* Z-index scale, replacing scattered magic numbers. */
+  --z-map: 1;
+  --z-content: 2;
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
 }

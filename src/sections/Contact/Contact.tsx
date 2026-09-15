@@ -45,6 +45,11 @@ const serviceKeys = [
   "other",
 ] as const;
 
+/**
+ * Server error strings are for the log, not the visitor. This returns the
+ * technical detail for `console.error` only; the UI always shows a translated
+ * message.
+ */
 function extractResponseError(
   response: Response,
   responseText: string,
@@ -53,7 +58,7 @@ function extractResponseError(
     const data = responseText ? JSON.parse(responseText) : null;
     if (data?.error) return String(data.error);
   } catch {
-    // ignore JSON parse error
+    // Response was not JSON; fall through to the raw text.
   }
 
   if (responseText?.trim()) {
@@ -126,9 +131,8 @@ export default function Contact() {
     } catch (error) {
       console.error("Contact form error:", error);
       setStatus("error");
-      setErrorMessage(
-        error instanceof Error ? error.message : t("contact.form.error"),
-      );
+      // Always the translated message — the raw detail went to the console.
+      setErrorMessage(t("contact.form.error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -254,17 +258,20 @@ export default function Contact() {
                   : t("contact.form.submit")}
               </button>
 
-              {status === "success" && (
-                <p className={`${styles.status} ${styles.success}`}>
-                  {t("contact.form.success")}
-                </p>
-              )}
+              {/* Announced to assistive tech when submission resolves. */}
+              <div aria-live="polite" aria-atomic="true">
+                {status === "success" && (
+                  <p className={`${styles.status} ${styles.success}`}>
+                    {t("contact.form.success")}
+                  </p>
+                )}
 
-              {status === "error" && (
-                <p className={`${styles.status} ${styles.error}`}>
-                  {errorMessage || t("contact.form.error")}
-                </p>
-              )}
+                {status === "error" && (
+                  <p className={`${styles.status} ${styles.error}`} role="alert">
+                    {errorMessage || t("contact.form.error")}
+                  </p>
+                )}
+              </div>
             </form>
           </div>
         </div>

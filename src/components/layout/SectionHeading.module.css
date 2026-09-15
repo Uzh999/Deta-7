@@ -1,27 +1,50 @@
+/* The previous version forced `min-height: 150px` on the block plus `2.2em`
+   on the title and `3em` on the subtitle to line headings up across sections.
+   That left a visible gap under every short heading. Spacing now comes from
+   the flow itself. */
 .heading {
-  margin-bottom: 40px;
-  max-width: 720px;
-  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 680px;
+  margin-bottom: var(--space-12);
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.kicker {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .title {
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1.05;
-  min-height: 2.2em;
-  margin-bottom: 14px;
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  font-weight: var(--weight-bold);
   text-wrap: balance;
 }
 
 .subtitle {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
   color: var(--text-muted);
-  font-size: 1.05rem;
-  min-height: 3em;
+  text-wrap: pretty;
 }
 
 @media (max-width: 768px) {
-  .heading,
-  .title,
+  .heading {
+    margin-bottom: var(--space-8);
+  }
+
   .subtitle {
-    min-height: auto;
+    font-size: var(--text-md);
   }
 }

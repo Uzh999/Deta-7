@@ -22,17 +22,17 @@
   width: fit-content;
   padding: 8px 14px;
   margin-bottom: 22px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(215, 181, 109, 0.18);
   background: rgba(215, 181, 109, 0.08);
   color: var(--accent);
-  font-size: 0.86rem;
-  font-weight: 700;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
   letter-spacing: 0.02em;
 }
 
 .title {
-  font-size: clamp(2.8rem, 6vw, 5.6rem);
+  font-size: var(--text-display);
   line-height: 0.94;
   letter-spacing: -0.05em;
   margin-bottom: 22px;
@@ -43,13 +43,13 @@
 .description {
   max-width: 620px;
   color: var(--text-muted);
-  font-size: 1.04rem;
+  font-size: var(--text-lg);
   line-height: 1.72;
 }
 
 .formCard {
   padding: 30px;
-  border-radius: 32px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--surface-border);
   background: linear-gradient(
     180deg,
@@ -70,8 +70,8 @@
 }
 
 .label {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
   color: var(--text);
 }
 
@@ -79,7 +79,7 @@
 .textarea,
 .select {
   width: 100%;
-  border-radius: 18px;
+  border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.03);
   color: var(--text);
@@ -131,18 +131,35 @@
   color: rgba(255, 255, 255, 0.42);
 }
 
-.input:focus,
-.select:focus,
-.textarea:focus {
-  border-color: rgba(215, 181, 109, 0.42);
-  box-shadow: 0 0 0 4px rgba(215, 181, 109, 0.08);
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* A border tint alone was too faint on the dark ground to read as focus.
+   The ring uses the existing accent at a weight that is actually visible. */
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
   background-color: rgba(255, 255, 255, 0.045);
+}
+
+/* Only flags a field the user has actually filled in wrongly, never an
+   untouched empty one. */
+.input:user-invalid,
+.select:user-invalid,
+.textarea:user-invalid {
+  border-color: var(--danger);
 }
 
 .charCount {
   margin-top: 2px;
   text-align: right;
-  font-size: 0.84rem;
+  font-size: var(--text-sm);
   color: var(--text-muted);
 }
 
@@ -150,20 +167,25 @@
   min-height: 58px;
   width: 100%;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--accent);
-  color: #111;
-  font-weight: 800;
-  font-size: 1rem;
+  color: var(--accent-contrast);
+  font-weight: var(--weight-black);
+  font-size: var(--text-md);
   cursor: pointer;
   transition:
     transform var(--transition),
     opacity var(--transition);
 }
 
-.button:hover {
+.button:hover:not(:disabled) {
   transform: translateY(-1px);
-  opacity: 0.96;
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-accent-hover);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .button:disabled {
@@ -173,7 +195,7 @@
 }
 
 .status {
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   line-height: 1.5;
 }
 
@@ -211,7 +233,7 @@
 
   .formCard {
     padding: 20px;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
   }
 
   .form {
@@ -223,12 +245,12 @@
   }
 
   .title {
-    font-size: clamp(2.4rem, 11vw, 4rem);
+    font-size: var(--text-display-mobile);
     margin-bottom: 18px;
   }
 
   .description {
-    font-size: 1rem;
+    font-size: var(--text-md);
     line-height: 1.7;
   }
 
@@ -250,7 +272,7 @@
   .input,
   .select,
   .textarea {
-    border-radius: 16px;
+    border-radius: var(--radius-md);
   }
 
   .button {

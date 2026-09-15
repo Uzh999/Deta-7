@@ -57,6 +57,11 @@ function getScrollPercent(): number {
   return (scrollTop / documentHeight) * 100;
 }
 
+/**
+ * Server error strings are for the log, not the visitor. This returns the
+ * technical detail for `console.error` only; the UI always shows a translated
+ * message.
+ */
 function extractResponseError(
   response: Response,
   responseText: string,
@@ -65,7 +70,7 @@ function extractResponseError(
     const data = responseText ? JSON.parse(responseText) : null;
     if (data?.error) return String(data.error);
   } catch {
-    // ignore JSON parse error
+    // Response was not JSON; fall through to the raw text.
   }
 
   if (responseText?.trim()) {
@@ -80,6 +85,8 @@ export default function OfferPopup() {
 
   const [isOpen, setIsOpen] = useState(false);
   const hasTriggeredRef = useRef(false);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const hasScrolledEnoughRef = useRef(false);
   const hasSpentEnoughTimeRef = useRef(false);
 
@@ -139,18 +146,62 @@ export default function OfferPopup() {
     };
   }, [openPopup]);
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
-  const closePopup = () => {
+  const closePopup = useCallback(() => {
     hasTriggeredRef.current = true;
     setIsOpen(false);
     markDismissed();
-  };
+  }, []);
+
+  // Dialog behaviour: lock scroll, move focus in, trap Tab inside the dialog,
+  // close on Escape, and hand focus back to wherever it came from.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = "hidden";
+
+    const dialog = dialogRef.current;
+    const focusable = () =>
+      Array.from(
+        dialog?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((el) => !el.hasAttribute("disabled"));
+
+    focusable()[0]?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closePopup();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const items = focusable();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+      previouslyFocusedRef.current?.focus?.();
+    };
+  }, [isOpen, closePopup]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -197,9 +248,7 @@ export default function OfferPopup() {
     } catch (error) {
       console.error("Offer popup error:", error);
       setStatus("error");
-      setErrorMessage(
-        error instanceof Error ? error.message : t("offerPopup.error"),
-      );
+      setErrorMessage(t("offerPopup.error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -215,7 +264,11 @@ export default function OfferPopup() {
       aria-labelledby="offer-popup-title"
       onClick={closePopup}
     >
-      <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+      <div
+        ref={dialogRef}
+        className={styles.popup}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           type="button"
           className={styles.closeButton}
@@ -289,7 +342,7 @@ export default function OfferPopup() {
             <p className={styles.note}>{t("offerPopup.note")}</p>
 
             {status === "error" && (
-              <p className={styles.note}>
+              <p className={styles.errorNote} role="alert">
                 {errorMessage || t("offerPopup.error")}
               </p>
             )}

@@ -1,27 +1,15 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
-import { navigationItems } from "../../data/navigation";
+import { footerNavigationKeys, navigationItems } from "../../data/navigation";
 import styles from "./Footer.module.css";
-
-const footerNavKeys = [
-  "services",
-  "before-after",
-  "about",
-  "pricing",
-  "reviews",
-  "contact",
-] as const;
 
 export default function Footer() {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
 
   const footerNavItems = useMemo(
-    () =>
-      navigationItems.filter((item) =>
-        footerNavKeys.includes(item.key as (typeof footerNavKeys)[number]),
-      ),
+    () => navigationItems.filter((item) => footerNavigationKeys.includes(item.key)),
     [],
   );
 
