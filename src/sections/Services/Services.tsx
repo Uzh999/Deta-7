@@ -7,14 +7,13 @@ type ServiceKey = "exterior" | "interior" | "mechanics" | "tuning";
 
 type ServiceItem = {
   key: ServiceKey;
-  featured?: boolean;
 };
 
 const services: ServiceItem[] = [
   { key: "exterior" },
   { key: "interior" },
   { key: "mechanics" },
-  { key: "tuning", featured: false },
+  { key: "tuning" },
 ];
 
 function ServiceIcon({ type }: { type: ServiceKey }) {
@@ -140,8 +139,8 @@ export default function Services() {
           subtitle={t("services.subtitle")}
         />
 
-        <div className={styles.grid}>
-          {services.map((service) => {
+        <div className={styles.list}>
+          {services.map((service, index) => {
             const features = t(`services.items.${service.key}.features`, {
               returnObjects: true,
             }) as string[];
@@ -154,36 +153,29 @@ export default function Services() {
                 : [];
 
             return (
-              <article
-                key={service.key}
-                className={`${styles.card} ${
-                  service.featured ? styles.featured : ""
-                }`}
-              >
-                {service.featured && (
-                  <div className={styles.badge}>
-                    {t("services.featuredBadge")}
-                  </div>
-                )}
+              <article key={service.key} className={styles.row}>
+                <div className={styles.marker}>
+                  <span className={styles.index} aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                <div className={styles.content}>
-                  <div className={styles.top}>
-                    <div className={styles.iconWrap}>
-                      <ServiceIcon type={service.key} />
-                    </div>
+                  <ServiceIcon type={service.key} />
+                </div>
 
-                    <div className={styles.kicker}>
-                      {t(`services.items.${service.key}.kicker`)}
-                    </div>
+                <div className={styles.heading}>
+                  <span className={styles.kicker}>
+                    {t(`services.items.${service.key}.kicker`)}
+                  </span>
 
-                    <h3 className={styles.title}>
-                      {t(`services.items.${service.key}.title`)}
-                    </h3>
+                  <h3 className={styles.title}>
+                    {t(`services.items.${service.key}.title`)}
+                  </h3>
+                </div>
 
-                    <p className={styles.description}>
-                      {t(`services.items.${service.key}.description`)}
-                    </p>
-                  </div>
+                <div className={styles.detail}>
+                  <p className={styles.description}>
+                    {t(`services.items.${service.key}.description`)}
+                  </p>
 
                   <ul className={styles.features}>
                     {features.map((feature) => (
@@ -210,15 +202,16 @@ export default function Services() {
                   )}
 
                   {service.key === "tuning" && (
-                    <div className={styles.note}>
+                    <p className={styles.note}>
                       {t("services.items.tuning.note")}
-                    </div>
+                    </p>
                   )}
                 </div>
               </article>
             );
           })}
         </div>
+
       </Container>
     </section>
   );

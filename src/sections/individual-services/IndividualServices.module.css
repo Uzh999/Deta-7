@@ -1,174 +1,162 @@
+/* A price list rather than six bordered cards. The structure is carried by
+   rules, rhythm and alignment, so the eye reads down a column of services
+   and across to a column of prices — the way a printed menu works. */
+
 .section {
   position: relative;
-  padding-top: 28px;
 }
 
-.grid {
+.list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-  align-items: stretch;
+  gap: var(--space-20);
+  align-items: start;
 }
 
-.card {
-  position: relative;
-  min-height: 100%;
-  padding: 28px 24px 24px;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(255, 255, 255, 0.03),
-      transparent 30%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.04),
-      rgba(255, 255, 255, 0.016)
-    );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 14px 34px rgba(0, 0, 0, 0.2);
-  transition:
-    transform var(--transition),
-    border-color var(--transition),
-    box-shadow var(--transition),
-    background var(--transition);
+/* Each column stacks its own categories, so a short category never leaves a
+   hole beside a long one. */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.14);
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(255, 255, 255, 0.05),
-      transparent 32%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.055),
-      rgba(255, 255, 255, 0.022)
-    );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.05),
-    0 20px 42px rgba(0, 0, 0, 0.24);
+.category {
+  display: flex;
+  flex-direction: column;
 }
 
-.top {
-  margin-bottom: 22px;
+.categoryHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-4);
+  /* The only heavy rule in the section: it opens each category. */
+  border-bottom: 1px solid var(--border-strong);
 }
 
 .kicker {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  padding: 7px 12px;
-  margin-bottom: 16px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(215, 181, 109, 0.18);
-  background: rgba(215, 181, 109, 0.08);
   color: var(--accent);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-black);
-  letter-spacing: 0.08em;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
 }
 
 .title {
-  margin-bottom: 12px;
-  font-size: var(--text-2xl);
-  line-height: 1.14;
-  font-weight: var(--weight-black);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
   text-wrap: balance;
 }
 
 .description {
-  max-width: 34ch;
+  margin-top: var(--space-1);
   color: var(--text-muted);
-  font-size: var(--text-md);
-  line-height: 1.66;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  text-wrap: pretty;
 }
 
-.list {
+.items {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  gap: 14px;
 }
 
 .item {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 16px;
-  align-items: start;
-  padding: 14px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  align-items: baseline;
+  gap: var(--space-5);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  transition: border-color var(--transition);
 }
 
-.item:first-child {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+.item:last-child {
+  border-bottom: none;
+}
+
+/* Hovering a row lifts its name and firms up the rule under it — enough
+   feedback to track your place in a long list, without a hover card. */
+.item:hover {
+  border-bottom-color: var(--accent-border);
 }
 
 .itemName {
+  color: var(--text-muted);
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  transition: color var(--transition);
+}
+
+.item:hover .itemName {
+  color: var(--text);
+}
+
+.price {
   color: var(--text);
   font-size: var(--text-md);
-  line-height: 1.5;
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
+  white-space: nowrap;
+  /* Prices line up as a column: same digit width on every row. */
+  font-variant-numeric: tabular-nums;
 }
 
-.price,
 .linkPrice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   color: var(--accent);
   font-size: var(--text-md);
-  line-height: 1.4;
-  font-weight: var(--weight-black);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-snug);
   white-space: nowrap;
+  transition: color var(--transition);
 }
 
-.linkPrice {
-  transition:
-    opacity var(--transition),
-    transform var(--transition);
+.linkPrice::after {
+  content: "→";
+  transition: transform var(--transition);
 }
 
 .linkPrice:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  color: var(--accent-hover);
+}
+
+.linkPrice:hover::after {
+  transform: translateX(3px);
 }
 
 @media (max-width: 1024px) {
-  .grid {
+  .list {
     grid-template-columns: 1fr;
+    gap: var(--space-12);
   }
 
-  .description {
-    max-width: 100%;
+  .column {
+    gap: var(--space-12);
   }
 }
 
 @media (max-width: 640px) {
-  .section {
-    padding-top: 18px;
-  }
-
-  .card {
-    padding: 22px 18px 18px;
-    border-radius: var(--radius-lg);
-  }
-
   .item {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-
-  .price,
-  .linkPrice {
-    white-space: normal;
+    /* Name and price stay on one line as long as they fit; the price wraps
+       beneath only when the name is genuinely long. */
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
   }
 
   .title {
-    font-size: var(--text-xl);
+    font-size: var(--text-lg);
+  }
+
+  .itemName,
+  .price,
+  .linkPrice {
+    font-size: var(--text-base);
   }
 }

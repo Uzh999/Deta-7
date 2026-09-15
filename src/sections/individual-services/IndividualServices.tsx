@@ -18,6 +18,33 @@ const categoryKeys: IndividualServiceCategoryKey[] = [
   "tuning",
 ];
 
+const PRICE_LIST_COLUMNS = 2;
+
+/**
+ * Distributes the categories across columns, keeping each category whole and
+ * the columns close in length. Greedy by running row count: a category joins
+ * whichever column is currently shortest.
+ */
+function splitIntoColumns(
+  keys: IndividualServiceCategoryKey[],
+  weightOf: (key: IndividualServiceCategoryKey) => number,
+): IndividualServiceCategoryKey[][] {
+  const columns: IndividualServiceCategoryKey[][] = Array.from(
+    { length: PRICE_LIST_COLUMNS },
+    () => [],
+  );
+  const weights = new Array<number>(PRICE_LIST_COLUMNS).fill(0);
+
+  keys.forEach((key) => {
+    const target = weights.indexOf(Math.min(...weights));
+    columns[target].push(key);
+    // The header costs roughly two rows of vertical space.
+    weights[target] += weightOf(key) + 2;
+  });
+
+  return columns;
+}
+
 function isRenderableItem(item: IndividualServiceItemConfig) {
   return (
     item.priceType === "from" ||
@@ -30,6 +57,16 @@ function isRenderableItem(item: IndividualServiceItemConfig) {
 
 export default function IndividualServices() {
   const { t } = useTranslation();
+
+  const renderableItems = (categoryKey: IndividualServiceCategoryKey) =>
+    Object.entries(individualServicesConfig[categoryKey].items).filter(
+      ([, item]) => item && isRenderableItem(item),
+    );
+
+  const columns = splitIntoColumns(
+    categoryKeys,
+    (key) => renderableItems(key).length,
+  );
 
   const renderRightSide = (item: IndividualServiceItemConfig): ReactNode => {
     if (item.priceType === "from" && typeof item.price === "number") {
@@ -75,7 +112,18 @@ export default function IndividualServices() {
       );
     }
 
-    if (item.priceType === "link" && item.href) {
+    if (item.priceType === "link") {
+      // The tuning entries are configured as links but their href is not set
+      // yet, which left the price column blank. Fall back to the same
+      // "quoted individually" label the other unpriced services use.
+      if (!item.href) {
+        return (
+          <span className={styles.price}>
+            {t("individualServices.priceFormats.custom")}
+          </span>
+        );
+      }
+
       return (
         <a
           href={item.href}
@@ -99,17 +147,15 @@ export default function IndividualServices() {
           subtitle={t("individualServices.subtitle")}
         />
 
-        <div className={styles.grid}>
-          {categoryKeys.map((categoryKey) => {
-            const category = individualServicesConfig[categoryKey];
+        <div className={styles.list}>
+          {columns.map((columnKeys, columnIndex) => (
+            <div key={columnIndex} className={styles.column}>
+              {columnKeys.map((categoryKey) => {
+                const itemEntries = renderableItems(categoryKey);
 
-            const itemEntries = Object.entries(category.items).filter(
-              ([, item]) => item && isRenderableItem(item),
-            );
-
-            return (
-              <article key={categoryKey} className={styles.card}>
-                <div className={styles.top}>
+                return (
+              <section key={categoryKey} className={styles.category}>
+                <header className={styles.categoryHead}>
                   <span className={styles.kicker}>
                     {t(`individualServices.categories.${categoryKey}.kicker`)}
                   </span>
@@ -123,9 +169,9 @@ export default function IndividualServices() {
                       `individualServices.categories.${categoryKey}.description`,
                     )}
                   </p>
-                </div>
+                </header>
 
-                <ul className={styles.list}>
+                <ul className={styles.items}>
                   {itemEntries.map(([itemKey, item]) => {
                     const path = `individualServices.categories.${categoryKey}.items.${itemKey}`;
                     const label = t(path);
@@ -140,11 +186,13 @@ export default function IndividualServices() {
                         {renderRightSide(item)}
                       </li>
                     );
-                  })}
-                </ul>
-              </article>
-            );
-          })}
+                      })}
+                    </ul>
+                  </section>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </Container>
     </section>
