@@ -1,0 +1,259 @@
+.section {
+  position: relative;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  width: fit-content;
+  padding: 8px 14px;
+  margin-bottom: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(215, 181, 109, 0.18);
+  background: rgba(215, 181, 109, 0.08);
+  color: var(--accent);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  font-size: clamp(2.8rem, 6vw, 5.6rem);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  margin-bottom: 22px;
+  max-width: 720px;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 620px;
+  color: var(--text-muted);
+  font-size: 1.04rem;
+  line-height: 1.72;
+}
+
+.formCard {
+  padding: 30px;
+  border-radius: 32px;
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.025)
+  );
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
+}
+
+.form {
+  display: grid;
+  gap: 20px;
+}
+
+.field {
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.input,
+.textarea,
+.select {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  outline: none;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.input {
+  min-height: 54px;
+  padding: 14px 16px;
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.select {
+  min-height: 54px;
+  padding: 14px 52px 14px 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.selectArrow {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.82);
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.textarea {
+  min-height: 180px;
+  padding: 16px;
+  resize: none;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: rgba(215, 181, 109, 0.42);
+  box-shadow: 0 0 0 4px rgba(215, 181, 109, 0.08);
+  background-color: rgba(255, 255, 255, 0.045);
+}
+
+.charCount {
+  margin-top: 2px;
+  text-align: right;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.button {
+  min-height: 58px;
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #111;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    opacity var(--transition);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.status {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.success {
+  color: #9adf9a;
+}
+
+.error {
+  color: #ff8f8f;
+}
+
+@media (max-width: 1180px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .info {
+    padding-top: 0;
+  }
+
+  .title {
+    max-width: 900px;
+  }
+
+  .description {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 768px) {
+  .kicker {
+    margin-bottom: 18px;
+  }
+
+  .formCard {
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .form {
+    gap: 16px;
+  }
+
+  .field {
+    gap: 8px;
+  }
+
+  .title {
+    font-size: clamp(2.4rem, 11vw, 4rem);
+    margin-bottom: 18px;
+  }
+
+  .description {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .input,
+  .select {
+    min-height: 52px;
+  }
+
+  .textarea {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formCard {
+    padding: 18px 16px;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    border-radius: 16px;
+  }
+
+  .button {
+    min-height: 56px;
+  }
+}

@@ -1,0 +1,328 @@
+.section {
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.card {
+  position: relative;
+  min-height: 560px;
+  padding: 26px 24px 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255, 255, 255, 0.03),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.018)
+    );
+  display: grid;
+  grid-template-rows: 1fr auto;
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 14px 34px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.14),
+    transparent
+  );
+  opacity: 0.75;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255, 255, 255, 0.05),
+      transparent 32%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.024)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 22px 46px rgba(0, 0, 0, 0.28);
+}
+
+.featured {
+  border-color: rgba(215, 181, 109, 0.34);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(215, 181, 109, 0.18),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(215, 181, 109, 0.12),
+      rgba(255, 255, 255, 0.022)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.featured:hover {
+  border-color: rgba(215, 181, 109, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 26px 54px rgba(0, 0, 0, 0.34);
+}
+
+.badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  min-height: 34px;
+  max-width: calc(100% - 32px);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.badgeAccent {
+  background: var(--accent);
+  color: #111;
+  box-shadow: 0 10px 20px rgba(215, 181, 109, 0.18);
+}
+
+.badgeMuted {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.content {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100%;
+}
+
+.top {
+  min-height: 210px;
+  margin-bottom: 24px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.planTitle {
+  margin-bottom: 12px;
+  font-size: 1.34rem;
+  line-height: 1.12;
+  font-weight: 800;
+  text-wrap: balance;
+  max-width: 12ch;
+  min-height: 2.3em;
+}
+
+.planDescription {
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.68;
+  max-width: 25ch;
+  min-height: 8.4em;
+}
+
+.features {
+  list-style: none;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+.featureItem {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 10px;
+  align-items: start;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.check {
+  color: var(--accent);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.bottom {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.priceBlock {
+  margin-bottom: 20px;
+}
+
+.oldPrice {
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.2;
+  text-decoration: line-through;
+  opacity: 0.78;
+}
+
+.price {
+  display: block;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.savings {
+  margin-top: 10px;
+  color: var(--accent);
+  font-size: 0.92rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.button {
+  min-height: 54px;
+  width: 100%;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px;
+  font-weight: 800;
+  transition:
+    transform var(--transition),
+    opacity var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  backdrop-filter: blur(10px);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  opacity: 0.98;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.featured .button {
+  background: var(--accent);
+  color: #111;
+  border-color: transparent;
+  box-shadow: 0 14px 30px rgba(215, 181, 109, 0.18);
+}
+
+.featured .button:hover {
+  box-shadow: 0 18px 36px rgba(215, 181, 109, 0.24);
+}
+
+@media (max-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    min-height: auto;
+  }
+
+  .top {
+    min-height: 190px;
+  }
+
+  .planTitle,
+  .planDescription {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    padding: 24px 18px 18px;
+    border-radius: 24px;
+    min-height: auto;
+  }
+
+  .top {
+    min-height: auto;
+    margin-bottom: 20px;
+  }
+
+  .badge {
+    top: 14px;
+    right: 14px;
+    max-width: calc(100% - 28px);
+    padding: 7px 11px;
+    font-size: 0.72rem;
+  }
+
+  .planTitle {
+    min-height: auto;
+    max-width: 100%;
+  }
+
+  .planDescription {
+    min-height: auto;
+    max-width: 100%;
+  }
+
+  .oldPrice {
+    font-size: 0.9rem;
+  }
+
+  .price {
+    font-size: 2.55rem;
+  }
+
+  .savings {
+    font-size: 0.88rem;
+  }
+}
