@@ -1,107 +1,83 @@
+/* The accordion reads as a list of rules rather than six bordered panels.
+   The open row is marked by its title turning gold and the answer opening
+   beneath it, not by a change of container. */
+
 .section {
   position: relative;
 }
 
 .wrapper {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--space-20);
   align-items: start;
 }
 
 .intro {
   position: sticky;
-  top: 110px;
-}
-
-.kicker {
-  display: inline-flex;
-  align-items: center;
-  min-height: 40px;
-  padding: 8px 14px;
-  margin-bottom: 18px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(215, 181, 109, 0.18);
-  background: rgba(215, 181, 109, 0.08);
-  color: var(--accent);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
-  letter-spacing: 0.02em;
+  top: calc(var(--header-height) + var(--space-8));
 }
 
 .description {
-  max-width: 620px;
   color: var(--text-muted);
-  font-size: var(--text-lg);
-  line-height: 1.7;
-  min-height: 5.2em;
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
 }
 
 .list {
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .item {
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--surface-border);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.045),
-    rgba(255, 255, 255, 0.02)
-  );
-  overflow: hidden;
-  transition:
-    border-color var(--transition),
-    background var(--transition),
-    transform var(--transition),
-    box-shadow var(--transition);
+  border-top: 1px solid var(--surface-border);
+  transition: border-color var(--transition);
 }
 
-.item:hover {
-  border-color: rgba(255, 255, 255, 0.14);
-  transform: translateY(-2px);
+.item:last-child {
+  border-bottom: 1px solid var(--surface-border);
 }
 
 .itemOpen {
-  border-color: rgba(215, 181, 109, 0.22);
-  background: linear-gradient(
-    180deg,
-    rgba(215, 181, 109, 0.08),
-    rgba(255, 255, 255, 0.025)
-  );
-  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.14);
+  border-top-color: var(--accent-border);
 }
 
 .question {
   width: 100%;
-  padding: 24px 24px 24px 26px;
+  padding: var(--space-6) 0;
   background: transparent;
   border: none;
   color: var(--text);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: var(--space-5);
   text-align: left;
   cursor: pointer;
 }
 
 .questionText {
   font-size: var(--text-lg);
-  line-height: 1.45;
-  font-weight: var(--weight-bold);
-  min-height: 2.8em;
+  line-height: var(--leading-snug);
+  font-weight: var(--weight-semibold);
+  transition: color var(--transition);
 }
 
+.question:hover .questionText {
+  color: var(--accent);
+}
+
+.itemOpen .questionText {
+  color: var(--accent);
+}
+
+/* A bare plus-minus, without the circle the card version wrapped it in. */
 .iconWrap {
   position: relative;
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
   flex-shrink: 0;
 }
 
@@ -110,13 +86,19 @@
   top: 50%;
   left: 50%;
   width: 16px;
-  height: 2px;
-  background: var(--accent);
+  height: 1.5px;
+  background: var(--text-muted);
   border-radius: var(--radius-pill);
   transform: translate(-50%, -50%);
   transition:
     transform var(--transition),
-    opacity var(--transition);
+    opacity var(--transition),
+    background var(--transition);
+}
+
+.question:hover .iconLine,
+.itemOpen .iconLine {
+  background: var(--accent);
 }
 
 .iconLineVertical {
@@ -131,7 +113,7 @@
 .answerWrap {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.32s ease;
+  transition: grid-template-rows var(--duration-slow) var(--ease-out);
 }
 
 .answerWrapOpen {
@@ -143,16 +125,17 @@
 }
 
 .answer {
-  padding: 0 26px 24px;
+  padding: 0 var(--space-10) var(--space-6) 0;
   color: var(--text-muted);
   font-size: var(--text-md);
-  line-height: 1.75;
-  max-width: 760px;
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
 }
 
 @media (max-width: 1180px) {
   .wrapper {
     grid-template-columns: 1fr;
+    gap: var(--space-10);
   }
 
   .intro {
@@ -161,51 +144,21 @@
 }
 
 @media (max-width: 768px) {
-  .description,
-  .questionText {
-    min-height: auto;
-  }
-
   .description {
-    font-size: var(--text-md);
+    font-size: var(--text-base);
   }
 
   .question {
-    padding: 20px 18px 20px 20px;
-    gap: 14px;
-  }
-
-  .answer {
-    padding: 0 20px 20px;
-    font-size: var(--text-base);
-    line-height: 1.68;
-  }
-
-  .item {
-    border-radius: var(--radius-lg);
-  }
-
-  .iconWrap {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
+    padding: var(--space-5) 0;
+    gap: var(--space-4);
   }
 
   .questionText {
     font-size: var(--text-md);
   }
-}
-
-@media (max-width: 480px) {
-  .list {
-    gap: 12px;
-  }
-
-  .question {
-    padding: 18px 16px;
-  }
 
   .answer {
-    padding: 0 16px 18px;
+    padding: 0 0 var(--space-5);
+    font-size: var(--text-base);
   }
 }

@@ -31,19 +31,12 @@
 }
 
 .kicker {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  min-height: 42px;
-  padding: 8px 16px;
-  margin-bottom: 24px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  background: var(--accent-subtle);
+  display: block;
+  margin-bottom: var(--space-4);
   color: var(--accent);
-  font-size: var(--text-base);
-  font-weight: var(--weight-bold);
-  letter-spacing: 0.06em;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
 }
 
@@ -65,92 +58,76 @@
   line-height: 1.8;
 }
 
+/* Address and access details read as a definition list on rules. The card
+   version wrapped four short lines in two nested panels. */
 .addressCard {
   font-style: normal;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 28px 30px;
-  margin-bottom: 22px;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.03),
-      rgba(255, 255, 255, 0.015)
-    ),
-    rgba(10, 10, 10, 0.92);
-  box-shadow:
-    0 18px 60px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  gap: var(--space-2);
+  padding: var(--space-6) 0;
+  margin-bottom: 0;
+  border-top: 1px solid var(--border-strong);
 }
 
 .addressLabel {
   color: var(--accent);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-black);
-  letter-spacing: 0.1em;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
 }
 
 .addressText {
   color: var(--text);
-  font-size: var(--text-lg);
-  line-height: 1.5;
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
   font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
 }
 
 .addressMeta {
-  color: rgba(255, 255, 255, 0.48);
+  color: var(--text-muted);
   font-size: var(--text-base);
-  line-height: 1.5;
+  line-height: var(--leading-snug);
 }
 
 .infoGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
-  margin: 0 0 36px;
+  gap: 0;
+  margin: 0 0 var(--space-10);
 }
 
 .infoItem {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 18px;
-  padding: 18px 20px;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.025),
-      rgba(255, 255, 255, 0.01)
-    ),
-    rgba(10, 10, 10, 0.6);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  gap: var(--space-6);
+  padding: var(--space-4) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
 }
 
 .infoItemLabel {
-  color: var(--accent);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-black);
-  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .infoItemValue {
-  color: rgba(255, 255, 255, 0.82);
-  font-size: var(--text-md);
-  line-height: 1.45;
+  color: var(--text);
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
   text-align: right;
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: var(--space-3);
 }
 
 .primaryButton,
@@ -159,46 +136,45 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 58px;
-  padding: 0 28px;
+  min-height: 54px;
+  padding: 0 var(--space-6);
   border-radius: var(--radius-pill);
-  text-decoration: none;
-  font-weight: var(--weight-bold);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease,
-    color 0.25s ease,
-    opacity 0.25s ease;
+    transform var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    color var(--transition);
 }
 
 .primaryButton {
-  color: #0c0c0c;
-  background: linear-gradient(135deg, #f0cf72, var(--accent));
-  box-shadow:
-    0 12px 34px rgba(212, 175, 55, 0.28),
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  box-shadow: var(--shadow-accent);
 }
 
 .primaryButton:hover {
   transform: translateY(-2px);
-  box-shadow:
-    0 18px 42px rgba(212, 175, 55, 0.36),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-accent-hover);
+}
+
+.primaryButton:active,
+.secondaryButton:active {
+  transform: translateY(0);
 }
 
 .secondaryButton {
   color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-strong);
 }
 
 .secondaryButton:hover {
   transform: translateY(-2px);
-  border-color: rgba(212, 175, 55, 0.35);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent);
+  background: var(--accent-subtle);
 }
 
 .mapShell {

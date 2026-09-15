@@ -12,11 +12,13 @@ export default function Reviews() {
       <Container>
         <div className={styles.wrapper}>
           <div className={styles.intro}>
-            <div className={styles.kicker}>{t("reviews.kicker")}</div>
+            <div className={styles.introCopy}>
+              <div className={styles.kicker}>{t("reviews.kicker")}</div>
 
-            <h2 className={styles.title}>{t("reviews.title")}</h2>
+              <h2 className={styles.title}>{t("reviews.title")}</h2>
 
-            <p className={styles.description}>{t("reviews.description")}</p>
+              <p className={styles.description}>{t("reviews.description")}</p>
+            </div>
 
             <div className={styles.ratingCard}>
               <div className={styles.ratingTop}>
@@ -56,33 +58,29 @@ export default function Reviews() {
 
           <div className={styles.grid}>
             {reviewKeys.map((key) => (
-              <article key={key} className={styles.card}>
+              <figure key={key} className={styles.quoteBlock}>
                 <div className={styles.cardTop}>
-                  <div className={styles.cardStars}>★★★★★</div>
-                  <div className={styles.serviceBadge}>
+                  <span className={styles.cardStars} aria-hidden="true">
+                    ★★★★★
+                  </span>
+                  <span className={styles.serviceBadge}>
                     {t(`reviews.items.${key}.service`)}
-                  </div>
+                  </span>
                 </div>
 
-                <p className={styles.quote}>
-                  “{t(`reviews.items.${key}.text`)}”
-                </p>
+                <blockquote className={styles.quote}>
+                  {`\u201C${t(`reviews.items.${key}.text`)}\u201D`}
+                </blockquote>
 
-                <div className={styles.authorBlock}>
-                  <div className={styles.avatar}>
-                    {t(`reviews.items.${key}.name`).charAt(0)}
-                  </div>
-
-                  <div className={styles.authorInfo}>
-                    <div className={styles.authorName}>
-                      {t(`reviews.items.${key}.name`)}
-                    </div>
-                    <div className={styles.authorMeta}>
-                      {t(`reviews.items.${key}.car`)}
-                    </div>
-                  </div>
-                </div>
-              </article>
+                <figcaption className={styles.authorBlock}>
+                  <span className={styles.authorName}>
+                    {t(`reviews.items.${key}.name`)}
+                  </span>
+                  <span className={styles.authorMeta}>
+                    {t(`reviews.items.${key}.car`)}
+                  </span>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>

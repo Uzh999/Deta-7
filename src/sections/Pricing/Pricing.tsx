@@ -20,6 +20,23 @@ const pricingKeys: PricingKey[] = [
 export default function Pricing() {
   const { t } = useTranslation();
 
+  // No package currently configures a badge, so the label row is dropped
+  // entirely rather than reserving an empty strip above every column. The
+  // row comes back on its own as soon as a badge is set in the config.
+  const plans = pricingKeys.map((key) => {
+    const config = pricingConfig[key];
+    const calculated = calculatePackagePricing(config);
+
+    return {
+      key,
+      config,
+      calculated,
+      badgeData: getPricingBadgeData(config, calculated),
+    };
+  });
+
+  const hasAnyBadge = plans.some((plan) => plan.badgeData !== null);
+
   return (
     <section id="pricing" className={styles.section}>
       <Container>
@@ -28,12 +45,11 @@ export default function Pricing() {
           subtitle={t("pricing.subtitle")}
         />
 
-        <div className={styles.grid}>
-          {pricingKeys.map((key) => {
-            const config = pricingConfig[key];
-            const calculated = calculatePackagePricing(config);
+        <div
+          className={`${styles.grid} ${hasAnyBadge ? styles.gridWithBadges : ""}`}
+        >
+          {plans.map(({ key, config, calculated, badgeData }) => {
             const isFeatured = Boolean(config.featured);
-            const badgeData = getPricingBadgeData(config, calculated);
 
             const badgeToneClass =
               badgeData?.tone === "accent"
@@ -43,52 +59,53 @@ export default function Pricing() {
             return (
               <article
                 key={key}
-                className={`${styles.card} ${isFeatured ? styles.featured : ""}`}
+                className={`${styles.plan} ${isFeatured ? styles.featured : ""}`}
               >
-                {badgeData && (
-                  <div className={`${styles.badge} ${badgeToneClass}`}>
-                    {badgeData.mode === "custom" && badgeData.textKey
-                      ? t(`pricing.badges.${badgeData.textKey}`)
-                      : t("pricing.badges.savings", {
-                          value: calculated.savings,
-                        })}
-                  </div>
-                )}
+                {hasAnyBadge &&
+                  (badgeData ? (
+                    <span className={`${styles.badge} ${badgeToneClass}`}>
+                      {badgeData.mode === "custom" && badgeData.textKey
+                        ? t(`pricing.badges.${badgeData.textKey}`)
+                        : t("pricing.badges.savings", {
+                            value: calculated.savings,
+                          })}
+                    </span>
+                  ) : (
+                    <span
+                      className={styles.badgePlaceholder}
+                      aria-hidden="true"
+                    />
+                  ))}
 
-                <div className={styles.content}>
-                  <div className={styles.top}>
-                    <h3 className={styles.planTitle}>
-                      {t(`pricing.items.${key}.title`)}
-                    </h3>
+                <h3 className={styles.planTitle}>
+                  {t(`pricing.items.${key}.title`)}
+                </h3>
 
-                    <p className={styles.planDescription}>
-                      {t(`pricing.items.${key}.description`)}
-                    </p>
-                  </div>
+                <p className={styles.planDescription}>
+                  {t(`pricing.items.${key}.description`)}
+                </p>
 
-                  <ul className={styles.features}>
-                    {[1, 2, 3, 4, 5].map((item) => {
-                      const path = `pricing.items.${key}.features.${item}`;
-                      const value = t(path);
+                <ul className={styles.features}>
+                  {[1, 2, 3, 4, 5].map((item) => {
+                    const path = `pricing.items.${key}.features.${item}`;
+                    const value = t(path);
 
-                      if (value === path) return null;
+                    if (value === path) return null;
 
-                      return (
-                        <li key={item} className={styles.featureItem}>
-                          <span className={styles.check}>✓</span>
-                          <span>{value}</span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
+                    return (
+                      <li key={item} className={styles.featureItem}>
+                        {value}
+                      </li>
+                    );
+                  })}
+                </ul>
 
                 <div className={styles.bottom}>
                   <div className={styles.priceBlock}>
                     {calculated.savings > 0 && (
-                      <div className={styles.oldPrice}>
+                      <span className={styles.oldPrice}>
                         {formatPrice(calculated.rawPrice)}
-                      </div>
+                      </span>
                     )}
 
                     <span className={styles.price}>
@@ -96,9 +113,9 @@ export default function Pricing() {
                     </span>
 
                     {calculated.savings > 0 && (
-                      <div className={styles.savings}>
+                      <span className={styles.savings}>
                         {t("pricing.savings", { value: calculated.savings })}
-                      </div>
+                      </span>
                     )}
                   </div>
 
@@ -110,6 +127,7 @@ export default function Pricing() {
             );
           })}
         </div>
+
       </Container>
     </section>
   );
