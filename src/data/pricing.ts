@@ -1,7 +1,7 @@
 // data/pricing.ts
-export const exteriorBasePrice = 600;
-export const interiorBasePrice = 300;
-export const detailsProtectionBasePrice = 250;
+export const exteriorBasePrice = 700;
+export const interiorBasePrice = 400;
+export const detailsProtectionBasePrice = 350;
 export const salePreparationIsRequestBased = false;
 
 export type PricingKey = "basic" | "salePrep" | "premium" | "premium2Step";
@@ -115,11 +115,11 @@ export const individualServicesConfig: Record<
     items: {
       oneStepCorrection: {
         priceType: "from",
-        price: 600,
+        price: 700,
       },
       twoStepCorrection: {
         priceType: "from",
-        price: 1100,
+        price: 1200,
       },
     },
   },
@@ -128,19 +128,19 @@ export const individualServicesConfig: Record<
     items: {
       hardWax: {
         priceType: "addon",
-        price: 200,
+        price: 300,
       },
       carbonCoating: {
         priceType: "from",
-        price: 300,
+        price: 400,
       },
       ceramicCoating: {
         priceType: "from",
-        price: 400,
+        price: 500,
       },
       grapheneCoating: {
         priceType: "from",
-        price: 600,
+        price: 700,
       },
     },
   },
@@ -149,15 +149,15 @@ export const individualServicesConfig: Record<
     items: {
       interiorDetailing: {
         priceType: "from",
-        price: 400,
+        price: 500,
       },
       heavySoilingExtra: {
         priceType: "addon",
-        price: 100,
+        price: 200,
       },
       upholsteryCleaning: {
         priceType: "from",
-        price: 500,
+        price: 600,
       },
       leatherCleaningProtection: {
         priceType: "custom",
@@ -172,12 +172,12 @@ export const individualServicesConfig: Record<
     items: {
       headlightRestoration: {
         priceType: "range",
-        minPrice: 250,
-        maxPrice: 300,
+        minPrice: 350,
+        maxPrice: 400,
       },
       headlightPpfExtra: {
         priceType: "addon",
-        price: 150,
+        price: 250,
       },
       headlightWrapping: {
         priceType: "custom",
@@ -187,7 +187,7 @@ export const individualServicesConfig: Record<
       },
       rainRepellent: {
         priceType: "from",
-        price: 100,
+        price: 200,
       },
     },
   },
@@ -196,12 +196,12 @@ export const individualServicesConfig: Record<
     items: {
       oilAndFilters: {
         priceType: "from",
-        price: 100,
+        price: 200,
       },
       suspensionDiagnostics: {
         priceType: "range",
-        minPrice: 50,
-        maxPrice: 100,
+        minPrice: 150,
+        maxPrice: 200,
       },
       mechanicalRepairs: {
         priceType: "custom",
@@ -294,7 +294,7 @@ export const pricingConfig: Record<PricingKey, PricingItemConfig> = {
     includes: basicPackageItems,
     discount: {
       type: "amount",
-      value: 100,
+      value: 200,
     },
   },
 
@@ -302,7 +302,7 @@ export const pricingConfig: Record<PricingKey, PricingItemConfig> = {
     includes: salePrepPackageItems,
     discount: {
       type: "amount",
-      value: 200,
+      value: 400,
     },
   },
 
@@ -310,7 +310,7 @@ export const pricingConfig: Record<PricingKey, PricingItemConfig> = {
     includes: premiumPackageItems,
     discount: {
       type: "amount",
-      value: 150,
+      value: 550,
     },
     featured: true,
   },
@@ -319,7 +319,7 @@ export const pricingConfig: Record<PricingKey, PricingItemConfig> = {
     includes: premium2StepPackageItems,
     discount: {
       type: "amount",
-      value: 150,
+      value: 550,
     },
   },
 };
