@@ -471,5 +471,10 @@
     ],
     "cta": "Umów diagnostykę",
     "note": "Trwa 15–20 minut. Bez zobowiązań i nacisku."
+  },
+  "whatsapp": {
+    "label": "Napisz do nas na WhatsAppie",
+    "tooltip": "Napisz na WhatsAppie",
+    "message": "Dzień dobry! Piszę w sprawie detailingu."
   }
 }

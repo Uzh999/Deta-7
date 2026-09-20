@@ -1,0 +1,144 @@
+/* A single floating action in the bottom-right corner. Gold like every other
+   primary control on the page rather than the messenger's own green, which
+   would be the one off-palette colour on the site. */
+
+.dock {
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  /* Above the page, below the navbar (30) and the mobile menu overlay (25),
+     so an open menu covers it rather than the other way round. */
+  z-index: 24;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.92);
+  transition:
+    opacity var(--transition),
+    transform var(--transition),
+    visibility var(--transition);
+}
+
+.dockVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  box-shadow: var(--shadow-accent);
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-accent-hover);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.icon {
+  display: block;
+}
+
+/* A quiet ring that breathes once in a while, so the button registers without
+   the page acquiring a permanently animated corner. */
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--accent);
+  animation: pulse 3.2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  55%,
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+.tooltip {
+  /* Sits to the left of the button on a pointer device and is never shown on
+     touch, where there is no hover to reveal it. */
+  display: none;
+  padding: 10px 14px;
+  border-radius: var(--radius-pill);
+  background: #101010;
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateX(8px);
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tooltip {
+    display: block;
+  }
+
+  .dock:hover .tooltip,
+  .dock:focus-within .tooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .button {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock,
+  .button,
+  .tooltip {
+    transition: none;
+  }
+
+  .button::before {
+    animation: none;
+  }
+
+  .button:hover {
+    transform: none;
+  }
+}

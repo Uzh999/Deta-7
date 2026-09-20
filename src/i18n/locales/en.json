@@ -471,5 +471,10 @@
     ],
     "cta": "Book an assessment",
     "note": "Takes 15–20 minutes. No obligation, no pressure."
+  },
+  "whatsapp": {
+    "label": "Message us on WhatsApp",
+    "tooltip": "Message on WhatsApp",
+    "message": "Hello! I'd like to ask about detailing."
   }
 }

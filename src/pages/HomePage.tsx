@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import OfferPopup from "../components/OfferPopup/OfferPopup";
+import WhatsAppButton from "../components/WhatsAppButton/WhatsAppButton";
 import Hero from "../sections/Hero/Hero";
 import Services from "../sections/Services/Services";
 import BeforeAfter from "../sections/BeforeAfter/BeforeAfter";
@@ -48,6 +49,8 @@ export default function HomePage() {
       </main>
 
       <Footer />
+
+      <WhatsAppButton />
     </>
   );
 }

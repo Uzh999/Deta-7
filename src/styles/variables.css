@@ -142,8 +142,9 @@
   /* Z-index scale, replacing scattered magic numbers. */
   --z-map: 1;
   --z-content: 2;
-  /* Above the page, below the sticky header it would otherwise cover. */
-  --z-dropdown: 50;
+  /* Above page content, below the navbar (30) so an open list never
+     covers the sticky header. */
+  --z-dropdown: 20;
   --z-header: 100;
   --z-overlay: 200;
   --z-modal: 300;

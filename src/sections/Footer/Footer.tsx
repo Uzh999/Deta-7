@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
 import { footerNavigationKeys, navigationItems } from "../../data/navigation";
 import styles from "./Footer.module.css";
+import { PHONE_DISPLAY, PHONE_TEL } from "../../data/contact";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -46,8 +47,8 @@ export default function Footer() {
               <div className={styles.columnTitle}>{t("footer.contacts")}</div>
 
               <div className={styles.infoList}>
-                <a href="tel:+48733892486" className={styles.link}>
-                  +48 733 892 486
+                <a href={`tel:${PHONE_TEL}`} className={styles.link}>
+                  {PHONE_DISPLAY}
                 </a>
 
                 <div className={styles.textMuted}>{t("footer.address")}</div>
