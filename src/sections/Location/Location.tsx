@@ -101,17 +101,20 @@ export default function Location() {
             </div>
 
             <div className={styles.actions}>
+              {/* Booking carries the primary weight on purpose. The map link
+                  sends the visitor off-site, so it must not outrank the one
+                  action this section exists to produce. */}
+              <a href="#contact" className={styles.primaryButton}>
+                {t("location.bookCta")}
+              </a>
+
               <a
                 href={MAP_URL}
                 target="_blank"
                 rel="noreferrer noopener"
-                className={styles.primaryButton}
+                className={styles.secondaryButton}
               >
-                {t("location.primaryCta")}
-              </a>
-
-              <a href="#contact" className={styles.secondaryButton}>
-                {t("location.secondaryCta")}
+                {t("location.mapCta")}
               </a>
             </div>
           </div>

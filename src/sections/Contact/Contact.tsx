@@ -19,6 +19,7 @@ const initialForm: FormState = {
 };
 
 const serviceKeys = [
+  "freeDiagnostics",
   "basic",
   "salePrep",
   "premium",
@@ -68,9 +69,18 @@ function extractResponseError(
   return `Request failed with status ${response.status}`;
 }
 
-export default function Contact() {
+type ContactProps = {
+  /** Option to open the service select on, set by the free-assessment band. */
+  requestedService?: string;
+};
+
+export default function Contact({ requestedService = "" }: ContactProps) {
   const { t, i18n } = useTranslation();
   const [form, setForm] = useState<FormState>(initialForm);
+
+  /* Derived rather than synced into state: once the visitor picks anything
+     themselves, their choice wins and no effect has to race the render. */
+  const selectedService = form.service || requestedService;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -113,7 +123,11 @@ export default function Contact() {
           source: "contact-form",
           name: form.name,
           phone: form.phone,
-          service: form.service,
+          // The readable label, not the internal key — this lands in the
+          // Telegram notification, where "ceramicCoating" means nothing.
+          service: selectedService
+            ? t(`contact.form.services.${selectedService}`)
+            : "",
           message: form.message,
           locale: i18n.language,
           page: `${window.location.pathname}${window.location.hash}`,
@@ -194,7 +208,7 @@ export default function Contact() {
                     id="service"
                     name="service"
                     className={styles.select}
-                    value={form.service}
+                    value={selectedService}
                     onChange={handleChange}
                     required
                   >

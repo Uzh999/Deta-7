@@ -189,7 +189,7 @@
   min-height: 760px;
   border-radius: var(--radius-2xl);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   background:
     radial-gradient(
       circle at 20% 20%,
@@ -598,7 +598,7 @@
   }
 
   .mapCoords {
-    font-size: 0.66rem;
+    font-size: var(--text-2xs);
   }
 
   :global(.maplibregl-ctrl-top-right) {

@@ -7,6 +7,7 @@ import { SUPPORTED_LANGUAGES } from "../app/languages";
 import ru from "./locales/ru.json";
 import uk from "./locales/uk.json";
 import pl from "./locales/pl.json";
+import en from "./locales/en.json";
 
 i18n
   .use(LanguageDetector)
@@ -16,6 +17,7 @@ i18n
       ru: { translation: ru },
       uk: { translation: uk },
       pl: { translation: pl },
+      en: { translation: en },
     },
     fallbackLng: "pl",
     supportedLngs: [...SUPPORTED_LANGUAGES],

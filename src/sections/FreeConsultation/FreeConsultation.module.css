@@ -1,0 +1,144 @@
+/* A low-commitment entry point, placed right after the price list where a
+   visitor is most likely to be unsure. Carried by rules and a faint accent
+   wash rather than a panel, so it reads as part of the page rather than an
+   advert dropped onto it. */
+
+.section {
+  position: relative;
+}
+
+.band {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: var(--space-16);
+  align-items: start;
+  padding: var(--space-12) 0;
+  border-top: 1px solid var(--accent-border);
+  border-bottom: 1px solid var(--surface-border);
+  /* The only accent wash on the page outside the featured package. */
+  background: linear-gradient(180deg, var(--accent-subtle), transparent 60%);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.kicker {
+  color: var(--accent);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  font-weight: var(--weight-bold);
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 52ch;
+  color: var(--text-muted);
+  font-size: var(--text-md);
+  line-height: var(--leading-relaxed);
+  text-wrap: pretty;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.point {
+  position: relative;
+  padding-left: var(--space-5);
+  color: var(--text);
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
+}
+
+.point::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 10px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  box-shadow: var(--shadow-accent);
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-accent-hover);
+}
+
+.cta:active {
+  transform: translateY(0);
+}
+
+.note {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+@media (max-width: 1024px) {
+  .band {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+
+@media (max-width: 640px) {
+  .band {
+    padding: var(--space-8) 0;
+  }
+
+  .title {
+    font-size: var(--text-3xl);
+  }
+
+  .cta {
+    width: 100%;
+  }
+}

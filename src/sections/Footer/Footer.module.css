@@ -30,8 +30,8 @@
   padding: 8px 16px;
   margin-bottom: 24px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(215, 181, 109, 0.18);
-  background: rgba(215, 181, 109, 0.08);
+  border: 1px solid var(--accent-border);
+  background: var(--accent-subtle);
   color: var(--accent);
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);

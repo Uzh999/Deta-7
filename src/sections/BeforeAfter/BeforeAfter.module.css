@@ -13,7 +13,7 @@
   height: 460px;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   background: rgba(255, 255, 255, 0.03);
   user-select: none;
   cursor: ew-resize;
@@ -75,7 +75,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(8, 8, 8, 0.58);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--surface-border);
   backdrop-filter: blur(10px);
   color: var(--text);
   font-size: var(--text-sm);

@@ -7,7 +7,9 @@
 .button {
   width: 48px;
   min-width: 48px;
-  height: 40px;
+  /* 44px is the minimum comfortable touch target. With four locales the
+     buttons sit close together, so an undersized one costs a mis-tap. */
+  height: 44px;
   border: 1px solid var(--surface-border);
   background: transparent;
   color: var(--text);

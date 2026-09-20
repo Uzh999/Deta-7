@@ -1,0 +1,474 @@
+{
+  "nav": {
+    "services": "Services",
+    "before-after": "Before / After",
+    "about": "About",
+    "pricing": "Packages",
+    "individualServices": "À la carte",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "badge": "Premium detailing and car care",
+    "title": "Detailing and care that give a car back its flawless look",
+    "description": "Paint correction, interior detailing, protective coatings, basic mechanics and complete car care with attention to every detail.",
+    "primaryCta": "Book a slot",
+    "secondaryCta": "See packages",
+    "trust": {
+      "years": {
+        "value": "5+",
+        "label": "Years of experience"
+      },
+      "cars": {
+        "value": "500+",
+        "label": "Cars serviced"
+      },
+      "rating": {
+        "value": "4.9/5",
+        "label": "Customer rating"
+      }
+    },
+    "visual": {
+      "topBadge": "Premium car care studio",
+      "kicker": "Flawless finish",
+      "title": "A result you see straight away",
+      "text": "Deep gloss, a clean silhouette and protection that keeps the car looking its best for longer."
+    }
+  },
+  "services": {
+    "title": "What we do",
+    "subtitle": "We treat the car as a whole — from its exterior and interior through to basic mechanics and software work.",
+    "featuredBadge": "Recommended",
+    "items": {
+      "exterior": {
+        "kicker": "Bodywork",
+        "title": "Exterior detailing",
+        "description": "Professional paintwork care that brings back colour depth, gloss and a noticeably better-kept look.",
+        "features": [
+          "One-step and multi-step polishing",
+          "Removal of light scratches and holograms",
+          "Paintwork protection"
+        ],
+        "coatingsTitle": "Protective coating options",
+        "coatingLabels": [
+          "Hard ceramic wax",
+          "Carbon coating",
+          "Ceramic coating",
+          "Graphene coating"
+        ]
+      },
+      "interior": {
+        "kicker": "Interior",
+        "title": "Interior detailing",
+        "description": "Thorough cleaning that restores the freshness of the materials and leaves the cabin neat and well kept.",
+        "features": [
+          "Seat and upholstery deep cleaning",
+          "Leather cleaning and protection",
+          "Trim and air-conditioning cleaning"
+        ]
+      },
+      "mechanics": {
+        "kicker": "Mechanics",
+        "title": "Basic service and mechanics",
+        "description": "We keep the car in good technical shape through routine servicing, diagnostics and mechanical work.",
+        "features": [
+          "Oil and filter changes",
+          "Suspension diagnostics",
+          "General mechanical work"
+        ]
+      },
+      "tuning": {
+        "kicker": "ECU / TCU",
+        "title": "ECU and gearbox remapping",
+        "description": "Software work for owners who want sharper response, better dynamics and a car tuned to their own configuration.",
+        "features": [
+          "Stage 1",
+          "Gearbox remapping",
+          "EGR / DPF / AdBlue / Eco Off"
+        ],
+        "note": "The final result depends on the engine, the gearbox and the car's configuration."
+      }
+    }
+  },
+  "beforeAfter": {
+    "title": "Our work",
+    "subtitle": "Drag the slider to see the difference before and after detailing",
+    "before": "Before",
+    "after": "After",
+    "sliderLabel": "Before and after comparison — arrow keys move the slider",
+    "altBefore": "Car before detailing",
+    "altAfter": "Car after detailing"
+  },
+  "about": {
+    "title": "About us",
+    "subtitle": "Complete car care with attention to appearance, technical condition and every detail.",
+    "description": "We treat a car as a whole system. What matters to us is not only the shine of the paint or a clean cabin, but the overall feel of the car — how it looks, how it comes across and what condition it is in. Detailing, basic mechanics and software work let us approach the job more broadly than a standard car care studio. We do not work fast and loose — we work carefully, step by step, with a clear idea of what a genuinely strong result should be.",
+    "stats": {
+      "cars": "Cars serviced",
+      "years": "Years of experience",
+      "approach": "Complete approach"
+    },
+    "items": {
+      "approach": {
+        "icon": "✦",
+        "kicker": "Approach",
+        "title": "We look at the whole car",
+        "description": "We combine exterior care, interior work, basic mechanics and software so the car is not merely clean but genuinely put in order."
+      },
+      "details": {
+        "icon": "◈",
+        "kicker": "Precision",
+        "title": "Attention to detail, without compromise",
+        "description": "We work carefully and methodically across the body, the cabin, the headlights, the protected areas and the small details that shape the overall impression."
+      },
+      "expertise": {
+        "icon": "⬢",
+        "kicker": "Expertise",
+        "title": "Not just aesthetics, but technical understanding",
+        "description": "We understand a car as more than an object to be cleaned. That is why the materials and the visual effect matter as much as taking the right technical approach."
+      },
+      "result": {
+        "icon": "⟐",
+        "kicker": "Result",
+        "title": "An effect you can see and feel",
+        "description": "Our aim is for the car to look fresher, cleaner and more valuable, and for the owner to feel it has had genuinely considered care."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Service packages",
+    "subtitle": "Choose a package to match the condition of your car and the result you want — from a quick refresh to full premium detailing.",
+    "priceFrom": "{{value}} zł",
+    "cta": "Book a slot",
+    "savings": "You save {{value}} zł",
+    "badges": {
+      "savings": "You save {{value}} zł",
+      "top": "Top",
+      "mostChosen": "Most chosen",
+      "bestChoice": "Best choice"
+    },
+    "items": {
+      "basic": {
+        "title": "Basic package",
+        "description": "An entry-level package that refreshes the paintwork and gives the car a deeper everyday gloss.",
+        "features": {
+          "1": "One-step paint correction",
+          "2": "Hard protective wax"
+        }
+      },
+      "salePrep": {
+        "title": "Sale preparation",
+        "description": "The right choice when you need to improve how the car looks, raise its appeal and present it well for sale.",
+        "features": {
+          "1": "Everything in the Basic package",
+          "2": "Interior detailing"
+        }
+      },
+      "premium": {
+        "title": "Premium package",
+        "description": "A complete refresh — paintwork, cabin and details for a markedly stronger visual result.",
+        "features": {
+          "1": "Everything in the Sale preparation package",
+          "2": "Headlight restoration",
+          "3": "Rain repellent for glass"
+        }
+      },
+      "premium2Step": {
+        "title": "Premium 2-Step",
+        "description": "Our most advanced package, for owners who want the maximum result and deeper paint correction.",
+        "features": {
+          "1": "Two-step paint correction",
+          "2": "Everything in the Premium package"
+        }
+      }
+    }
+  },
+  "individualServices": {
+    "title": "Individual services",
+    "subtitle": "Alongside the packages we offer individual services across detailing, protection, mechanics and ECU / TCU work.",
+    "priceFormats": {
+      "from": "from {{value}} zł",
+      "addon": "+{{value}} zł",
+      "range": "{{min}}–{{max}} zł",
+      "custom": "quoted individually",
+      "link": "view"
+    },
+    "categories": {
+      "paintCorrection": {
+        "kicker": "Bodywork",
+        "title": "Paint correction",
+        "description": "For cars that need their gloss back, fewer small defects and a fresher-looking body.",
+        "items": {
+          "oneStepCorrection": "One-step paint correction",
+          "twoStepCorrection": "Two-step paint correction"
+        }
+      },
+      "paintProtection": {
+        "kicker": "Protection",
+        "title": "Paintwork protection",
+        "description": "Coatings and protective solutions that preserve the paintwork and hold the detailing result for longer.",
+        "items": {
+          "hardWax": "Hard ceramic wax",
+          "carbonCoating": "Carbon coating",
+          "ceramicCoating": "Ceramic coating",
+          "grapheneCoating": "Graphene coating"
+        }
+      },
+      "interiorDetailing": {
+        "kicker": "Interior",
+        "title": "Interior detailing",
+        "description": "Thorough cleaning and renewal of the cabin, matched to how soiled it is and the materials involved.",
+        "items": {
+          "interiorDetailing": "Interior detailing",
+          "heavySoilingExtra": "Surcharge for heavily soiled interiors",
+          "upholsteryCleaning": "Seat deep clean / upholstery cleaning",
+          "leatherCleaningProtection": "Leather cleaning and protection",
+          "acCleaning": "Air-conditioning cleaning"
+        }
+      },
+      "detailsProtection": {
+        "kicker": "Details",
+        "title": "Restoring and protecting details",
+        "description": "Work that improves the look and durability of headlights, glass and the car's most exposed parts.",
+        "items": {
+          "headlightRestoration": "Headlight restoration",
+          "headlightPpfExtra": "Protective film for headlights",
+          "headlightWrapping": "Headlight wrapping",
+          "doorHandleProtection": "Film under door handles",
+          "rainRepellent": "Rain repellent for glass"
+        }
+      },
+      "mechanics": {
+        "kicker": "Mechanics",
+        "title": "Basic service and mechanics",
+        "description": "Routine servicing and mechanical work that keeps the car in good technical condition.",
+        "items": {
+          "oilAndFilters": "Oil and filter change",
+          "suspensionDiagnostics": "Suspension diagnostics",
+          "mechanicalRepairs": "General mechanical work"
+        }
+      },
+      "tuning": {
+        "kicker": "ECU / TCU",
+        "title": "ECU and gearbox remapping",
+        "description": "Software work for owners who want better dynamics or particular systems switched off.",
+        "items": {
+          "stage1": "Stage 1",
+          "ecoOff": "EGR / DPF / AdBlue / Eco Off"
+        }
+      }
+    }
+  },
+  "reviews": {
+    "kicker": "Customer reviews",
+    "title": "Trusted with cars their owners want kept in perfect condition",
+    "description": "We work so the result shows immediately: a clean cabin, deep gloss, carefully worked details and a premium finish you notice at first glance.",
+    "ratingText": "Average customer rating based on real service experience",
+    "metrics": {
+      "cars": "Cars serviced",
+      "years": "Years of experience",
+      "focus": "Focus on quality"
+    },
+    "items": {
+      "review1": {
+        "service": "Premium package",
+        "text": "Very happy with the result. The car looks considerably more expensive — deep gloss, a clean cabin and attention to every detail. Special thanks to Marina for her professionalism and careful work.",
+        "name": "Igor",
+        "car": "Toyota Corolla"
+      },
+      "review2": {
+        "service": "Premium package",
+        "text": "Everything was done to the highest standard. The cabin is like new, the body gleams, not a single flaw. You can tell they care about the work. Thank you Marina — an excellent specialist.",
+        "name": "Andrei",
+        "car": "Audi A3"
+      },
+      "review3": {
+        "service": "Premium package",
+        "text": "The result exceeded my expectations. The car looks perfect, even the small details have been worked through. Very pleasant service and approach. Huge thanks to Marina.",
+        "name": "Sergei",
+        "car": "BMW X5"
+      },
+      "review4": {
+        "service": "Premium 2-Step",
+        "text": "I chose 2-Step and have not regretted it once. The paint is like a mirror, the colour is deep and it feels like a brand-new car. Faultless work. Thank you Marina for this level of quality.",
+        "name": "Maksim",
+        "car": "Lexus IS"
+      }
+    }
+  },
+  "faq": {
+    "kicker": "Frequently asked",
+    "title": "Answers to the questions that come up most before a visit",
+    "subtitle": "We have gathered the essentials so it is easier to understand how we work, how long things take and what each service covers.",
+    "description": "We work across the board — from detailing and paintwork protection through to basic mechanics and ECU / TCU solutions. Below are the questions that come up most often before booking.",
+    "items": {
+      "q1": {
+        "question": "How long does a service take?",
+        "answer": "It depends on the scope of work and the condition of the car. Individual services such as basic interior detailing, an oil change or diagnostics can take a few hours. More involved work — paint correction, full detailing, extended mechanical work or a combined service — can take a full day or longer. We confirm the exact time once we have assessed the car and agreed the scope."
+      },
+      "q2": {
+        "question": "Do I need to book in advance?",
+        "answer": "Yes, booking ahead is strongly preferred. It lets us plan the time, prepare the right materials and work out a suitable scope for your car without rushing. This applies to detailing as much as to mechanical work or ECU / TCU solutions."
+      },
+      "q3": {
+        "question": "Can I order a single service rather than a full package?",
+        "answer": "Yes. There is no need to take a ready-made package if you only want one particular result or service. You can book interior detailing, paint correction, headlight restoration, rain repellent for the glass, basic mechanical servicing or a specific ECU / TCU solution on its own."
+      },
+      "q4": {
+        "question": "What is the difference between paint correction and a protective coating?",
+        "answer": "Paint correction improves the surface itself — it removes light scratches, signs of use and holograms, and brings back colour depth and gloss. A protective coating or wax is applied afterwards and helps the car stay clean, water-repellent and fresh-looking for longer. They are separate stages that complement each other well."
+      },
+      "q5": {
+        "question": "How long do protective coatings last?",
+        "answer": "Durability depends on the type of protection, how the car is used and how it is cared for afterwards. Hard ceramic wax gives seasonal protection, while more advanced coatings — carbon, ceramic or graphene — last noticeably longer. For each service we help choose an option to match the effect you expect and your budget."
+      },
+      "q6": {
+        "question": "Do you also handle mechanics and ECU / TCU work?",
+        "answer": "Yes. Alongside detailing we offer basic mechanical servicing, including oil and filter changes, suspension diagnostics and individual mechanical jobs. We also work with ECU / TCU solutions such as Stage 1 and specific modifications like EGR / DPF / AdBlue / Eco Off. The scope and the result depend on the particular model, engine and configuration."
+      }
+    }
+  },
+  "contact": {
+    "kicker": "Get in touch",
+    "title": "Send a request and we will come back to you shortly",
+    "description": "Fill in the short form and we will help you choose the right service, confirm the details and agree a convenient time.",
+    "cards": {
+      "phone": {
+        "label": "Phone",
+        "value": "+48 123 456 789"
+      },
+      "hours": {
+        "label": "Opening hours",
+        "value": "Mon–Sat · 09:00–19:00"
+      },
+      "response": {
+        "label": "Response",
+        "value": "Usually within 15–30 minutes"
+      }
+    },
+    "form": {
+      "name": "Name",
+      "phone": "Phone number",
+      "service": "Service",
+      "message": "Message",
+      "submit": "Send request",
+      "sending": "Sending...",
+      "success": "Your request has been sent. We will be in touch shortly.",
+      "error": "The request could not be sent. Please try again.",
+      "placeholders": {
+        "name": "Your name",
+        "phone": "+48 123 456 789",
+        "service": "Choose a service",
+        "message": "Briefly describe what you need"
+      },
+      "services": {
+        "freeDiagnostics": "Free assessment / consultation",
+        "basic": "Basic package",
+        "salePrep": "Sale preparation",
+        "premium": "Premium package",
+        "premium2Step": "Premium 2-Step",
+        "oneStepCorrection": "One-step paint correction",
+        "twoStepCorrection": "Two-step paint correction",
+        "hardWax": "Hard ceramic wax",
+        "carbonCoating": "Carbon coating",
+        "ceramicCoating": "Ceramic coating",
+        "grapheneCoating": "Graphene coating",
+        "interiorDetailing": "Interior detailing",
+        "upholsteryCleaning": "Seat deep clean / upholstery cleaning",
+        "leatherCleaningProtection": "Leather cleaning and protection",
+        "acCleaning": "Air-conditioning cleaning",
+        "headlightRestoration": "Headlight restoration",
+        "headlightWrapping": "Headlight wrapping",
+        "doorHandleProtection": "Film under door handles",
+        "rainRepellent": "Rain repellent for glass",
+        "oilAndFilters": "Oil and filter change",
+        "suspensionDiagnostics": "Suspension diagnostics",
+        "mechanicalRepairs": "General mechanical work",
+        "stage1": "Stage 1",
+        "ecoOff": "EGR / DPF / AdBlue / Eco Off",
+        "other": "Another service"
+      }
+    }
+  },
+  "location": {
+    "kicker": "Location",
+    "title": "Where to find us",
+    "description": "The studio is in Swarzędz — easy to reach, with a straightforward route for your booked visit.",
+    "addressLabel": "Address",
+    "addressMeta": "Poznań area · easy access",
+    "info": {
+      "location": {
+        "label": "Location",
+        "value": "Swarzędz / Poznań area"
+      },
+      "access": {
+        "label": "Access",
+        "value": "easy route and parking"
+      },
+      "format": {
+        "label": "Format",
+        "value": "by appointment only"
+      }
+    },
+    "mapCta": "Open in Google Maps",
+    "bookCta": "Book a slot",
+    "mapCard": {
+      "kicker": "Premium Studio",
+      "title": "Swarzędz, Poland",
+      "text": "The studio's exact location, with easy access and quick directions.",
+      "link": "Get directions"
+    },
+    "mapUnavailable": "The map preview is unavailable for now. The address is listed alongside."
+  },
+  "footer": {
+    "brand": "Premium Detailing",
+    "title": "A car that looks flawless starts with the right care",
+    "description": "Premium detailing, careful work on every detail and a result you notice at first glance. Book a service and leave your car with people who work carefully and professionally.",
+    "cta": "Send a request",
+    "navigation": "Navigation",
+    "contacts": "Contacts",
+    "address": "Mikołaja Reja 13, 62-020 Swarzędz, Poland",
+    "hoursTitle": "Hours",
+    "hoursWeek": "Mon–Sat · 09:00–19:00",
+    "hoursWeekend": "Sun · By appointment",
+    "response": "Usually a reply within 15–30 minutes",
+    "rights": "All rights reserved.",
+    "backToTop": "Back to top",
+    "hoursWeekLabel": "Weekdays",
+    "hoursWeekendLabel": "Weekend",
+    "responseLabel": "Response"
+  },
+  "offerPopup": {
+    "kicker": "Special offer",
+    "title": "Book your slot today",
+    "description": "Book today and we will add free glass protection.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "phoneLabel": "Phone",
+    "phonePlaceholder": "Your phone number",
+    "cta": "Send request",
+    "sending": "Sending...",
+    "note": "We will call you back and help choose the best package for your car.",
+    "successTitle": "Thank you for your request",
+    "successText": "We will be in touch shortly to confirm the details.",
+    "error": "The request could not be sent. Please try again.",
+    "close": "Close"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "freeConsultation": {
+    "kicker": "Free of charge",
+    "title": "Not sure what your car actually needs?",
+    "description": "Come in for a free assessment. We will look over the body and cabin, check the condition of the paintwork and tell you honestly what is worth doing and what is not.",
+    "points": [
+      "Inspection of body, interior and lights",
+      "Assessment of the paintwork's condition",
+      "Recommendations and an initial estimate"
+    ],
+    "cta": "Book an assessment",
+    "note": "Takes 15–20 minutes. No obligation, no pressure."
+  }
+}

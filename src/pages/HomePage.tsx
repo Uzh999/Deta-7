@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import OfferPopup from "../components/OfferPopup/OfferPopup";
@@ -7,6 +8,7 @@ import BeforeAfter from "../sections/BeforeAfter/BeforeAfter";
 import About from "../sections/About/About";
 import Pricing from "../sections/Pricing/Pricing";
 import IndividualServices from "../sections/individual-services/IndividualServices";
+import FreeConsultation from "../sections/FreeConsultation/FreeConsultation";
 import Reviews from "../sections/Reviews/Reviews";
 import FAQ from "../sections/FAQ/FAQ";
 import Contact from "../sections/Contact/Contact";
@@ -15,6 +17,10 @@ import Footer from "../sections/Footer/Footer";
 
 export default function HomePage() {
   const { t } = useTranslation();
+
+  /* Set when a visitor comes to the form from the free-assessment band, so
+     the service select opens on that option instead of an empty one. */
+  const [requestedService, setRequestedService] = useState("");
 
   return (
     <>
@@ -32,9 +38,12 @@ export default function HomePage() {
         <About />
         <Pricing />
         <IndividualServices />
+        <FreeConsultation
+          onRequest={() => setRequestedService("freeDiagnostics")}
+        />
         <Reviews />
         <FAQ />
-        <Contact />
+        <Contact requestedService={requestedService} />
         <Location />
       </main>
 

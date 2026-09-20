@@ -1,5 +1,5 @@
 /** Single source of truth for the locales the site ships. */
-export const SUPPORTED_LANGUAGES = ["ru", "uk", "pl"] as const;
+export const SUPPORTED_LANGUAGES = ["ru", "uk", "pl", "en"] as const;
 
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 

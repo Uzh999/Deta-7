@@ -6,10 +6,11 @@ const LANGUAGE_LABELS: Record<(typeof SUPPORTED_LANGUAGES)[number], string> = {
   pl: "PL",
   uk: "UA",
   ru: "RU",
+  en: "EN",
 };
 
 /** Display order, independent of the internal locale list order. */
-const DISPLAY_ORDER = ["pl", "uk", "ru"] as const;
+const DISPLAY_ORDER = ["pl", "uk", "ru", "en"] as const;
 
 export default function LanguageSwitcher() {
   const navigate = useNavigate();

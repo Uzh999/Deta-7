@@ -364,6 +364,7 @@
         "message": "Krótko opisz, czego potrzebujesz"
       },
       "services": {
+        "freeDiagnostics": "Bezpłatna diagnostyka / konsultacja",
         "basic": "Pakiet Basic",
         "salePrep": "Przygotowanie do sprzedaży",
         "premium": "Pakiet Premium",
@@ -387,7 +388,7 @@
         "mechanicalRepairs": "Prace mechaniczne przy aucie",
         "stage1": "Stage 1",
         "ecoOff": "EGR / DPF / AdBlue / Eco Off",
-        "other": "Inna usługa / potrzebuję konsultacji"
+        "other": "Inna usługa"
       }
     }
   },
@@ -411,8 +412,8 @@
         "value": "wyłącznie po wcześniejszej rezerwacji"
       }
     },
-    "primaryCta": "Otwórz w Google Maps",
-    "secondaryCta": "Umów wizytę",
+    "mapCta": "Otwórz w Google Maps",
+    "bookCta": "Umów wizytę",
     "mapCard": {
       "kicker": "Premium Studio",
       "title": "Swarzędz, Poland",
@@ -457,5 +458,17 @@
   },
   "a11y": {
     "skipToContent": "Przejdź do treści"
+  },
+  "freeConsultation": {
+    "kicker": "Bezpłatnie",
+    "title": "Nie masz pewności, czego potrzebuje Twoje auto?",
+    "description": "Przyjedź na bezpłatną diagnostykę. Obejrzymy karoserię i wnętrze, ocenimy stan lakieru i szczerze powiemy, co naprawdę warto zrobić, a czego nie.",
+    "points": [
+      "Oględziny karoserii, wnętrza i reflektorów",
+      "Ocena stanu powłoki lakierniczej",
+      "Rekomendacje i wstępna wycena"
+    ],
+    "cta": "Umów diagnostykę",
+    "note": "Trwa 15–20 minut. Bez zobowiązań i nacisku."
   }
 }
