@@ -70,8 +70,7 @@
 }
 
 .input,
-.textarea,
-.select {
+.textarea {
   width: 100%;
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -89,31 +88,6 @@
   padding: 14px 16px;
 }
 
-.selectWrap {
-  position: relative;
-}
-
-.select {
-  min-height: 54px;
-  padding: 14px 52px 14px 16px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.selectArrow {
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.82);
-  pointer-events: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
 .textarea {
   min-height: 180px;
   padding: 16px;
@@ -126,7 +100,6 @@
 }
 
 .input:hover,
-.select:hover,
 .textarea:hover {
   border-color: rgba(255, 255, 255, 0.18);
 }
@@ -134,7 +107,6 @@
 /* A border tint alone was too faint on the dark ground to read as focus.
    The ring uses the existing accent at a weight that is actually visible. */
 .input:focus-visible,
-.select:focus-visible,
 .textarea:focus-visible {
   outline: none;
   border-color: var(--accent);
@@ -145,7 +117,6 @@
 /* Only flags a field the user has actually filled in wrongly, never an
    untouched empty one. */
 .input:user-invalid,
-.select:user-invalid,
 .textarea:user-invalid {
   border-color: var(--danger);
 }
@@ -248,8 +219,7 @@
     line-height: 1.7;
   }
 
-  .input,
-  .select {
+  .input {
     min-height: 52px;
   }
 
@@ -264,7 +234,6 @@
   }
 
   .input,
-  .select,
   .textarea {
     border-radius: var(--radius-md);
   }

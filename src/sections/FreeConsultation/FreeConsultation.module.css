@@ -3,8 +3,20 @@
    wash rather than a panel, so it reads as part of the page rather than an
    advert dropped onto it. */
 
+/* The wash and its rules live on the section, not on the inner grid, so they
+   run the full width of the viewport. Inside the container they stopped at the
+   gutter and read as a panel someone had cropped. The content stays on the
+   container grid, so only the background is full-bleed. */
 .section {
   position: relative;
+  /* Overrides the global `main > section` padding: the band sets its own
+     vertical rhythm, and the section's padding would sit inside the wash and
+     double its height. */
+  padding: 0;
+  border-top: 1px solid var(--accent-border);
+  border-bottom: 1px solid var(--surface-border);
+  /* The only accent wash on the page outside the featured package. */
+  background: linear-gradient(180deg, var(--accent-subtle), transparent 60%);
 }
 
 .band {
@@ -12,11 +24,7 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: var(--space-16);
   align-items: start;
-  padding: var(--space-12) 0;
-  border-top: 1px solid var(--accent-border);
-  border-bottom: 1px solid var(--surface-border);
-  /* The only accent wash on the page outside the featured package. */
-  background: linear-gradient(180deg, var(--accent-subtle), transparent 60%);
+  padding: var(--space-16) 0;
 }
 
 .copy {
@@ -131,7 +139,7 @@
 
 @media (max-width: 640px) {
   .band {
-    padding: var(--space-8) 0;
+    padding: var(--space-12) 0;
   }
 
   .title {

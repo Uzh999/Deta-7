@@ -352,6 +352,7 @@
       "name": "Imię",
       "phone": "Numer telefonu",
       "service": "Usługa",
+      "serviceRequired": "Wybierz usługę z listy.",
       "message": "Wiadomość",
       "submit": "Wyślij zgłoszenie",
       "sending": "Wysyłanie...",

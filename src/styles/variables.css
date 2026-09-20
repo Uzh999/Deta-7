@@ -142,6 +142,8 @@
   /* Z-index scale, replacing scattered magic numbers. */
   --z-map: 1;
   --z-content: 2;
+  /* Above the page, below the sticky header it would otherwise cover. */
+  --z-dropdown: 50;
   --z-header: 100;
   --z-overlay: 200;
   --z-modal: 300;

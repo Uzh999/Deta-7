@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { FormEventHandler } from "react";
 import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
+import SelectField from "../../components/SelectField/SelectField";
 import styles from "./Contact.module.css";
 
 type FormState = {
@@ -81,14 +82,28 @@ export default function Contact({ requestedService = "" }: ContactProps) {
   /* Derived rather than synced into state: once the visitor picks anything
      themselves, their choice wins and no effect has to race the render. */
   const selectedService = form.service || requestedService;
+
+  const serviceOptions = useMemo(
+    () =>
+      serviceKeys.map((key) => ({
+        value: key,
+        label: t(`contact.form.services.${key}`),
+      })),
+    [t],
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const handleServiceChange = (next: string) => {
+    setForm((prev) => ({ ...prev, service: next }));
+
+    if (status !== "idle") setStatus("idle");
+    if (errorMessage) setErrorMessage("");
+  };
+
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
 
@@ -198,50 +213,16 @@ export default function Contact({ requestedService = "" }: ContactProps) {
                 />
               </div>
 
-              <div className={styles.field}>
-                <label htmlFor="service" className={styles.label}>
-                  {t("contact.form.service")}
-                </label>
-
-                <div className={styles.selectWrap}>
-                  <select
-                    id="service"
-                    name="service"
-                    className={styles.select}
-                    value={selectedService}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">
-                      {t("contact.form.placeholders.service")}
-                    </option>
-
-                    {serviceKeys.map((key) => (
-                      <option key={key} value={key}>
-                        {t(`contact.form.services.${key}`)}
-                      </option>
-                    ))}
-                  </select>
-
-                  <span className={styles.selectArrow} aria-hidden="true">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <polyline
-                        points="6 9 12 15 18 9"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
+              <SelectField
+                name="service"
+                label={t("contact.form.service")}
+                placeholder={t("contact.form.placeholders.service")}
+                options={serviceOptions}
+                value={selectedService}
+                onChange={handleServiceChange}
+                required
+                requiredMessage={t("contact.form.serviceRequired")}
+              />
 
               <div className={styles.field}>
                 <label htmlFor="message" className={styles.label}>

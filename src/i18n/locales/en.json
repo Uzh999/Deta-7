@@ -352,6 +352,7 @@
       "name": "Name",
       "phone": "Phone number",
       "service": "Service",
+      "serviceRequired": "Please choose a service from the list.",
       "message": "Message",
       "submit": "Send request",
       "sending": "Sending...",

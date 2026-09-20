@@ -1,0 +1,202 @@
+/* Mirrors the text inputs in the contact form exactly — same height, radius,
+   border and fill — so the replacement reads as the same family of control
+   rather than a widget bolted on. */
+
+.wrapper {
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  color: var(--text);
+  cursor: default;
+}
+
+.control {
+  position: relative;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 52px 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-base);
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.trigger:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.trigger:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+  background-color: rgba(255, 255, 255, 0.045);
+}
+
+.triggerOpen {
+  border-color: var(--accent);
+  background-color: rgba(255, 255, 255, 0.045);
+}
+
+.triggerInvalid {
+  border-color: var(--danger);
+}
+
+.value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeholder {
+  color: rgba(255, 255, 255, 0.42);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.82);
+  pointer-events: none;
+  display: inline-flex;
+  transition: transform var(--transition);
+}
+
+.triggerOpen .arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.listbox {
+  position: absolute;
+  z-index: var(--z-dropdown);
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+  /* Tall enough to show the shape of the list, short enough to leave the page
+     behind it visible on a laptop screen. */
+  max-height: min(340px, 52vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius-md);
+  /* Opaque on purpose: a translucent panel over 25 rows of text is unreadable. */
+  background: #101010;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.listbox::-webkit-scrollbar {
+  width: 10px;
+}
+
+.listbox::-webkit-scrollbar-thumb {
+  border: 3px solid transparent;
+  background-clip: content-box;
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-snug);
+  cursor: pointer;
+}
+
+.optionLabel {
+  min-width: 0;
+}
+
+/* Hover and keyboard share one highlight, so the list looks the same however
+   the visitor is driving it. */
+.optionActive {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.optionSelected {
+  color: var(--accent);
+  font-weight: var(--weight-semibold);
+}
+
+.check {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--accent);
+}
+
+/* Sized over the trigger rather than hidden: a zero-size or display:none
+   control cannot be focused, and the browser needs to focus it to run the
+   required check at all. */
+.validationProxy {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  border: 0;
+  padding: 0;
+}
+
+.error {
+  color: var(--danger);
+  font-size: var(--text-sm);
+  line-height: var(--leading-snug);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    transition: none;
+  }
+}
+
+/* Matches the text inputs' own responsive steps in the contact form. */
+@media (max-width: 768px) {
+  .trigger {
+    min-height: 52px;
+  }
+}
+
+@media (max-width: 480px) {
+  .trigger {
+    border-radius: var(--radius-md);
+  }
+
+  .listbox {
+    max-height: min(300px, 46vh);
+  }
+}
