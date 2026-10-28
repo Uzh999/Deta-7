@@ -5,8 +5,7 @@ import styles from "./OfferPopup.module.css";
 const STORAGE_DISMISSED_KEY = "offer-popup-dismissed-at";
 const STORAGE_SUBMITTED_KEY = "offer-popup-submitted";
 const DISMISS_DAYS = 7;
-const MIN_TIME_ON_PAGE_MS = 40000;
-const MIN_SCROLL_PERCENT = 60;
+const MIN_TIME_ON_PAGE_MS = 10000; // было 40000; можно поставить любое значение до 15000
 
 function wasDismissedRecently(): boolean {
   try {
@@ -47,16 +46,6 @@ function markSubmitted(): void {
   }
 }
 
-function getScrollPercent(): number {
-  const scrollTop = window.scrollY || window.pageYOffset;
-  const documentHeight =
-    document.documentElement.scrollHeight - window.innerHeight;
-
-  if (documentHeight <= 0) return 0;
-
-  return (scrollTop / documentHeight) * 100;
-}
-
 /**
  * Server error strings are for the log, not the visitor. This returns the
  * technical detail for `console.error` only; the UI always shows a translated
@@ -87,8 +76,6 @@ export default function OfferPopup() {
   const hasTriggeredRef = useRef(false);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
-  const hasScrolledEnoughRef = useRef(false);
-  const hasSpentEnoughTimeRef = useRef(false);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -100,7 +87,6 @@ export default function OfferPopup() {
     if (hasTriggeredRef.current) return;
     if (wasDismissedRecently()) return;
     if (isAlreadySubmitted()) return;
-    if (!hasScrolledEnoughRef.current || !hasSpentEnoughTimeRef.current) return;
 
     hasTriggeredRef.current = true;
     setIsOpen(true);
@@ -111,17 +97,7 @@ export default function OfferPopup() {
     if (wasDismissedRecently()) return;
     if (isAlreadySubmitted()) return;
 
-    const timer = window.setTimeout(() => {
-      hasSpentEnoughTimeRef.current = true;
-      openPopup();
-    }, MIN_TIME_ON_PAGE_MS);
-
-    const handleScroll = () => {
-      if (getScrollPercent() >= MIN_SCROLL_PERCENT) {
-        hasScrolledEnoughRef.current = true;
-        openPopup();
-      }
-    };
+    const timer = window.setTimeout(openPopup, MIN_TIME_ON_PAGE_MS);
 
     const handleMouseLeave = (event: MouseEvent) => {
       const isDesktop = window.innerWidth > 768;
@@ -129,19 +105,13 @@ export default function OfferPopup() {
       if (event.clientY > 12) return;
       if (wasDismissedRecently() || isAlreadySubmitted()) return;
 
-      hasSpentEnoughTimeRef.current = true;
-      hasScrolledEnoughRef.current = true;
       openPopup();
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
-
-    handleScroll();
 
     return () => {
       window.clearTimeout(timer);
-      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [openPopup]);
