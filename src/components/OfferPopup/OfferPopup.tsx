@@ -1,55 +1,91 @@
-"use client";
-
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import styles from "./OfferPopup.module.css";
 
+const STORAGE_DISMISSED_KEY = "offer-popup-dismissed-at";
 const STORAGE_SUBMITTED_KEY = "offer-popup-submitted";
-const MIN_TIME_ON_PAGE_MS = 10000;
-const DESKTOP_MIN_WIDTH = 768;
-const EXIT_INTENT_MAX_Y = 10;
+const DISMISS_DAYS = 7;
+const MIN_TIME_ON_PAGE_MS = 10000; // было 40000; можно поставить любое значение до 15000
 
-type LeadForm = {
-  name: string;
-  phone: string;
-};
-
-function isAlreadySubmitted(): boolean {
+function wasDismissedRecently(): boolean {
   try {
-    return window.localStorage.getItem(STORAGE_SUBMITTED_KEY) === "true";
+    const raw = localStorage.getItem(STORAGE_DISMISSED_KEY);
+    if (!raw) return false;
+
+    const dismissedAt = Number(raw);
+    if (!Number.isFinite(dismissedAt)) return false;
+
+    const diff = Date.now() - dismissedAt;
+    return diff < DISMISS_DAYS * 24 * 60 * 60 * 1000;
   } catch {
     return false;
   }
 }
 
+function isAlreadySubmitted(): boolean {
+  try {
+    return localStorage.getItem(STORAGE_SUBMITTED_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+function markDismissed(): void {
+  try {
+    localStorage.setItem(STORAGE_DISMISSED_KEY, String(Date.now()));
+  } catch {
+    // ignore
+  }
+}
+
 function markSubmitted(): void {
   try {
-    window.localStorage.setItem(STORAGE_SUBMITTED_KEY, "true");
+    localStorage.setItem(STORAGE_SUBMITTED_KEY, "true");
   } catch {
-    // Storage may be unavailable in private browsing.
+    // ignore
   }
+}
+
+/**
+ * Server error strings are for the log, not the visitor. This returns the
+ * technical detail for `console.error` only; the UI always shows a translated
+ * message.
+ */
+function extractResponseError(
+  response: Response,
+  responseText: string,
+): string {
+  try {
+    const data = responseText ? JSON.parse(responseText) : null;
+    if (data?.error) return String(data.error);
+  } catch {
+    // Response was not JSON; fall through to the raw text.
+  }
+
+  if (responseText?.trim()) {
+    return responseText;
+  }
+
+  return `Request failed with status ${response.status}`;
 }
 
 export default function OfferPopup() {
   const { t, i18n } = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [form, setForm] = useState<LeadForm>({
-    name: "",
-    phone: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState("");
-
   const hasTriggeredRef = useRef(false);
-  const popupRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
-  const successTimerRef = useRef<number | null>(null);
+
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const openPopup = useCallback(() => {
     if (hasTriggeredRef.current) return;
+    if (wasDismissedRecently()) return;
     if (isAlreadySubmitted()) return;
 
     hasTriggeredRef.current = true;
@@ -57,14 +93,17 @@ export default function OfferPopup() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (wasDismissedRecently()) return;
     if (isAlreadySubmitted()) return;
 
     const timer = window.setTimeout(openPopup, MIN_TIME_ON_PAGE_MS);
 
     const handleMouseLeave = (event: MouseEvent) => {
-      if (window.innerWidth <= DESKTOP_MIN_WIDTH) return;
-      if (event.clientY > EXIT_INTENT_MAX_Y) return;
-      if (isAlreadySubmitted()) return;
+      const isDesktop = window.innerWidth > 768;
+      if (!isDesktop) return;
+      if (event.clientY > 12) return;
+      if (wasDismissedRecently() || isAlreadySubmitted()) return;
 
       openPopup();
     };
@@ -77,50 +116,44 @@ export default function OfferPopup() {
     };
   }, [openPopup]);
 
+  const closePopup = useCallback(() => {
+    hasTriggeredRef.current = true;
+    setIsOpen(false);
+    markDismissed();
+  }, []);
+
+  // Dialog behaviour: lock scroll, move focus in, trap Tab inside the dialog,
+  // close on Escape, and hand focus back to wherever it came from.
   useEffect(() => {
     if (!isOpen) return;
 
-    previouslyFocusedRef.current =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
-
-    const previousOverflow = document.body.style.overflow;
+    previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
 
-    const focusTimer = window.setTimeout(() => {
-      closeButtonRef.current?.focus();
-    }, 0);
+    const dialog = dialogRef.current;
+    const focusable = () =>
+      Array.from(
+        dialog?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((el) => !el.hasAttribute("disabled"));
+
+    focusable()[0]?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        event.preventDefault();
         closePopup();
         return;
       }
 
       if (event.key !== "Tab") return;
 
-      const popup = popupRef.current;
-      if (!popup) return;
+      const items = focusable();
+      if (items.length === 0) return;
 
-      const focusableElements = popup.querySelectorAll<HTMLElement>(
-        [
-          "a[href]",
-          "button:not([disabled])",
-          "input:not([disabled])",
-          "textarea:not([disabled])",
-          "select:not([disabled])",
-          '[tabindex]:not([tabindex="-1"])',
-        ].join(","),
-      );
-
-      if (focusableElements.length === 0) {
-        event.preventDefault();
-        return;
-      }
-
-      const first = focusableElements[0];
-      const last = focusableElements[focusableElements.length - 1];
+      const first = items[0];
+      const last = items[items.length - 1];
 
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
@@ -134,49 +167,24 @@ export default function OfferPopup() {
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.clearTimeout(focusTimer);
       document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = previousOverflow;
-      previouslyFocusedRef.current?.focus();
+      document.body.style.overflow = "";
+      previouslyFocusedRef.current?.focus?.();
     };
   }, [isOpen, closePopup]);
 
-  useEffect(() => {
-    return () => {
-      if (successTimerRef.current !== null) {
-        window.clearTimeout(successTimerRef.current);
-      }
-    };
-  }, []);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleClose = useCallback(() => {
-    closePopup();
-  }, [closePopup]);
-
-  const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) {
-      handleClose();
+    if (!name.trim() || !phone.trim()) {
+      setStatus("error");
+      setErrorMessage(t("offerPopup.error"));
+      return;
     }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setForm((previous) => ({
-      ...previous,
-      [name]: value,
-    }));
-
-    if (error) setError("");
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (isSubmitting) return;
 
     setIsSubmitting(true);
-    setError("");
+    setStatus("idle");
+    setErrorMessage("");
 
     try {
       const response = await fetch("/api/leads", {
@@ -185,26 +193,32 @@ export default function OfferPopup() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: form.name.trim(),
-          phone: form.phone.trim(),
+          source: "offer-popup",
+          name: name.trim(),
+          phone: phone.trim(),
           locale: i18n.language,
-          page: typeof window !== "undefined" ? window.location.href : "",
+          page: `${window.location.pathname}${window.location.hash}`,
         }),
       });
 
+      const responseText = await response.text();
+
       if (!response.ok) {
-        throw new Error(`Request failed: ${response.status}`);
+        throw new Error(extractResponseError(response, responseText));
       }
 
+      setStatus("success");
       markSubmitted();
-      setIsSuccess(true);
+      setName("");
+      setPhone("");
 
-      successTimerRef.current = window.setTimeout(() => {
+      window.setTimeout(() => {
         setIsOpen(false);
       }, 1600);
-    } catch (err) {
-      console.error("Failed to submit offer form:", err);
-      setError(t("offer.error"));
+    } catch (error) {
+      console.error("Offer popup error:", error);
+      setStatus("error");
+      setErrorMessage(t("offerPopup.error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -213,92 +227,96 @@ export default function OfferPopup() {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} onMouseDown={handleOverlayClick}>
+    <div
+      className={styles.overlay}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="offer-popup-title"
+      onClick={closePopup}
+    >
       <div
-        ref={popupRef}
+        ref={dialogRef}
         className={styles.popup}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="offer-popup-title"
-        aria-describedby="offer-popup-description"
+        onClick={(e) => e.stopPropagation()}
       >
         <button
-          ref={closeButtonRef}
           type="button"
           className={styles.closeButton}
-          onClick={handleClose}
-          aria-label={t("offer.close")}
+          onClick={closePopup}
+          aria-label={t("offerPopup.close")}
         >
-          &times;
+          ×
         </button>
 
-        {isSuccess ? (
-          <div className={styles.success} role="status">
-            <h2 id="offer-popup-title">{t("offer.successTitle")}</h2>
-            <p>{t("offer.successMessage")}</p>
+        <div className={styles.kicker}>{t("offerPopup.kicker")}</div>
+
+        <h3 id="offer-popup-title" className={styles.title}>
+          {t("offerPopup.title")}
+        </h3>
+
+        <p className={styles.description}>{t("offerPopup.description")}</p>
+
+        {status === "success" ? (
+          <div className={styles.successBox}>
+            <div className={styles.successTitle}>
+              {t("offerPopup.successTitle")}
+            </div>
+            <div className={styles.successText}>
+              {t("offerPopup.successText")}
+            </div>
           </div>
         ) : (
-          <>
-            <h2 id="offer-popup-title" className={styles.title}>
-              {t("offer.title")}
-            </h2>
-
-            <p id="offer-popup-description" className={styles.description}>
-              {t("offer.description")}
-            </p>
-
-            <form className={styles.form} onSubmit={handleSubmit}>
-              <label className={styles.label} htmlFor="offer-name">
-                {t("offer.nameLabel")}
-              </label>
-
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <label className={styles.field}>
+              <span className={styles.label}>{t("offerPopup.nameLabel")}</span>
               <input
-                id="offer-name"
-                className={styles.input}
                 type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder={t("offer.namePlaceholder")}
+                className={styles.input}
+                placeholder={t("offerPopup.namePlaceholder")}
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  if (status !== "idle") setStatus("idle");
+                  if (errorMessage) setErrorMessage("");
+                }}
                 autoComplete="name"
                 required
-                maxLength={100}
-                disabled={isSubmitting}
               />
+            </label>
 
-              <label className={styles.label} htmlFor="offer-phone">
-                {t("offer.phoneLabel")}
-              </label>
-
+            <label className={styles.field}>
+              <span className={styles.label}>{t("offerPopup.phoneLabel")}</span>
               <input
-                id="offer-phone"
-                className={styles.input}
                 type="tel"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder={t("offer.phonePlaceholder")}
+                className={styles.input}
+                placeholder={t("offerPopup.phonePlaceholder")}
+                value={phone}
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                  if (status !== "idle") setStatus("idle");
+                  if (errorMessage) setErrorMessage("");
+                }}
                 autoComplete="tel"
                 required
-                maxLength={30}
-                disabled={isSubmitting}
               />
+            </label>
 
-              {error && (
-                <p className={styles.error} role="alert">
-                  {error}
-                </p>
-              )}
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? t("offerPopup.sending") : t("offerPopup.cta")}
+            </button>
 
-              <button
-                type="submit"
-                className={styles.submitButton}
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? t("offer.submitting") : t("offer.submit")}
-              </button>
-            </form>
-          </>
+            <p className={styles.note}>{t("offerPopup.note")}</p>
+
+            {status === "error" && (
+              <p className={styles.errorNote} role="alert">
+                {errorMessage || t("offerPopup.error")}
+              </p>
+            )}
+          </form>
         )}
       </div>
     </div>
