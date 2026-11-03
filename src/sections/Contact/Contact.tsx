@@ -1,8 +1,10 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { FormEventHandler } from "react";
 import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
 import SelectField from "../../components/SelectField/SelectField";
+import Honeypot from "../../components/Honeypot";
+import { MESSAGE_MAX, isPlausiblePhone, submitLead } from "../../lib/leads";
 import styles from "./Contact.module.css";
 
 type FormState = {
@@ -47,29 +49,6 @@ const serviceKeys = [
   "other",
 ] as const;
 
-/**
- * Server error strings are for the log, not the visitor. This returns the
- * technical detail for `console.error` only; the UI always shows a translated
- * message.
- */
-function extractResponseError(
-  response: Response,
-  responseText: string,
-): string {
-  try {
-    const data = responseText ? JSON.parse(responseText) : null;
-    if (data?.error) return String(data.error);
-  } catch {
-    // Response was not JSON; fall through to the raw text.
-  }
-
-  if (responseText?.trim()) {
-    return responseText;
-  }
-
-  return `Request failed with status ${response.status}`;
-}
-
 type ContactProps = {
   /** Option to open the service select on, set by the free-assessment band. */
   requestedService?: string;
@@ -94,6 +73,13 @@ export default function Contact({ requestedService = "" }: ContactProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  /* When the visitor first touched the form; a lead sent faster than a person
+     can type is treated as a bot by the server. */
+  const startedAtRef = useRef<number | null>(null);
+  const markStarted = () => {
+    startedAtRef.current ??= Date.now();
+  };
 
   const handleServiceChange = (next: string) => {
     setForm((prev) => ({ ...prev, service: next }));
@@ -124,39 +110,35 @@ export default function Contact({ requestedService = "" }: ContactProps) {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
+    if (!isPlausiblePhone(form.phone)) {
+      setStatus("error");
+      setErrorMessage(t("contact.form.phoneInvalid"));
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus("idle");
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          source: "contact-form",
-          name: form.name,
-          phone: form.phone,
-          // The readable label, not the internal key — this lands in the
-          // Telegram notification, where "ceramicCoating" means nothing.
-          service: selectedService
-            ? t(`contact.form.services.${selectedService}`)
-            : "",
-          message: form.message,
-          locale: i18n.language,
-          page: `${window.location.pathname}${window.location.hash}`,
-        }),
+      await submitLead({
+        source: "contact-form",
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        // The readable label, not the internal key — this lands in the
+        // Telegram notification, where "ceramicCoating" means nothing.
+        service: selectedService
+          ? t(`contact.form.services.${selectedService}`)
+          : "",
+        message: form.message.trim(),
+        locale: i18n.language,
+        honeypot,
+        startedAt: startedAtRef.current ?? Date.now(),
       });
-
-      const responseText = await response.text();
-
-      if (!response.ok) {
-        throw new Error(extractResponseError(response, responseText));
-      }
 
       setStatus("success");
       setForm(initialForm);
+      startedAtRef.current = null;
     } catch (error) {
       console.error("Contact form error:", error);
       setStatus("error");
@@ -180,7 +162,13 @@ export default function Contact({ requestedService = "" }: ContactProps) {
           </div>
 
           <div className={styles.formCard}>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form
+              className={styles.form}
+              onSubmit={handleSubmit}
+              onFocus={markStarted}
+            >
+              <Honeypot value={honeypot} onChange={setHoneypot} />
+
               <div className={styles.field}>
                 <label htmlFor="name" className={styles.label}>
                   {t("contact.form.name")}
@@ -236,10 +224,10 @@ export default function Contact({ requestedService = "" }: ContactProps) {
                   value={form.message}
                   onChange={handleChange}
                   rows={5}
-                  maxLength={200}
+                  maxLength={MESSAGE_MAX}
                 />
                 <div className={styles.charCount}>
-                  {form.message.length}/200
+                  {form.message.length}/{MESSAGE_MAX}
                 </div>
               </div>
 

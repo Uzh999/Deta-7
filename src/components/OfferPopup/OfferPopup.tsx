@@ -1,72 +1,34 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import Honeypot from "../Honeypot";
+import {
+  hasSubmittedLead,
+  isPlausiblePhone,
+  submitLead,
+} from "../../lib/leads";
 import styles from "./OfferPopup.module.css";
 
-const STORAGE_DISMISSED_KEY = "offer-popup-dismissed-at";
-const STORAGE_SUBMITTED_KEY = "offer-popup-submitted";
-const DISMISS_DAYS = 7;
-const MIN_TIME_ON_PAGE_MS = 10000; // было 40000; можно поставить любое значение до 15000
-
-function wasDismissedRecently(): boolean {
-  try {
-    const raw = localStorage.getItem(STORAGE_DISMISSED_KEY);
-    if (!raw) return false;
-
-    const dismissedAt = Number(raw);
-    if (!Number.isFinite(dismissedAt)) return false;
-
-    const diff = Date.now() - dismissedAt;
-    return diff < DISMISS_DAYS * 24 * 60 * 60 * 1000;
-  } catch {
-    return false;
-  }
-}
-
-function isAlreadySubmitted(): boolean {
-  try {
-    return localStorage.getItem(STORAGE_SUBMITTED_KEY) === "true";
-  } catch {
-    return false;
-  }
-}
-
-function markDismissed(): void {
-  try {
-    localStorage.setItem(STORAGE_DISMISSED_KEY, String(Date.now()));
-  } catch {
-    // ignore
-  }
-}
-
-function markSubmitted(): void {
-  try {
-    localStorage.setItem(STORAGE_SUBMITTED_KEY, "true");
-  } catch {
-    // ignore
-  }
-}
-
 /**
- * Server error strings are for the log, not the visitor. This returns the
- * technical detail for `console.error` only; the UI always shows a translated
- * message.
+ * Shown on every visit, once per page load: closing it is not remembered.
+ * It opens at MIN_DELAY_MS; if the visitor is typing at that moment it waits
+ * for them to stop, but never past MAX_DELAY_MS.
  */
-function extractResponseError(
-  response: Response,
-  responseText: string,
-): string {
-  try {
-    const data = responseText ? JSON.parse(responseText) : null;
-    if (data?.error) return String(data.error);
-  } catch {
-    // Response was not JSON; fall through to the raw text.
-  }
+const MIN_DELAY_MS = 10000;
+const MAX_DELAY_MS = 15000;
+const TYPING_POLL_MS = 500;
+/** How long the thank-you message stays before the dialog closes itself. */
+const SUCCESS_CLOSE_DELAY_MS = 1600;
 
-  if (responseText?.trim()) {
-    return responseText;
-  }
+/** True while focus is in a text field — interrupting typing loses a lead. */
+function isVisitorTyping(): boolean {
+  const el = document.activeElement;
+  if (!el) return false;
 
-  return `Request failed with status ${response.status}`;
+  return (
+    el instanceof HTMLInputElement ||
+    el instanceof HTMLTextAreaElement ||
+    el.getAttribute("role") === "combobox"
+  );
 }
 
 export default function OfferPopup() {
@@ -76,34 +38,49 @@ export default function OfferPopup() {
   const hasTriggeredRef = useRef(false);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+  const openedAtRef = useRef(0);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   const openPopup = useCallback(() => {
     if (hasTriggeredRef.current) return;
-    if (wasDismissedRecently()) return;
-    if (isAlreadySubmitted()) return;
+    // Checked at the moment of opening, not only on mount: the visitor may
+    // have sent the contact form in the meantime.
+    if (hasSubmittedLead()) return;
 
     hasTriggeredRef.current = true;
+    openedAtRef.current = Date.now();
     setIsOpen(true);
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (wasDismissedRecently()) return;
-    if (isAlreadySubmitted()) return;
+    if (hasSubmittedLead()) return;
 
-    const timer = window.setTimeout(openPopup, MIN_TIME_ON_PAGE_MS);
+    const loadedAt = Date.now();
+    let timer = 0;
+
+    const tryOpen = () => {
+      const waitedEnough = Date.now() - loadedAt >= MAX_DELAY_MS;
+
+      if (isVisitorTyping() && !waitedEnough) {
+        timer = window.setTimeout(tryOpen, TYPING_POLL_MS);
+        return;
+      }
+      openPopup();
+    };
+
+    timer = window.setTimeout(tryOpen, MIN_DELAY_MS);
 
     const handleMouseLeave = (event: MouseEvent) => {
       const isDesktop = window.innerWidth > 768;
       if (!isDesktop) return;
       if (event.clientY > 12) return;
-      if (wasDismissedRecently() || isAlreadySubmitted()) return;
+      if (isVisitorTyping()) return;
 
       openPopup();
     };
@@ -119,8 +96,19 @@ export default function OfferPopup() {
   const closePopup = useCallback(() => {
     hasTriggeredRef.current = true;
     setIsOpen(false);
-    markDismissed();
   }, []);
+
+  // Close on its own after a successful send. Lives in an effect so the timer
+  // is cleared if the component goes away first.
+  useEffect(() => {
+    if (status !== "success" || !isOpen) return;
+
+    const timer = window.setTimeout(
+      () => setIsOpen(false),
+      SUCCESS_CLOSE_DELAY_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [status, isOpen]);
 
   // Dialog behaviour: lock scroll, move focus in, trap Tab inside the dialog,
   // close on Escape, and hand focus back to wherever it came from.
@@ -136,7 +124,9 @@ export default function OfferPopup() {
         dialog?.querySelectorAll<HTMLElement>(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         ) ?? [],
-      ).filter((el) => !el.hasAttribute("disabled"));
+      ).filter(
+        (el) => !el.hasAttribute("disabled") && el.tabIndex !== -1,
+      );
 
     focusable()[0]?.focus();
 
@@ -182,39 +172,29 @@ export default function OfferPopup() {
       return;
     }
 
+    if (!isPlausiblePhone(phone)) {
+      setStatus("error");
+      setErrorMessage(t("offerPopup.phoneInvalid"));
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus("idle");
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          source: "offer-popup",
-          name: name.trim(),
-          phone: phone.trim(),
-          locale: i18n.language,
-          page: `${window.location.pathname}${window.location.hash}`,
-        }),
+      await submitLead({
+        source: "offer-popup",
+        name: name.trim(),
+        phone: phone.trim(),
+        locale: i18n.language,
+        honeypot,
+        startedAt: openedAtRef.current,
       });
 
-      const responseText = await response.text();
-
-      if (!response.ok) {
-        throw new Error(extractResponseError(response, responseText));
-      }
-
       setStatus("success");
-      markSubmitted();
       setName("");
       setPhone("");
-
-      window.setTimeout(() => {
-        setIsOpen(false);
-      }, 1600);
     } catch (error) {
       console.error("Offer popup error:", error);
       setStatus("error");
@@ -222,6 +202,11 @@ export default function OfferPopup() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const clearStatus = () => {
+    if (status !== "idle") setStatus("idle");
+    if (errorMessage) setErrorMessage("");
   };
 
   if (!isOpen) return null;
@@ -267,6 +252,8 @@ export default function OfferPopup() {
           </div>
         ) : (
           <form className={styles.form} onSubmit={handleSubmit}>
+            <Honeypot value={honeypot} onChange={setHoneypot} />
+
             <label className={styles.field}>
               <span className={styles.label}>{t("offerPopup.nameLabel")}</span>
               <input
@@ -276,8 +263,7 @@ export default function OfferPopup() {
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
-                  if (status !== "idle") setStatus("idle");
-                  if (errorMessage) setErrorMessage("");
+                  clearStatus();
                 }}
                 autoComplete="name"
                 required
@@ -293,8 +279,7 @@ export default function OfferPopup() {
                 value={phone}
                 onChange={(e) => {
                   setPhone(e.target.value);
-                  if (status !== "idle") setStatus("idle");
-                  if (errorMessage) setErrorMessage("");
+                  clearStatus();
                 }}
                 autoComplete="tel"
                 required

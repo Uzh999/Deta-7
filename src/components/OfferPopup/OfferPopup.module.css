@@ -50,13 +50,12 @@
   cursor: pointer;
   transition:
     background var(--transition),
-    transform var(--transition),
-    opacity var(--transition);
+    color var(--transition);
 }
 
 .closeButton:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: rotate(90deg);
+  color: var(--text);
 }
 
 .kicker {

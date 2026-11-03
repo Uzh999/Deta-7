@@ -114,3 +114,14 @@ main > section {
     scroll-behavior: auto !important;
   }
 }
+
+/* Spam trap in the lead forms: out of sight and out of the tab order, but
+   still in the DOM where form-filling bots find it. */
+.honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
