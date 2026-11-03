@@ -1,11 +1,11 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import { DEFAULT_LANGUAGE } from "./languages";
+import LanguageRedirect from "./LanguageRedirect";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to={`/${DEFAULT_LANGUAGE}`} replace />,
+    element: <LanguageRedirect />,
   },
   {
     path: "/:lang",
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <Navigate to={`/${DEFAULT_LANGUAGE}`} replace />,
+    element: <LanguageRedirect />,
   },
 ]);
 
