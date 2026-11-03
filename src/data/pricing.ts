@@ -1,8 +1,8 @@
-// data/pricing.ts
-export const exteriorBasePrice = 700;
-export const interiorBasePrice = 400;
-export const detailsProtectionBasePrice = 350;
-export const salePreparationIsRequestBased = false;
+/**
+ * Prices for every individual service, and the packages built from them.
+ * A package's price is never written by hand: it is the sum of its services
+ * minus its discount, so changing a service price updates every package.
+ */
 
 export type PricingKey = "basic" | "salePrep" | "premium" | "premium2Step";
 
@@ -54,21 +54,10 @@ export interface IndividualServiceCategoryConfig {
   items: Partial<Record<IndividualServiceItemKey, IndividualServiceItemConfig>>;
 }
 
-export type PackageBaseKey =
-  | "exteriorBase"
-  | "interiorBase"
-  | "detailsProtectionBase";
-
-export type PackageIncludedItem =
-  | {
-      kind: "base";
-      key: PackageBaseKey;
-    }
-  | {
-      kind: "service";
-      category: IndividualServiceCategoryKey;
-      item: IndividualServiceItemKey;
-    };
+type PackageIncludedItem = {
+  category: IndividualServiceCategoryKey;
+  item: IndividualServiceItemKey;
+};
 
 export type PackageDiscount =
   | {
@@ -227,12 +216,10 @@ export const individualServicesConfig: Record<
 
 const basicPackageItems: PackageIncludedItem[] = [
   {
-    kind: "service",
     category: "paintCorrection",
     item: "oneStepCorrection",
   },
   {
-    kind: "service",
     category: "paintProtection",
     item: "hardWax",
   },
@@ -241,7 +228,6 @@ const basicPackageItems: PackageIncludedItem[] = [
 const salePrepPackageItems: PackageIncludedItem[] = [
   ...basicPackageItems,
   {
-    kind: "service",
     category: "interiorDetailing",
     item: "interiorDetailing",
   },
@@ -250,12 +236,10 @@ const salePrepPackageItems: PackageIncludedItem[] = [
 const premiumPackageItems: PackageIncludedItem[] = [
   ...salePrepPackageItems,
   {
-    kind: "service",
     category: "detailsProtection",
     item: "headlightRestoration",
   },
   {
-    kind: "service",
     category: "detailsProtection",
     item: "rainRepellent",
   },
@@ -263,27 +247,22 @@ const premiumPackageItems: PackageIncludedItem[] = [
 
 const premium2StepPackageItems: PackageIncludedItem[] = [
   {
-    kind: "service",
     category: "paintCorrection",
     item: "twoStepCorrection",
   },
   {
-    kind: "service",
     category: "paintProtection",
     item: "hardWax",
   },
   {
-    kind: "service",
     category: "interiorDetailing",
     item: "interiorDetailing",
   },
   {
-    kind: "service",
     category: "detailsProtection",
     item: "headlightRestoration",
   },
   {
-    kind: "service",
     category: "detailsProtection",
     item: "rainRepellent",
   },
@@ -324,12 +303,6 @@ export const pricingConfig: Record<PricingKey, PricingItemConfig> = {
   },
 };
 
-const packageBasePriceMap: Record<PackageBaseKey, number> = {
-  exteriorBase: exteriorBasePrice,
-  interiorBase: interiorBasePrice,
-  detailsProtectionBase: detailsProtectionBasePrice,
-};
-
 function getIndividualServicePrice(
   category: IndividualServiceCategoryKey,
   item: IndividualServiceItemKey,
@@ -357,14 +330,6 @@ function getIndividualServicePrice(
   }
 }
 
-function getIncludedItemPrice(item: PackageIncludedItem): number | null {
-  if (item.kind === "base") {
-    return packageBasePriceMap[item.key] ?? null;
-  }
-
-  return getIndividualServicePrice(item.category, item.item);
-}
-
 function getDiscountAmount(
   rawPrice: number,
   discount?: PackageDiscount,
@@ -385,14 +350,10 @@ export function calculatePackagePricing(
   const unresolvedItems: string[] = [];
 
   const rawPrice = config.includes.reduce((sum, item) => {
-    const itemPrice = getIncludedItemPrice(item);
+    const itemPrice = getIndividualServicePrice(item.category, item.item);
 
     if (itemPrice === null) {
-      if (item.kind === "base") {
-        unresolvedItems.push(item.key);
-      } else {
-        unresolvedItems.push(`${item.category}.${item.item}`);
-      }
+      unresolvedItems.push(`${item.category}.${item.item}`);
       return sum;
     }
 

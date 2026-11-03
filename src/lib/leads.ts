@@ -82,7 +82,7 @@ export function isPlausiblePhone(value: string): boolean {
 }
 
 /** Remembered so the offer popup never asks someone who already wrote in. */
-export function markLeadSubmitted(): void {
+function markLeadSubmitted(): void {
   try {
     localStorage.setItem(SUBMITTED_KEY, "true");
   } catch {

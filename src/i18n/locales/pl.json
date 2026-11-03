@@ -39,7 +39,6 @@
   "services": {
     "title": "Zakres usług",
     "subtitle": "Dbamy o Twój samochód kompleksowo - od estetyki zewnętrznej i wnętrza, po podstawową mechanikę i rozwiązania programowe.",
-    "featuredBadge": "Polecamy",
     "items": {
       "exterior": {
         "kicker": "Karoseria",
@@ -139,7 +138,6 @@
   "pricing": {
     "title": "Pakiety usług",
     "subtitle": "Wybierz pakiet dopasowany do stanu auta i oczekiwanego efektu — od szybkiego odświeżenia po pełny detailing klasy premium.",
-    "priceFrom": "{{value}} zł",
     "cta": "Umów wizytę",
     "savings": "Oszczędzasz {{value}} zł",
     "badges": {
@@ -333,20 +331,6 @@
     "kicker": "Skontaktuj się z nami",
     "title": "Zostaw zgłoszenie, a skontaktujemy się z Tobą w najbliższym czasie",
     "description": "Wypełnij krótki formularz, a pomożemy dobrać odpowiednią usługę, doprecyzujemy szczegóły i ustalimy wygodny termin.",
-    "cards": {
-      "phone": {
-        "label": "Telefon",
-        "value": "+48 123 456 789"
-      },
-      "hours": {
-        "label": "Godziny pracy",
-        "value": "Pn–Sb · 09:00–19:00"
-      },
-      "response": {
-        "label": "Odpowiedź",
-        "value": "Zwykle odpowiadamy w ciągu 15–30 minut"
-      }
-    },
     "form": {
       "name": "Imię",
       "phone": "Numer telefonu",
@@ -436,10 +420,7 @@
     "hoursWeekend": "Nd · Po wcześniejszym umówieniu",
     "response": "Odpowiadamy zazwyczaj w ciągu 15–30 minut",
     "rights": "Wszelkie prawa zastrzeżone.",
-    "backToTop": "Do góry",
-    "hoursWeekLabel": "Dni robocze",
-    "hoursWeekendLabel": "Weekend",
-    "responseLabel": "Odpowiedź"
+    "backToTop": "Do góry"
   },
   "offerPopup": {
     "kicker": "Oferta specjalna",

@@ -538,21 +538,6 @@
     right: 14px;
   }
 
-  .mapTopBadge {
-    min-height: 36px;
-    padding: 8px 12px;
-    font-size: var(--text-2xs);
-  }
-
-  .mapCard {
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    width: auto;
-    padding: 22px 20px 20px;
-    border-radius: var(--radius-lg);
-  }
-
   :global(.maplibregl-ctrl-top-right) {
     top: 14px;
     right: 14px;
@@ -565,8 +550,7 @@
 }
 
 @media (max-width: 480px) {
-  .addressCard,
-  .mapCard {
+  .addressCard {
     padding-left: 18px;
     padding-right: 18px;
   }

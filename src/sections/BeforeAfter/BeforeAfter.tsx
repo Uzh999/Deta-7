@@ -7,8 +7,8 @@ import styles from "./BeforeAfter.module.css";
 import car1Before from "../../assets/images/before-after/car1-before.jpg";
 import car1After from "../../assets/images/before-after/car1-after.jpg";
 
-import carBefore from "../../assets/images/before-after/1.jpg";
-import carAfter from "../../assets/images/before-after/2.jpg";
+import car2Before from "../../assets/images/before-after/car2-before.jpg";
+import car2After from "../../assets/images/before-after/car2-after.jpg";
 
 type SliderItem = {
   before: string;
@@ -20,7 +20,7 @@ type SliderItem = {
 
 const SLIDER_ITEMS: SliderItem[] = [
   { before: car1Before, after: car1After, width: 960, height: 1280 },
-  { before: carBefore, after: carAfter, width: 1080, height: 1080 },
+  { before: car2Before, after: car2After, width: 1080, height: 1080 },
 ];
 
 const KEYBOARD_STEP = 4;

@@ -6,9 +6,6 @@
 /** Production origin, no trailing slash. Used for canonical and og:url. */
 export const SITE_URL = "https://premium-detailing.vercel.app";
 
-/** Social preview image, served from `public/`. */
-export const OG_IMAGE_PATH = "/og-image.jpg";
-
 /** Open Graph locale per site language. */
 export const OG_LOCALES = {
   pl: "pl_PL",

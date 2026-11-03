@@ -39,7 +39,6 @@
   "services": {
     "title": "What we do",
     "subtitle": "We treat the car as a whole — from its exterior and interior through to basic mechanics and software work.",
-    "featuredBadge": "Recommended",
     "items": {
       "exterior": {
         "kicker": "Bodywork",
@@ -139,7 +138,6 @@
   "pricing": {
     "title": "Service packages",
     "subtitle": "Choose a package to match the condition of your car and the result you want — from a quick refresh to full premium detailing.",
-    "priceFrom": "{{value}} zł",
     "cta": "Book a slot",
     "savings": "You save {{value}} zł",
     "badges": {
@@ -333,20 +331,6 @@
     "kicker": "Get in touch",
     "title": "Send a request and we will come back to you shortly",
     "description": "Fill in the short form and we will help you choose the right service, confirm the details and agree a convenient time.",
-    "cards": {
-      "phone": {
-        "label": "Phone",
-        "value": "+48 123 456 789"
-      },
-      "hours": {
-        "label": "Opening hours",
-        "value": "Mon–Sat · 09:00–19:00"
-      },
-      "response": {
-        "label": "Response",
-        "value": "Usually within 15–30 minutes"
-      }
-    },
     "form": {
       "name": "Name",
       "phone": "Phone number",
@@ -436,10 +420,7 @@
     "hoursWeekend": "Sun · By appointment",
     "response": "Usually a reply within 15–30 minutes",
     "rights": "All rights reserved.",
-    "backToTop": "Back to top",
-    "hoursWeekLabel": "Weekdays",
-    "hoursWeekendLabel": "Weekend",
-    "responseLabel": "Response"
+    "backToTop": "Back to top"
   },
   "offerPopup": {
     "kicker": "Special offer",
