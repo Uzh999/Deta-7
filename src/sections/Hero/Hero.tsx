@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
 import Navbar from "../../components/layout/Navbar";
+import { STATS } from "../../data/stats";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
@@ -8,15 +9,15 @@ export default function Hero() {
 
   const trustItems = [
     {
-      value: t("hero.trust.years.value"),
+      value: STATS.yearsExperience,
       label: t("hero.trust.years.label"),
     },
     {
-      value: t("hero.trust.cars.value"),
+      value: STATS.carsServed,
       label: t("hero.trust.cars.label"),
     },
     {
-      value: t("hero.trust.rating.value"),
+      value: `${STATS.rating}/5`,
       label: t("hero.trust.rating.label"),
     },
   ];

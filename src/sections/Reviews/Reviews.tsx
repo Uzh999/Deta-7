@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
+import { STATS } from "../../data/stats";
 import styles from "./Reviews.module.css";
 
 const reviewKeys = ["review1", "review2", "review3", "review4"] as const;
@@ -22,7 +23,7 @@ export default function Reviews() {
 
             <div className={styles.ratingCard}>
               <div className={styles.ratingTop}>
-                <div className={styles.ratingValue}>4.9</div>
+                <div className={styles.ratingValue}>{STATS.rating}</div>
                 <div className={styles.ratingMeta}>
                   <div className={styles.stars}>★★★★★</div>
                   <div className={styles.ratingText}>
@@ -33,14 +34,18 @@ export default function Reviews() {
 
               <div className={styles.metrics}>
                 <div className={styles.metric}>
-                  <span className={styles.metricValue}>500+</span>
+                  <span className={styles.metricValue}>
+                    {STATS.carsServed}
+                  </span>
                   <span className={styles.metricLabel}>
                     {t("reviews.metrics.cars")}
                   </span>
                 </div>
 
                 <div className={styles.metric}>
-                  <span className={styles.metricValue}>5+</span>
+                  <span className={styles.metricValue}>
+                    {STATS.yearsExperience}
+                  </span>
                   <span className={styles.metricLabel}>
                     {t("reviews.metrics.years")}
                   </span>

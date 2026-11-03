@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Container from "../../components/layout/Container";
 import SectionHeading from "../../components/layout/SectionHeading";
+import { STATS } from "../../data/stats";
 import styles from "./About.module.css";
 
 const valueKeys = ["approach", "details", "expertise", "result"] as const;
@@ -27,12 +28,14 @@ export default function About() {
               beside the copy that runs out halfway down. */}
           <div className={styles.stats}>
             <div className={styles.statCard}>
-              <span className={styles.statValue}>500+</span>
+              <span className={styles.statValue}>{STATS.carsServed}</span>
               <span className={styles.statLabel}>{t("about.stats.cars")}</span>
             </div>
 
             <div className={styles.statCard}>
-              <span className={styles.statValue}>5+</span>
+              <span className={styles.statValue}>
+                {STATS.yearsExperience}
+              </span>
               <span className={styles.statLabel}>{t("about.stats.years")}</span>
             </div>
 
