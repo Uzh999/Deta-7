@@ -1,35 +1,33 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { SUPPORTED_LANGUAGES } from "../../app/languages";
+import { useTranslation } from "react-i18next";
+import { LANGUAGE_DISPLAY_ORDER, LANGUAGE_META } from "../../app/languages";
+import { useLanguageNavigation } from "./useLanguageNavigation";
 import styles from "./LanguageSwitcher.module.css";
 
-const LANGUAGE_LABELS: Record<(typeof SUPPORTED_LANGUAGES)[number], string> = {
-  pl: "PL",
-  uk: "UA",
-  ru: "RU",
-  en: "EN",
-};
-
-/** Display order, independent of the internal locale list order. */
-const DISPLAY_ORDER = ["pl", "uk", "ru", "en"] as const;
-
+/**
+ * Segmented row of all four languages. Used in the mobile menu, where there is
+ * room for it and one tap beats opening a list. The desktop bar uses the
+ * compact LanguageSelect instead.
+ */
 export default function LanguageSwitcher() {
-  const navigate = useNavigate();
-  const { lang } = useParams();
+  const { t } = useTranslation();
+  const { current, switchTo } = useLanguageNavigation();
 
   return (
-    <div className={styles.switcher} role="group" aria-label="Language">
-      {DISPLAY_ORDER.map((code) => {
-        const isActive = lang === code;
+    <div className={styles.switcher} role="group" aria-label={t("nav.language")}>
+      {LANGUAGE_DISPLAY_ORDER.map((code) => {
+        const isActive = current === code;
 
         return (
           <button
             key={code}
             type="button"
-            onClick={() => navigate(`/${code}`)}
+            lang={code}
+            onClick={() => switchTo(code)}
             className={`${styles.button} ${isActive ? styles.active : ""}`}
-            aria-current={isActive ? "true" : undefined}
+            aria-pressed={isActive}
+            aria-label={LANGUAGE_META[code].native}
           >
-            {LANGUAGE_LABELS[code]}
+            {LANGUAGE_META[code].short}
           </button>
         );
       })}

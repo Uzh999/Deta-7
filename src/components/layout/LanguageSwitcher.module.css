@@ -1,18 +1,20 @@
+/* Mobile menu: the four languages as one equal-width segmented row. */
 .switcher {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
 }
 
 .button {
-  width: 48px;
-  min-width: 48px;
-  /* 44px is the minimum comfortable touch target. With four locales the
-     buttons sit close together, so an undersized one costs a mis-tap. */
+  /* 44px is the minimum comfortable touch target. */
   height: 44px;
   border: 1px solid var(--surface-border);
   background: transparent;
   color: var(--text);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
   border-radius: var(--radius-pill);
   cursor: pointer;
   transition: var(--transition);
@@ -27,5 +29,6 @@
 
 .active {
   background: var(--accent);
+  border-color: var(--accent);
   color: var(--accent-contrast);
 }

@@ -28,13 +28,15 @@
   align-items: center;
   gap: 18px;
   position: relative;
-  overflow: hidden;
+  /* No overflow: hidden — the language menu drops below the bar. The glow
+     below is kept inside the rounded shape by inheriting the radius. */
 }
 
 .nav::before {
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   pointer-events: none;
   background: radial-gradient(
     circle at 78% 50%,
@@ -238,11 +240,14 @@
   visibility: visible;
 }
 
+/* Full-screen sheet. `100dvh` follows the phone's actual visible height (it
+   shrinks and grows with the browser toolbars); `100vh` is the fallback for
+   browsers without dynamic viewport units. */
 .mobilePanel {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  left: 16px;
+  inset: 0;
+  height: 100vh;
+  height: 100dvh;
   transform: translateY(-14px);
   opacity: 0;
   visibility: hidden;
@@ -262,20 +267,33 @@
 }
 
 .mobileInner {
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--surface-border);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   background:
     radial-gradient(
       circle at top right,
       rgba(215, 181, 109, 0.12),
-      transparent 32%
+      transparent 40%
     ),
-    rgba(10, 10, 10, 0.94);
+    rgba(8, 8, 8, 0.98);
   backdrop-filter: blur(20px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 20px 50px rgba(0, 0, 0, 0.38);
-  padding: 20px;
+  /* Clear the notch, the rounded corners and the home indicator. */
+  padding:
+    max(16px, env(safe-area-inset-top))
+    max(20px, env(safe-area-inset-right))
+    max(20px, env(safe-area-inset-bottom))
+    max(20px, env(safe-area-inset-left));
+}
+
+/* On tablets the sheet still fills the screen, but its content keeps a
+   readable width instead of stretching links across 1000px. */
+.mobileInner > * {
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
 }
 
 .mobileTop {
@@ -321,6 +339,44 @@
   margin-bottom: 20px;
 }
 
+/* The booking button sits at the foot of the screen, within thumb reach.
+   Sticky, so on a short phone it stays in view while the links scroll under
+   it; the dark halo keeps scrolled text from showing around its edges. */
+.mobileCta {
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+  flex: 0 0 auto;
+  box-shadow:
+    0 -14px 22px 6px rgba(8, 8, 8, 0.92),
+    0 14px 28px rgba(215, 181, 109, 0.18);
+}
+
+/* Short screens (iPhone SE and the like): tighten the list so everything
+   usually fits without scrolling at all. */
+@media (max-height: 700px) {
+  .mobileInner .mobileTop {
+    margin-bottom: 14px;
+  }
+
+  .mobileInner .mobileLanguage {
+    margin-bottom: 14px;
+  }
+
+  .mobileInner .mobileLinks {
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .mobileInner .mobileLink {
+    min-height: 46px;
+  }
+
+  .mobileInner .mobileCta {
+    min-height: 50px;
+  }
+}
+
 .mobileLink {
   min-height: 54px;
   padding: 0 16px;
@@ -352,7 +408,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 14px 28px rgba(215, 181, 109, 0.18);
 }
 
 @media (max-width: 1280px) {
@@ -440,19 +495,14 @@
     letter-spacing: 0.06em;
   }
 
-  .mobilePanel {
-    top: 12px;
-    right: 12px;
-    left: 12px;
-  }
-
-  .mobileInner {
-    padding: 18px;
-    border-radius: var(--radius-lg);
-  }
-
   .mobileLogo {
     max-width: calc(100% - 58px);
+  }
+
+  /* The bar hides the wordmark on phones for space; the full-screen menu has
+     room for it. */
+  .mobileLogo .logoTextGroup {
+    display: flex;
   }
 
   .mobileClose {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Container from "./Container";
 import LanguageSwitcher from "./LanguageSwitcher";
+import LanguageSelect from "./LanguageSelect";
 import { navigationItems } from "../../data/navigation";
 import styles from "./Navbar.module.css";
 
@@ -91,7 +92,7 @@ export default function Navbar() {
   return (
     <div className={styles.wrapper}>
       <Container>
-        <nav className={styles.nav} aria-label="Main navigation">
+        <nav className={styles.nav} aria-label={t("nav.mainLabel")}>
           <a href="#hero" className={styles.logo} onClick={closeMenu}>
             <span className={styles.logoMark}>
               <CarLogoIcon />
@@ -113,7 +114,7 @@ export default function Navbar() {
 
           <div className={styles.actions}>
             <div className={styles.desktopLanguage}>
-              <LanguageSwitcher />
+              <LanguageSelect />
             </div>
 
             <a href="#contact" className={styles.cta}>
