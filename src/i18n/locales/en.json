@@ -1,32 +1,31 @@
 {
   "nav": {
     "services": "Services",
-    "before-after": "Before / After",
-    "about": "About",
+    "before-after": "Before & after",
+    "about": "About us",
     "pricing": "Packages",
-    "individualServices": "À la carte",
+    "individualServices": "Price list",
     "reviews": "Reviews",
     "contact": "Contact",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "language": "Site language",
+    "mainLabel": "Main navigation"
   },
   "hero": {
     "badge": "Premium detailing and car care",
     "title": "Detailing and care that give a car back its flawless look",
     "description": "Paint correction, interior detailing, protective coatings, basic mechanics and complete car care with attention to every detail.",
-    "primaryCta": "Book a slot",
+    "primaryCta": "Book a visit",
     "secondaryCta": "See packages",
     "trust": {
       "years": {
-        "value": "5+",
         "label": "Years of experience"
       },
       "cars": {
-        "value": "500+",
         "label": "Cars serviced"
       },
       "rating": {
-        "value": "4.9/5",
         "label": "Customer rating"
       }
     },
@@ -390,7 +389,8 @@
         "stage1": "Stage 1",
         "ecoOff": "EGR / DPF / AdBlue / Eco Off",
         "other": "Another service"
-      }
+      },
+      "phoneInvalid": "Please check the phone number: it needs 7 to 15 digits."
     }
   },
   "location": {
@@ -455,7 +455,8 @@
     "successTitle": "Thank you for your request",
     "successText": "We will be in touch shortly to confirm the details.",
     "error": "The request could not be sent. Please try again.",
-    "close": "Close"
+    "close": "Close",
+    "phoneInvalid": "Please check the phone number: it needs 7 to 15 digits."
   },
   "a11y": {
     "skipToContent": "Skip to content"
@@ -476,5 +477,9 @@
     "label": "Message us on WhatsApp",
     "tooltip": "Message on WhatsApp",
     "message": "Hello! I'd like to ask about detailing."
+  },
+  "seo": {
+    "title": "Premium Detailing — car detailing studio in Swarzędz",
+    "description": "Car detailing studio in Swarzędz near Poznań: paint correction and protection, ceramic coatings, interior detailing, mechanics and tuning."
   }
 }

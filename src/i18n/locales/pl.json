@@ -1,14 +1,16 @@
 {
   "nav": {
     "services": "Usługi",
-    "before-after": "Przed / Po",
+    "before-after": "Przed i po",
     "about": "O nas",
     "pricing": "Pakiety",
-    "individualServices": "Osobno",
+    "individualServices": "Cennik",
     "reviews": "Opinie",
     "contact": "Kontakt",
     "openMenu": "Otwórz menu",
-    "closeMenu": "Zamknij menu"
+    "closeMenu": "Zamknij menu",
+    "language": "Język strony",
+    "mainLabel": "Nawigacja główna"
   },
   "hero": {
     "badge": "Premium detailing i pielęgnacja aut",
@@ -18,15 +20,12 @@
     "secondaryCta": "Zobacz pakiety",
     "trust": {
       "years": {
-        "value": "5+",
         "label": "Lat doświadczenia"
       },
       "cars": {
-        "value": "500+",
         "label": "Obsłużonych aut"
       },
       "rating": {
-        "value": "4.9/5",
         "label": "Ocena klientów"
       }
     },
@@ -390,7 +389,8 @@
         "stage1": "Stage 1",
         "ecoOff": "EGR / DPF / AdBlue / Eco Off",
         "other": "Inna usługa"
-      }
+      },
+      "phoneInvalid": "Sprawdź numer telefonu: potrzeba od 7 do 15 cyfr."
     }
   },
   "location": {
@@ -455,7 +455,8 @@
     "successTitle": "Dziękujemy za zgłoszenie",
     "successText": "Skontaktujemy się z Tobą wkrótce, aby potwierdzić szczegóły.",
     "error": "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "phoneInvalid": "Sprawdź numer telefonu: potrzeba od 7 do 15 cyfr."
   },
   "a11y": {
     "skipToContent": "Przejdź do treści"
@@ -476,5 +477,9 @@
     "label": "Napisz do nas na WhatsAppie",
     "tooltip": "Napisz na WhatsAppie",
     "message": "Dzień dobry! Piszę w sprawie detailingu."
+  },
+  "seo": {
+    "title": "Premium Detailing — studio detailingu w Swarzędzu",
+    "description": "Studio detailingu samochodowego w Swarzędzu pod Poznaniem: korekta i zabezpieczenie lakieru, powłoki ceramiczne, detailing wnętrza, mechanika i tuning."
   }
 }
