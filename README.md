@@ -1,7 +1,7 @@
 # Premium Detailing
 
 Landing page for **Premium Detailing**, an auto care studio in Swarzędz, Poland
-(near Poznań). Single-page marketing site in three languages, with a lead form
+(near Poznań). Single-page marketing site in four languages, with a lead form
 that delivers enquiries to Telegram and email.
 
 ---
@@ -14,9 +14,14 @@ reaches the owner within seconds via Telegram, with an optional email copy.
 
 ## Features
 
-- **Three languages** — Polish, Ukrainian and Russian, selected by URL path
-  (`/pl`, `/uk`, `/ru`). The language switcher, `<html lang>` and the i18n
-  instance all stay in sync with the route.
+- **Four languages** — Polish, Ukrainian, Russian and English, selected by URL
+  path (`/pl`, `/uk`, `/ru`, `/en`). A bare `/` goes to the visitor's last
+  choice, else their browser language, else Polish. The language switcher,
+  `<html lang>`, the i18n instance and the page's title, description,
+  canonical and Open Graph tags all stay in sync with the route.
+- **Per-language HTML** — the build writes `dist/<lang>/index.html` with that
+  language's head, so crawlers and link previews that do not run JavaScript
+  still see the right language.
 - **Service catalogue** — four service groups (exterior, interior, mechanics,
   tuning) and four packages with prices computed from a single config.
 - **Individual services** — a per-service price list across six categories,
@@ -27,8 +32,12 @@ reaches the owner within seconds via Telegram, with an optional email copy.
   with a custom studio marker. Loaded lazily and degrading to an address card
   when no API key is configured.
 - **Two lead capture paths** — the contact form, and an offer popup that
-  appears after sustained engagement (40s on page plus 60% scroll depth, or
-  exit intent on desktop). Dismissal is remembered for 7 days.
+  appears on every visit, 10s after load (or earlier on exit intent on
+  desktop). If the visitor is typing at that moment it waits for them to stop,
+  up to 15s. Once per page load; closing it is not remembered, but it never
+  shows again after the visitor has sent a lead.
+- **Spam protection** — a honeypot field, a minimum fill time and a per-IP
+  rate limit on the endpoint.
 - **FAQ accordion**, customer reviews, and a footer with contact details.
 
 ## Tech stack
@@ -56,20 +65,26 @@ api/
 public/                     Static assets served as-is
 src/
   app/
-    languages.ts            Supported locales — single source of truth
+    languages.ts            Supported locales and the default — single source of truth
+    detectLanguage.ts       Picks a language for URLs that do not carry one
+    site.ts                 Site URL, OG image and OG locales (shared with the build)
     router.tsx              Routes and language redirects
     providers/
-      LanguageRouteSync.tsx Keeps i18n and <html lang> aligned with the route
+      LanguageRouteSync.tsx Keeps i18n, <html lang> and head tags aligned with the route
   assets/images/            Before/after photography
   components/
     layout/                 Container, Navbar, SectionHeading, LanguageSwitcher
     OfferPopup/             Engagement-triggered lead dialog
   data/
+    contact.ts              Phone number and WhatsApp link
     navigation.ts           Nav items and footer subset
     pricing.ts              Package and individual-service pricing config
+    stats.ts                Headline figures (cars served, years, rating)
   i18n/
     index.ts                i18next setup
-    locales/                pl.json, uk.json, ru.json
+    locales/                pl.json, uk.json, ru.json, en.json
+  lib/
+    leads.ts                Shared lead submission, phone check, "already sent" flag
   pages/HomePage.tsx        Section composition
   sections/                 One folder per page section (.tsx + .module.css)
   styles/
@@ -84,7 +99,7 @@ values.
 
 ## Getting started
 
-Requires **Node 20 or newer**.
+Requires **Node 20.19+ or 22.12+** (Vite 8). With nvm, run `nvm use` — the version is pinned in `.nvmrc`.
 
 ```bash
 # 1. Install dependencies
@@ -98,7 +113,7 @@ cp .env.example .env
 npm run dev
 ```
 
-The site runs at `http://localhost:5173` and redirects `/` to `/ru`.
+The site runs at `http://localhost:5173` and redirects `/` to the detected language.
 
 > The contact form posts to `/api/leads`, which is a Vercel serverless
 > function. Under `npm run dev` that route does not exist, so submissions fail
@@ -152,9 +167,12 @@ viewport.
 
 ## Deployment
 
-The project targets **Vercel**. `vercel.json` handles SPA routing (all non-API
-paths rewrite to `/`), sets baseline security headers, and marks hashed assets
-as immutable.
+The project targets **Vercel**. `vercel.json` serves `/<lang>` from the
+matching per-language `index.html`, rewrites every other non-API path to `/`,
+sets baseline security headers, and marks hashed assets as immutable.
+
+The production origin lives in `src/app/site.ts` and in `index.html`; change
+both if the site moves to its own domain.
 
 Set every server-side environment variable in the Vercel project settings.
 Functions under `api/` deploy automatically.
@@ -169,14 +187,23 @@ Functions under `api/` deploy automatically.
   "name": "Jan Kowalski",     // 2–80 characters
   "phone": "+48 733 892 486", // 6–30 characters
   "service": "ceramicCoating",// required for "contact-form"
-  "message": "…",             // optional, max 1000 characters
-  "locale": "pl",             // optional
-  "page": "/pl#contact"       // optional
+  "message": "…",             // optional, max 200 characters
+  "locale": "pl",             // optional: pl | uk | ru | en
+  "page": "/pl#contact",      // optional
+  "company": "",              // honeypot — must be empty
+  "elapsedMs": 8400           // time spent on the form
 }
 ```
 
+The phone must contain 7–15 digits and only phone characters. Requests with
+the honeypot filled or sent faster than 1.5s get a silent `200` and are
+dropped. More than 5 leads per IP in 10 minutes get `429`; the counter lives
+in the function instance's memory, so it is per-instance — use a shared store
+(Vercel KV / Upstash) if exact limits are ever needed. Notification times are
+shown in Europe/Warsaw time.
+
 Responses: `200 {"ok":true}`, `400` with a validation message, `405` for a
-non-POST method, `500` for a delivery failure. Internal failures are logged
+non-POST method, `429` when rate-limited, `500` for a delivery failure. Internal failures are logged
 server-side and return a generic message, so configuration details never reach
 the browser.
 
@@ -187,6 +214,8 @@ the browser.
 - **Typography and spacing come from tokens** (`--text-*`, `--space-*`,
   `--radius-*`). Add a step to the scale rather than a one-off value.
 - **Breakpoints** are 480 / 640 / 768 / 1024 / 1180 / 1280 px.
-- **Translations must stay in parity.** All three locale files carry the same
-  key set; add a key to all three or the UI falls back to the raw key path.
+- **Translations must stay in parity.** All four locale files carry the same
+  key set; add a key to all four or the UI falls back to the raw key path.
+- **Lead limits are duplicated on purpose** in `api/leads.ts` and
+  `src/lib/leads.ts` (the function deploys on its own). Change both together.
 - Run `npm run check` before pushing.
